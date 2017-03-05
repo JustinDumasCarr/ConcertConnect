@@ -1,7 +1,7 @@
 {
-  "name": "meanauthapp",
+  "name": "ConcertConnect",
   "version": "1.0.0",
-  "description": "MEAN stack authentication app",
+  "description": "ConcertConnect",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,6 +17,6 @@
     "passport":"*",
     "passport-jwt":"*"
   },
-  "author": "Brad Traversy",
+  "author": "Justin Dumas, Alex Sokolov",
   "license": "ISC"
 }
