@@ -1,6 +1,6 @@
-# MEANauthapp
+# ConcertConnect
 
-Complete MEAN stack application with authentication using json web tokens
+Web-app to help artists connect with venues
 
 ### Version
 1.0.0
