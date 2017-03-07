@@ -12,11 +12,14 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
+import { RegisterArtistComponent } from './components/register-artist/register-artist.component';
+import { RegisterVenueComponent } from './components/register-venue/register-venue.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+
 
 
 const appRoutes: Routes =  [
@@ -25,7 +28,9 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'search', component: SearchComponent, canActivate:[AuthGuard]}
+  {path:'search', component: SearchComponent, canActivate:[AuthGuard]},
+  {path:'registerArtist', component: RegisterArtistComponent, canActivate:[AuthGuard]},
+  {path:'registerVenue', component: RegisterVenueComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -37,7 +42,9 @@ const appRoutes: Routes =  [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    SearchComponent
+    SearchComponent,
+    RegisterArtistComponent,
+    RegisterVenueComponent
   ],
   imports: [
     BrowserModule,
