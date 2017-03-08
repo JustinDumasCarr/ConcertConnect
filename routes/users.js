@@ -5,8 +5,10 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 const artists = require('./artists');
+const venues = require('./venues');
 
 router.use('/artists', artists);
+router.use('/venues', venues)
 // Register
 router.post('/register', (req, res, next) => {
   let newUser = new User({

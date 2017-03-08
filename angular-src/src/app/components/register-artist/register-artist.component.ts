@@ -50,7 +50,7 @@ export class RegisterArtistComponent implements OnInit {
       if(data.success){
         this.flashMessage.show('Artist registered', {cssClass: 'alert-success', timeout: 3000});
       } else {
-        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+        this.flashMessage.show('Artist name already exists', {cssClass: 'alert-danger', timeout: 3000});
       }
     });
 
