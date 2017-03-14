@@ -12,26 +12,18 @@ const ArtistSchema = mongoose.Schema({
         required: true
     },
     userId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
         required: true
-
     }
 });
 
 const Artist = module.exports = mongoose.model('Artist', ArtistSchema);
 
 
-module.exports.getArtistByName = function(name, callback){
-    const query = {name: name}
-    Artist.findOne(query, callback);
-}
-
-
 
 module.exports.addArtist = function(newArtist, callback){
-
             newArtist.save(callback);
-
 }
 
 

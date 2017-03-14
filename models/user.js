@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
+
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
@@ -19,9 +20,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  artists : [],
+  artists: [{ type: mongoose.Schema.ObjectId, ref: 'Artist' }],
 
-  venues : []
+  venues: [{ type: mongoose.Schema.ObjectId, ref: 'Venue' }]
 
 });
 
