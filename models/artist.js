@@ -20,7 +20,10 @@ const ArtistSchema = mongoose.Schema({
 
 const Artist = module.exports = mongoose.model('Artist', ArtistSchema);
 
-
+module.exports.getArtistByName = function(username, callback){
+    const query = {username: username}
+    Artist.findOne(query, callback);
+}
 
 module.exports.addArtist = function(newArtist, callback){
             newArtist.save(callback);

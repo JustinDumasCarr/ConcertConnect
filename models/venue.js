@@ -20,7 +20,10 @@ const VenueSchema = mongoose.Schema({
 
 const Venue = module.exports = mongoose.model('Venue', VenueSchema);
 
-
+module.exports.getVenueByName = function(username, callback){
+    const query = {username: username}
+    Venue.findOne(query, callback);
+}
 
 module.exports.addVenue = function(newVenue, callback){
 
