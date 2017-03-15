@@ -20,9 +20,21 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  artists: [{ type: mongoose.Schema.ObjectId, ref: 'Artist' }],
 
-  venues: [{ type: mongoose.Schema.ObjectId, ref: 'Venue' }]
+    //Not sure if I need to add a reference here, for now the name of the artist is simply in a string with no reference to anything
+  artists:
+      [
+          {
+            artistId:{type: mongoose.Schema.ObjectId, ref: 'Artist' }, artistName:{type: String}
+          }
+      ],
+
+  venues:
+      [
+          {
+            venueId: {type: mongoose.Schema.ObjectId, ref: 'Venue'}, venueName: {type:String}
+          }
+      ]
 
 });
 
@@ -30,12 +42,12 @@ const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
   User.findById(id, callback);
-}
+};
 
 module.exports.getUserByUsername = function(username, callback){
-  const query = {username: username}
+  const query = {username: username};
   User.findOne(query, callback);
-}
+};
 
 module.exports.addUser = function(newUser, callback){
   bcrypt.genSalt(10, (err, salt) => {
@@ -45,11 +57,11 @@ module.exports.addUser = function(newUser, callback){
       newUser.save(callback);
     });
   });
-}
+};
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
     if(err) throw err;
     callback(null, isMatch);
   });
-}
+};

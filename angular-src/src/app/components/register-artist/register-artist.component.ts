@@ -31,7 +31,7 @@ export class RegisterArtistComponent implements OnInit {
       name: this.name,
       email: this.email,
       userId : JSON.parse(localStorage.getItem('user')).id //clean this up somehow
-    }
+    };
 
     // Required Fields
     if(!this.validateService.validateRegisterArtist(artist)){

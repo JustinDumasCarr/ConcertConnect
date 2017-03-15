@@ -30,10 +30,9 @@ router.post('/register', (req, res, next) => {
 
                     User.findByIdAndUpdate(
                         newArtist.userId,
-                        {$push: {"artists": artist._id}},
+                        {$push: {"artists": { artistId: artist._id, artistName: artist.name}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
-
                         }
                     );
 

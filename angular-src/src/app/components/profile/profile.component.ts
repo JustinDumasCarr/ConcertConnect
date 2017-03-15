@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
       console.log(err);
       return false;
     });
+
   }
 
 }

@@ -22,17 +22,33 @@
 
             <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/login']">Login</a></li>
 
-            <li *ngIf="authService.loggedIn()" class="dropdown">
+            <li *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Toggle User <b class="caret"></b></a>
+
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+
+                <!-- Putting all three under a single and using ngIf causes layout issue, fix later, use ngcontainer -->
+                <li *ngIf="authService.artistExist()" class="divider"></li>
+                <li *ngIf="authService.artistExist()"><a>Artists</a></li>
+                <li *ngIf="authService.artistExist()" class="divider"></li>
+
+                <li *ngFor="let artist of authService.getArtists()"><a href="#">{{artist.artistName}}</a></li>
+
+
+
+                <li *ngIf="authService.venueExist()" class="divider"></li>
+                <li *ngIf="authService.venueExist()"><a>Venues</a></li>
+                <li *ngIf="authService.venueExist()" class="divider"></li>
+
+                <li *ngFor="let venue of authService.getVenues()"><a href="#">{{venue.venueName}}</a></li>
+
               </ul>
+
+
+
             </li>
             <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#">Logout</a></li>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>

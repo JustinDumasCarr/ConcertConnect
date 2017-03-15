@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     const user = {
       username: this.username,
       password: this.password
-    }
+    };
 
     this.authService.authenticateUser(user).subscribe(data => {
       if(data.success){
@@ -41,6 +41,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['login']);
       }
     });
+
+
+
   }
 
 }

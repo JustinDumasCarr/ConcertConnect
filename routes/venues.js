@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
-const Venue = require('../models/venue')
+const Venue = require('../models/venue');
 const users = require('./users');
 
 router.post('/register', (req, res, next) => {
@@ -29,7 +29,7 @@ router.post('/register', (req, res, next) => {
 
                     User.findByIdAndUpdate(
                         newVenue.userId,
-                        {$push: {"venues": Venue._id}},
+                        {$push: {"venues": {venueId:Venue._id, venueName:Venue.name}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
 

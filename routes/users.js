@@ -8,7 +8,7 @@ const artists = require('./artists');
 const venues = require('./venues');
 
 router.use('/artists', artists);
-router.use('/venues', venues)
+router.use('/venues', venues);
 // Register
 router.post('/register', (req, res, next) => {
   let newUser = new User({
@@ -52,7 +52,10 @@ router.post('/authenticate', (req, res, next) => {
             id: user._id,
             name: user.name,
             username: user.username,
-            email: user.email
+            email: user.email,
+            venues: user.venues,
+            artists: user.artists
+
           }
         });
       } else {

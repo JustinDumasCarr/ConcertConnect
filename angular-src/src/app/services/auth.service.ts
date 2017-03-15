@@ -5,10 +5,13 @@ import {tokenNotExpired} from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
+
   authToken: any;
   user: any;
   //probably just use user
-  constructor(private http:Http) { }
+  constructor(private http:Http)
+  {
+  }
 
   registerUser(user){
     let headers = new Headers();
@@ -52,7 +55,57 @@ export class AuthService {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
-    this.user = user; // _id, name, username, email
+    this.user = user; // _id, name, username, email, artists, venues
+  }
+
+  //Method that checks if artists exist (navbar)
+  artistExist()
+  {
+    if(JSON.parse(localStorage.getItem('user')).artists.length>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  //Method that checks if venues exist (navbar)
+  venueExist()
+  {
+    if(JSON.parse(localStorage.getItem('user')).venues.length>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  //Method that checks if venue or artists exist (navbar)
+  accountExist()
+  {
+    if(this.artistExist() || this.venueExist())
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  getArtists()
+  {
+    //return JSON.parse(this.user.artists);
+    return JSON.parse(localStorage.getItem('user')).artists;
+  }
+
+  getVenues()
+  {
+    return JSON.parse(localStorage.getItem('user')).venues;
   }
 
 
