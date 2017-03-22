@@ -19,7 +19,12 @@ export class NavbarComponent implements OnInit {
     private router:Router,
     private flashMessage:FlashMessagesService)
     {
-      this.toggleValue = "Toggle User";
+
+      if (JSON.parse(localStorage.getItem('active')) == null) {
+        this.toggleValue = "Toggle User";
+      }
+      else {
+        this .toggleValue = JSON.parse(localStorage.getItem('active')).artistName;}
     }
 
   ngOnInit()
@@ -36,9 +41,10 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  changeUser(newName)
+  changeUser(selectedEntity,newName)
   {
     this.toggleValue = newName;
+    this.authService.setActive(selectedEntity);
     //The return statement prevents the page from reloading
     return false;
   }

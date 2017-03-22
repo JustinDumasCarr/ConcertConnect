@@ -32,7 +32,7 @@
                 <li *ngIf="authService.artistExist()"><a>Artists</a></li>
                 <li *ngIf="authService.artistExist()" class="divider"></li>
 
-                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUser(artist.artistName)"><a href="#">{{artist.artistName}}</a></li>
+                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUser(artist,artist.artistName)"><a href="#">{{artist.artistName}}</a></li>
 
 
 

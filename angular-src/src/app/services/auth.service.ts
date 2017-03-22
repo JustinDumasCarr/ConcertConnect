@@ -108,6 +108,12 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')).venues;
   }
 
+  setActive(selectedEntity){
+
+    localStorage.setItem('active', JSON.stringify(selectedEntity));
+
+  }
+
 
   loadToken(){
     const token = localStorage.getItem('id_token');
