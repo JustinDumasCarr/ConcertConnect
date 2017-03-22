@@ -11,12 +11,15 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 export class NavbarComponent implements OnInit {
 
 
+  toggleValue: String;
+
+
   constructor(
     private authService:AuthService,
     private router:Router,
     private flashMessage:FlashMessagesService)
     {
-
+      this.toggleValue = "Toggle User";
     }
 
   ngOnInit()
@@ -30,6 +33,13 @@ export class NavbarComponent implements OnInit {
       timeout: 3000
     });
     this.router.navigate(['/login']);
+    return false;
+  }
+
+  changeUser(newName)
+  {
+    this.toggleValue = newName;
+    //The return statement prevents the page from reloading
     return false;
   }
 

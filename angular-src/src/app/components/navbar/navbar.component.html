@@ -23,7 +23,7 @@
             <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/login']">Login</a></li>
 
             <li *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">Toggle User <b class="caret"></b></a>
+              <a class="dropdown-toggle" data-toggle="dropdown">{{toggleValue}} <b class="caret"></b></a>
 
               <ul class="dropdown-menu">
 
@@ -32,7 +32,7 @@
                 <li *ngIf="authService.artistExist()"><a>Artists</a></li>
                 <li *ngIf="authService.artistExist()" class="divider"></li>
 
-                <li *ngFor="let artist of authService.getArtists()"><a href="#">{{artist.artistName}}</a></li>
+                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUser(artist.artistName)"><a href="#">{{artist.artistName}}</a></li>
 
 
 
@@ -40,7 +40,7 @@
                 <li *ngIf="authService.venueExist()"><a>Venues</a></li>
                 <li *ngIf="authService.venueExist()" class="divider"></li>
 
-                <li *ngFor="let venue of authService.getVenues()"><a href="#">{{venue.venueName}}</a></li>
+                <li *ngFor="let venue of authService.getVenues()" (click)="changeUser(venue.venueName)"><a href="#">{{venue.venueName}}</a></li>
 
               </ul>
 
