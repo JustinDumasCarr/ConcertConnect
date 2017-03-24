@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
         this.toggleValue = "Toggle User";
       }
       else {
-        this .toggleValue = JSON.parse(localStorage.getItem('active')).artistName;}
+        this .toggleValue = JSON.parse(localStorage.getItem('active')).name;}
     }
 
   ngOnInit()

@@ -29,7 +29,7 @@ router.post('/register', (req, res, next) => {
 
                     User.findByIdAndUpdate(
                         newVenue.userId,
-                        {$push: {"venues": {venueId:Venue._id, venueName:Venue.name}}},
+                        {$push: {"venues": {venueId:Venue._id, name:Venue.name}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
 

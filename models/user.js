@@ -25,14 +25,14 @@ const UserSchema = mongoose.Schema({
   artists:
       [
           {
-            artistId:{type: mongoose.Schema.ObjectId, ref: 'Artist' }, artistName:{type: String}
+            artistId:{type: mongoose.Schema.ObjectId, ref: 'Artist' }, name:{type: String}
           }
       ],
 
   venues:
       [
           {
-            venueId: {type: mongoose.Schema.ObjectId, ref: 'Venue'}, venueName: {type:String}
+            venueId: {type: mongoose.Schema.ObjectId, ref: 'Venue'}, name: {type:String}
           }
       ]
 
