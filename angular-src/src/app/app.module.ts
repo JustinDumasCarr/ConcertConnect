@@ -19,6 +19,8 @@ import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+import { ArtistComponent } from './artist/artist.component';
+import { VenueComponent } from './venue/venue.component';
 
 
 
@@ -30,7 +32,9 @@ const appRoutes: Routes =  [
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'search', component: SearchComponent, canActivate:[AuthGuard]},
   {path:'registerArtist', component: RegisterArtistComponent, canActivate:[AuthGuard]},
-  {path:'registerVenue', component: RegisterVenueComponent, canActivate:[AuthGuard]}
+  {path:'registerVenue', component: RegisterVenueComponent, canActivate:[AuthGuard]},
+  {path:'artist/:id', component: ArtistComponent, canActivate:[AuthGuard]},
+  {path:'venue/:id', component: VenueComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -44,7 +48,9 @@ const appRoutes: Routes =  [
     ProfileComponent,
     SearchComponent,
     RegisterArtistComponent,
-    RegisterVenueComponent
+    RegisterVenueComponent,
+    ArtistComponent,
+    VenueComponent
   ],
   imports: [
     BrowserModule,
