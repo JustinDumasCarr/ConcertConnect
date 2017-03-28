@@ -12,6 +12,7 @@ export class VenueComponent implements OnInit {
   id: string;
   venue: Object;
   venueExist: boolean;
+  venueNotExist: boolean;
 
   constructor(private route: ActivatedRoute,private authService: AuthService)
   {
@@ -33,7 +34,7 @@ export class VenueComponent implements OnInit {
 
           if(data=="")
           {
-            this.venueExist = false;
+            this.venueNotExist = true;
           }
           else
           {

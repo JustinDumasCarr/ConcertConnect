@@ -10,7 +10,9 @@ export class ArtistComponent implements OnInit
 {
   id: string;
   artist: Object;
+  //Having two separate values ensures that the 'Not found' message does not show up while it's loading
   artistExist: boolean;
+  artistNotExist: boolean;
 
   constructor(private route: ActivatedRoute,private authService: AuthService)
   {
@@ -31,7 +33,7 @@ export class ArtistComponent implements OnInit
 
       if(data=="")
       {
-        this.artistExist = false;
+        this.artistNotExist = true;
       }
       else
       {

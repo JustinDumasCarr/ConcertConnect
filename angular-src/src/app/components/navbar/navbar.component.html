@@ -32,7 +32,7 @@
                 <li *ngIf="authService.artistExist()"><a>Artists</a></li>
                 <li *ngIf="authService.artistExist()" class="divider"></li>
 
-                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUser(artist,artist.name)"><a href="#">{{artist.name}}</a></li>
+                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)"><a href="#">{{artist.name}}</a></li>
 
 
 
@@ -40,7 +40,7 @@
                 <li *ngIf="authService.venueExist()"><a>Venues</a></li>
                 <li *ngIf="authService.venueExist()" class="divider"></li>
 
-                <li *ngFor="let venue of authService.getVenues()" (click)="changeUser(venue,venue.name)"><a href="#">{{venue.name}}</a></li>
+                <li *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)"><a href="#">{{venue.name}}</a></li>
 
               </ul>
 

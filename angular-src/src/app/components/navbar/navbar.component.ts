@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
 
   toggleValue: String;
 
-
   constructor(
     private authService:AuthService,
     private router:Router,
@@ -41,16 +40,24 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  changeUser(selectedEntity,newName)
+
+  changeUserArtist(selectedArtist,newName)
   {
     this.toggleValue = newName;
-    this.authService.setActive(selectedEntity);
+    this.authService.setActive(selectedArtist);
 
-    console.log(selectedEntity);
+    console.log(selectedArtist);
+    this.router.navigate(['/artist',newName]);
+    return false;
+  }
 
-    //Check if selected entity is a venue or an artist
-  
+  changeUserVenue(selectedVenue,newName)
+  {
+    this.toggleValue = newName;
+    this.authService.setActive(selectedVenue);
 
+    console.log(selectedVenue);
+    this.router.navigate(['/venue',newName]);
     return false;
   }
 
