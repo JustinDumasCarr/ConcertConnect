@@ -45,7 +45,12 @@ export class NavbarComponent implements OnInit {
   {
     this.toggleValue = newName;
     this.authService.setActive(selectedEntity);
-    //The return statement prevents the page from reloading
+
+    console.log(selectedEntity);
+
+    //Check if selected entity is a venue or an artist
+  
+
     return false;
   }
 

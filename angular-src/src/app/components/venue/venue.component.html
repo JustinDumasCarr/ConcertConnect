@@ -1,0 +1,11 @@
+<div *ngIf="venueExist">
+  <h2 class="page-header">{{venue.name}}</h2>
+  <ul class="list-group">
+    <li class="list-group-item">Email: {{venue.email}}</li>
+  </ul>
+</div>
+
+<div *ngIf="!venueExist">
+  <h2 class="page-header">Venue does not exist</h2>
+</div>
+

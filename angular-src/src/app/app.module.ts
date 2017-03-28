@@ -19,8 +19,8 @@ import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
-import { ArtistComponent } from './artist/artist.component';
-import { VenueComponent } from './venue/venue.component';
+import { ArtistComponent } from './components/artist/artist.component';
+import { VenueComponent } from './components/venue/venue.component';
 
 
 

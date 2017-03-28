@@ -51,6 +51,22 @@ export class AuthService {
         .map(res => res.json());
   }
 
+  getVenueProfile(name){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/venues/getProfile',name,{headers: headers})
+        .map(res => res.json());
+  }
+
+  getArtistProfile(name){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/getProfile',name,{headers: headers})
+        .map(res => res.json());
+  }
+
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
