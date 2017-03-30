@@ -49,6 +49,7 @@ export class RegisterVenueComponent implements OnInit {
     this.authService.registerVenue(venue).subscribe(data => {
       if(data.success){
         this.flashMessage.show('Venue registered', {cssClass: 'alert-success', timeout: 3000});
+        this.authService.updateVenueArray(data.venues);
       } else {
         this.flashMessage.show('Venue name already exists', {cssClass: 'alert-danger', timeout: 3000});
       }

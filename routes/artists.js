@@ -17,51 +17,40 @@ router.post('/register', (req, res, next) => {
         userId: req.body.userId
     });
 
-    Artist.getArtistByName(req.body.name, (err, artistexists) => {
-
-
-        if (err) throw err;
-        if (artistexists) {
-            return res.json({success: false, msg: 'Artist Exists'});
-
+    Artist.addArtist(newArtist, (err, artist) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to register Artist'});
         } else {
-            Artist.addArtist(newArtist, (err, artist) => {
-                if (err) {
-                    res.json({success: false, msg: 'Failed to register Artist'});
-                } else {
 
-                    User.findByIdAndUpdate(
-                        newArtist.userId,
-                        {$push: {"artists": { artistId: artist._id, name: artist.name}}},
-                        {safe: true, upsert: true, new : true},
-                        function(err, model) { //unecessary
-                        }
-                    );
+            User.findByIdAndUpdate(
+                newArtist.userId,
+                {$push: {"artists": {artistId: artist._id, name: artist.name}}},
+                {safe: true, upsert: true, new: true},
+                function (err, model) {
+                    if (err) {
+                        res.json({success: false, msg: 'Failed to update User'});
+                    } else {
+                        res.json({success: true, artists: model.artists});
 
-
-                    res.json({success: true, msg: 'Artist registered'});
+                    }
                 }
-            });
-
+            );
 
         }
     });
+
 });
 
 //Returns venue information based on details
-router.post('/getProfile', (req, res, next) =>
-{
+router.post('/getProfile', (req, res, next) => {
 
-   Artist.getArtistByName(req.body.name, (err,artistexists) =>
-    {
+    Artist.getArtistByName(req.body.name, (err, artistexists) => {
         //Not sure if this actually throws an error
-        if(err) throw err;
-        if(artistexists)
-        {
+        if (err) throw err;
+        if (artistexists) {
             return res.json(artistexists);
         }
-        else
-        {
+        else {
             return res.json("");
         }
     });

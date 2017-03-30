@@ -15,14 +15,7 @@ router.post('/register', (req, res, next) => {
         userId: req.body.userId
     });
 
-    Venue.getVenueByName(req.body.name, (err, Venueexists) => {
 
-
-        if (err) throw err;
-        if (Venueexists) {
-            return res.json({success: false, msg: 'Venue Exists'});
-
-        } else {
             Venue.addVenue(newVenue, (err, Venue) => {
                 if (err) {
                     res.json({success: false, msg: 'Failed to register Venue'});
@@ -33,18 +26,23 @@ router.post('/register', (req, res, next) => {
                         {$push: {"venues": {venueId:Venue._id, name:Venue.name}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
+                            if (err) {
+                                res.json({success: false, msg: 'Failed to update User'});
+                            } else {
+                                res.json({success: true, venues: model.venues});
 
+                            }
                         }
                     );
 
 
-                    res.json({success: true, msg: 'Venue registered'});
+
                 }
             });
 
 
-        }
-    });
+
+
 });
 
 //Returns venue information based on details
