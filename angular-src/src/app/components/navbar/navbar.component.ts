@@ -10,21 +10,58 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class NavbarComponent implements OnInit {
 
-
+  //Possibly delete later
+  profileCurrent: boolean;
+  profileValue: String;
   toggleValue: String;
 
   constructor(
     private authService:AuthService,
     private router:Router,
-    private flashMessage:FlashMessagesService)
-    {
+    private flashMessage:FlashMessagesService) {
 
-      if (JSON.parse(localStorage.getItem('active')) == null) {
-        this.toggleValue = "Toggle User";
-      }
-      else {
-        this .toggleValue = JSON.parse(localStorage.getItem('active')).name;}
+
+    //Possible receive this value later
+    this.profileCurrent = false;
+    this.profileValue = '';
+
+
+
+    if (JSON.parse(localStorage.getItem('active')) == null) {
+      this.toggleValue = "Toggle User";
     }
+    else {
+      this.toggleValue = JSON.parse(localStorage.getItem('active')).name;
+    }
+
+
+
+    router.events.subscribe(event =>
+    {
+      if(event.constructor.name === "NavigationEnd")
+      {
+        console.log(event.url);
+        if(event.url =="/profile")
+        {
+          this.profileValue = 'active';
+        }
+        if(event.url.includes("/venue"))
+        {
+          this.profileValue = 'active';
+        }
+        if(event.url.includes("/artist"))
+        {
+          this.profileValue = 'active';
+        }
+        if(!(event.url =="/profile" || event.url.includes("/venue") || event.url.includes("/artist")))
+        {
+          this.profileValue = '';
+        }
+
+      }
+    });
+
+  }
 
   ngOnInit()
   {
@@ -56,9 +93,36 @@ export class NavbarComponent implements OnInit {
     this.toggleValue = newName;
     this.authService.setActive(selectedVenue);
 
-    console.log(selectedVenue);
     this.router.navigate(['/venue',newName]);
     return false;
   }
+
+  profileClick()
+  {
+    console.log("CURRENT PROFILE TYPE");
+    console.log(JSON.parse(localStorage.getItem('active')).type);
+
+    console.log("CURRENT PROFILE NAME");
+    let profileName = JSON.parse(localStorage.getItem('active')).name;
+    console.log(profileName);
+
+    if(JSON.parse(localStorage.getItem('active')).type == 'user')
+    {
+      this.router.navigate(['/profile']);
+    }
+
+    if(JSON.parse(localStorage.getItem('active')).type == 'artist')
+    {
+      this.router.navigate(['/artist'],profileName);
+    }
+
+    if(JSON.parse(localStorage.getItem('active')).type == 'venue')
+    {
+      this.router.navigate(['/venue'],profileName);
+    }
+
+
+  }
+
 
 }

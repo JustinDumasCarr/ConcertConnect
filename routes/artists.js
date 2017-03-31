@@ -14,7 +14,8 @@ router.post('/register', (req, res, next) => {
     let newArtist = new Artist({
         name: req.body.name,
         email: req.body.email,
-        userId: req.body.userId
+        userId: req.body.userId,
+        type: 'artist'
     });
 
     Artist.getArtistByName(req.body.name, (err, artistexists) => {
@@ -32,7 +33,7 @@ router.post('/register', (req, res, next) => {
 
                     User.findByIdAndUpdate(
                         newArtist.userId,
-                        {$push: {"artists": { artistId: artist._id, name: artist.name}}},
+                        {$push: {"artists": { artistId: artist._id, name: artist.name, type:'artist'}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
                         }

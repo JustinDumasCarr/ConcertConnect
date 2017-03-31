@@ -12,7 +12,8 @@ router.post('/register', (req, res, next) => {
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
-        userId: req.body.userId
+        userId: req.body.userId,
+        type: 'venue'
     });
 
     Venue.getVenueByName(req.body.name, (err, Venueexists) => {
@@ -30,7 +31,7 @@ router.post('/register', (req, res, next) => {
 
                     User.findByIdAndUpdate(
                         newVenue.userId,
-                        {$push: {"venues": {venueId:Venue._id, name:Venue.name}}},
+                        {$push: {"venues": {venueId:Venue._id, name:Venue.name, type: 'venue'}}},
                         {safe: true, upsert: true, new : true},
                         function(err, model) { //unecessary
 

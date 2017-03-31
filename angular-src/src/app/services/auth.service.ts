@@ -3,12 +3,14 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
 
+
+
 @Injectable()
 export class AuthService {
 
   authToken: any;
   user: any;
-  //probably just use user
+
   constructor(private http:Http)
   {
   }
@@ -127,7 +129,6 @@ export class AuthService {
   setActive(selectedEntity){
 
     localStorage.setItem('active', JSON.stringify(selectedEntity));
-
   }
 
 

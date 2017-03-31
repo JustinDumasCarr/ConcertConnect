@@ -9,13 +9,13 @@ const venues = require('./venues');
 
 router.use('/artists', artists);
 router.use('/venues', venues);
-// Register
 router.post('/register', (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    type: 'user'
   });
 
   User.addUser(newUser, (err, user) => {
@@ -51,6 +51,7 @@ router.post('/authenticate', (req, res, next) => {
           user: {
             id: user._id,
             name: user.name,
+            type: user.type,
             username: user.username,
             email: user.email,
             venues: user.venues,
