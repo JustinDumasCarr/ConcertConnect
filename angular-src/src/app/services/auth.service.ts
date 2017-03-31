@@ -28,7 +28,16 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/artists/register', artist,{headers: headers})
         .map(res => res.json());
   }
-
+  updateArtistArray(artistArray){
+   var user = JSON.parse(localStorage.getItem('user'));
+    user.artists = artistArray;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+  updateVenueArray(venueArray){
+    var user = JSON.parse(localStorage.getItem('user'));
+    user.venues = venueArray;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
   registerVenue(venue){
     let headers = new Headers();
     headers.append('Content-Type','application/json');

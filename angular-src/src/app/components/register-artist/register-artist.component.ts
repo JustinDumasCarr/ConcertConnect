@@ -49,6 +49,7 @@ export class RegisterArtistComponent implements OnInit {
     this.authService.registerArtist(artist).subscribe(data => {
       if(data.success){
         this.flashMessage.show('Artist registered', {cssClass: 'alert-success', timeout: 3000});
+        this.authService.updateArtistArray(data.artists);
       } else {
         this.flashMessage.show('Artist name already exists', {cssClass: 'alert-danger', timeout: 3000});
       }
