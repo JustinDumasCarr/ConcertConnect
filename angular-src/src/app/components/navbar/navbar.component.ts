@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -83,7 +83,11 @@ export class NavbarComponent implements OnInit {
     this.toggleValue = newName;
     this.authService.setActive(selectedArtist);
 
-    console.log(selectedArtist);
+    console.log("SELECTED NAME");
+    console.log(newName);
+
+
+   // this.router.navigate(['/dashboard']);
     this.router.navigate(['/artist',newName]);
     return false;
   }
@@ -93,18 +97,18 @@ export class NavbarComponent implements OnInit {
     this.toggleValue = newName;
     this.authService.setActive(selectedVenue);
 
+    console.log("SELECTED NAME");
+    console.log(newName);
+
+   // this.router.navigate(['/dashboard']);
     this.router.navigate(['/venue',newName]);
     return false;
   }
 
   profileClick()
   {
-    console.log("CURRENT PROFILE TYPE");
-    console.log(JSON.parse(localStorage.getItem('active')).type);
-
-    console.log("CURRENT PROFILE NAME");
     let profileName = JSON.parse(localStorage.getItem('active')).name;
-    console.log(profileName);
+    console.log(profileName); //This logs the correct name
 
     if(JSON.parse(localStorage.getItem('active')).type == 'user')
     {
@@ -113,14 +117,17 @@ export class NavbarComponent implements OnInit {
 
     if(JSON.parse(localStorage.getItem('active')).type == 'artist')
     {
-      this.router.navigate(['/artist'],profileName);
+      console.log("Entered if statement");
+      console.log(profileName);
+      this.router.navigate(['/artist',profileName]);
     }
 
     if(JSON.parse(localStorage.getItem('active')).type == 'venue')
     {
-      this.router.navigate(['/venue'],profileName);
+      console.log("Entered if statement");
+      console.log(profileName);
+      this.router.navigate(['/venue',profileName]);
     }
-
 
   }
 
