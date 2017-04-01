@@ -24,9 +24,29 @@ router.post('/register', (req, res, next) => {
         } else {
 
 
+
+        /*
+<<<<<<< HEAD
+            Artist.addArtist(newArtist, (err, artist) => {
+                if (err) {
+                    res.json({success: false, msg: 'Failed to register Artist'});
+                } else {
+
+                    User.findByIdAndUpdate(
+                        newArtist.userId,
+                        {$push: {"artists": { artistId: artist._id, name: artist.name, type:'artist'}}},
+                        {safe: true, upsert: true, new : true},
+                        function(err, model) { //unecessary
+                        }
+                    );
+=======
+>>>>>>> origin/master
+*/
+
+
             User.findByIdAndUpdate(
                 newArtist.userId,
-                {$push: {"artists": {artistId: artist._id, name: artist.name}}},
+                {$push: {"artists": {artistId: artist._id, name: artist.name, type:'artist'}}},
                 {safe: true, upsert: true, new: true},
                 function (err, model) {
                     if (err) {
