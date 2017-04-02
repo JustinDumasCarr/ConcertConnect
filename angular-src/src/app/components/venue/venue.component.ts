@@ -16,40 +16,41 @@ export class VenueComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private authService: AuthService)
   {
-    route.params.subscribe(params => {this.id = params['id'];});
   }
 
   ngOnInit()
   {
 
+    this.route.params.forEach(params =>
+    {
 
-    this.venue = {"name": this.id };
-    this.venue = JSON.stringify(this.venue);
+      this.id = params['id'];
+
+      this.venue = {"name": this.id};
+      this.venue = JSON.stringify(this.venue);
 
 
-
-    this.authService.getVenueProfile(this.venue).subscribe(data =>
-        {
+      this.authService.getVenueProfile(this.venue).subscribe(data => {
 
 
-          if(data=="")
-          {
-            this.venueNotExist = true;
+            if (data == "") {
+              this.venueNotExist = true;
+            }
+            else {
+              this.venue = data;
+              this.venueExist = true;
+            }
+
+          },
+
+          err => {
+            console.log(err);
+            return false;
           }
-          else
-          {
-            this.venue = data;
-            this.venueExist = true;
-          }
+      );
 
-        },
+    })
 
-        err =>
-        {
-          console.log(err);
-          return false;
-        }
-    );
   }
 
 

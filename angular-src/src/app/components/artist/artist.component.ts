@@ -16,41 +16,42 @@ export class ArtistComponent implements OnInit
 
   constructor(private route: ActivatedRoute,private authService: AuthService)
   {
-    route.params.subscribe(params => {this.id = params['id']; });
   }
 
   ngOnInit()
   {
 
-      this.artist = {"name": this.id };
-      this.artist = JSON.stringify(this.artist);
-
-
-
-     this.authService.getArtistProfile(this.artist).subscribe(data =>
-     {
-
-
-      if(data=="")
+      this.route.params.forEach(params =>
       {
-        this.artistNotExist = true;
-      }
-      else
-      {
-        this.artist = data;
-        this.artistExist = true;
-      }
 
-     },
+          this.id = params['id'];
 
-     err =>
-     {
-     console.log(err);
-     return false;
+          this.artist = {"name": this.id};
+          this.artist = JSON.stringify(this.artist);
+
+
+          this.authService.getArtistProfile(this.artist).subscribe(data => {
+
+
+                  if (data == "") {
+                      this.artistNotExist = true;
+                  }
+                  else {
+                      this.artist = data;
+                      this.artistExist = true;
+                  }
+
+              },
+
+              err => {
+                  console.log(err);
+                  return false;
+              }
+          );
+
+      })
+
      }
-     );
-     }
-
 
 
 }
