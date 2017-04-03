@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
 
   constructor(
       private authService:AuthService
+
   ) { }
 
   ngOnInit() {
@@ -34,4 +35,6 @@ export class SearchComponent implements OnInit {
 
     });
   }
+
+
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
+import {Router}  from '@angular/router';
 class SearchResult {
     name: string;
     email: string;
@@ -23,10 +23,14 @@ export class SearchResultComponent implements OnInit {
 
     searchResult: SearchResult;
 
-    constructor() {
+    constructor(private router:Router,) {
     }
 
     ngOnInit() {
     }
 
+    getProfile(name){
+        this.router.navigate(['/artist',name]);
+        return false;
+    }
 }
