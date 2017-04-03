@@ -140,6 +140,12 @@ export class AuthService {
     localStorage.setItem('active', JSON.stringify(selectedEntity));
   }
 
+  search(query){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/search', query,{headers: headers})
+        .map(res => res.json());
+  }
 
   loadToken(){
     const token = localStorage.getItem('id_token');

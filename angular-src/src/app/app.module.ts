@@ -21,6 +21,7 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 
 
@@ -50,7 +51,8 @@ const appRoutes: Routes =  [
     RegisterArtistComponent,
     RegisterVenueComponent,
     ArtistComponent,
-    VenueComponent
+    VenueComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,
