@@ -16,9 +16,15 @@
                      (click)="getResults()">Search</button>
         </span>
     </div>
-    <ul>
-        <li *ngFor="let result of results"><a href="#">{{result.name}}</a></li>
-    </ul>
+    <span>
+        <div class="checkbox">
+            <label><input type="checkbox" value="">Artists</label>
+                   <label><input type="checkbox" value="">Venues</label>
+        </div>
+
+    </span>
+
+
     <div class="card-deck-wrapper">
         <div class="card-deck">
             <app-search-result *ngFor="let foobar of searchResults" [searchResult]="foobar"></app-search-result>

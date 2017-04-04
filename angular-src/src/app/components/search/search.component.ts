@@ -17,9 +17,13 @@ export class SearchComponent implements OnInit {
   constructor(
       private authService:AuthService
 
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
+ this.name = localStorage.getItem('query') || "";
+   this.getResults();
   }
 
   getResults(){
@@ -27,6 +31,8 @@ export class SearchComponent implements OnInit {
     const query = {
       name: this.name
     };
+
+    localStorage.setItem('query',this.name);
 
     console.log(query);
     this.authService.search(query).subscribe(data => {

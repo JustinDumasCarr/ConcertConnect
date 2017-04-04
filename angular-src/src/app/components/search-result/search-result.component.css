@@ -13,10 +13,15 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    -moz-transform: translate(-2px, -2px);
+    -ms-transform: translate(-2px, -2px);
+    -o-transform: translate(-2px, -2px);
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px)
 }
 
 .card .card-heading {
@@ -192,7 +197,7 @@
     padding-top: 0;
     overflow: hidden;
     text-align: center;
-    background-color: rgba(214, 224, 226, 0.2);
+    background-color: rgba(128, 134, 136, 0.2);
 }
 
 .card.hovercard .cardheader {
