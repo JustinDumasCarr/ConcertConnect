@@ -1,4 +1,4 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -15,16 +15,16 @@ export class NavbarComponent implements OnInit {
   profileValue: String;
   toggleValue: String;
 
-  constructor(
-    private authService:AuthService,
-    private router:Router,
-    private flashMessage:FlashMessagesService) {
+  userName: String;
+
+  constructor(private authService: AuthService,
+              private router: Router,
+              private flashMessage: FlashMessagesService) {
 
 
     //Possible receive this value later
     this.profileCurrent = false;
     this.profileValue = '';
-
 
 
     if (JSON.parse(localStorage.getItem('active')) == null) {
@@ -35,26 +35,19 @@ export class NavbarComponent implements OnInit {
     }
 
 
-
-    router.events.subscribe(event =>
-    {
-      if(event.constructor.name === "NavigationEnd")
-      {
+    router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationEnd") {
         console.log(event.url);
-        if(event.url =="/profile")
-        {
+        if (event.url == "/profile") {
           this.profileValue = 'active';
         }
-        if(event.url.includes("/venue"))
-        {
+        if (event.url.includes("/venue")) {
           this.profileValue = 'active';
         }
-        if(event.url.includes("/artist"))
-        {
+        if (event.url.includes("/artist")) {
           this.profileValue = 'active';
         }
-        if(!(event.url =="/profile" || event.url.includes("/venue") || event.url.includes("/artist")))
-        {
+        if (!(event.url == "/profile" || event.url.includes("/venue") || event.url.includes("/artist"))) {
           this.profileValue = '';
         }
 
@@ -65,29 +58,34 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit()
   {
+    if(this.authService.loggedIn()) {
+      this.userName = JSON.parse(localStorage.getItem('user')).name;
+    }
   }
 
-  onLogoutClick(){
+  onLogoutClick() {
     this.authService.logout();
     this.flashMessage.show('You are logged out', {
-      cssClass:'alert-success',
+      cssClass: 'alert-success',
       timeout: 3000
     });
     this.router.navigate(['/login']);
+    this.toggleValue = "Toggle User";
     return false;
   }
 
+  changeUser()
+  {
+    this.toggleValue = this.userName;
+    this.router.navigate(['/profile']);
+    this.authService.setActive(JSON.parse(localStorage.getItem('user')));
+    return false;
+  }
 
   changeUserArtist(selectedArtist,newName)
   {
     this.toggleValue = newName;
     this.authService.setActive(selectedArtist);
-
-    console.log("SELECTED NAME");
-    console.log(newName);
-
-
-   // this.router.navigate(['/dashboard']);
     this.router.navigate(['/artist',newName]);
     return false;
   }
@@ -96,11 +94,6 @@ export class NavbarComponent implements OnInit {
   {
     this.toggleValue = newName;
     this.authService.setActive(selectedVenue);
-
-    console.log("SELECTED NAME");
-    console.log(newName);
-
-   // this.router.navigate(['/dashboard']);
     this.router.navigate(['/venue',newName]);
     return false;
   }
@@ -117,14 +110,12 @@ export class NavbarComponent implements OnInit {
 
     if(JSON.parse(localStorage.getItem('active')).type == 'artist')
     {
-      console.log("Entered if statement");
       console.log(profileName);
       this.router.navigate(['/artist',profileName]);
     }
 
     if(JSON.parse(localStorage.getItem('active')).type == 'venue')
     {
-      console.log("Entered if statement");
       console.log(profileName);
       this.router.navigate(['/venue',profileName]);
     }

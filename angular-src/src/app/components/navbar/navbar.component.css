@@ -3,3 +3,15 @@
     font-weight: bold;
     font-size: 40px;
 }
+
+.hover
+{
+    cursor: pointer;
+}
+
+.item
+{
+    background-color: #3e3f3a;
+    pointer-events: none;
+}
+

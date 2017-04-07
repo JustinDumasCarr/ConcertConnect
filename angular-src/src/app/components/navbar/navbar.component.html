@@ -12,7 +12,7 @@
         <div id="navbar-collapse-1" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-left">
             <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-            <li *ngIf="authService.loggedIn()" class="{{profileValue}}"><a (click)="profileClick()" >Profile</a></li>
+            <li *ngIf="authService.loggedIn()" class="{{profileValue}} hover"><a (click)="profileClick()" >Profile</a></li>
 
             <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/search']">Search</a></li>
           </ul>
@@ -28,19 +28,23 @@
               <ul class="dropdown-menu">
 
                 <!-- Putting all three under a single and using ngIf causes layout issue, fix later, use ngcontainer -->
+                <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
+                <li *ngIf="authService.artistExist() || authService.venueExist()" class="item"><a>User</a></li>
+                <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
+
+                <li *ngIf="authService.artistExist() || authService.venueExist()" class="hover"><a (click)="changeUser()">{{userName}}</a></li>
+
                 <li *ngIf="authService.artistExist()" class="divider"></li>
-                <li *ngIf="authService.artistExist()"><a>Artists</a></li>
+                <li *ngIf="authService.artistExist()" class="item"><a>Artists</a></li>
                 <li *ngIf="authService.artistExist()" class="divider"></li>
 
-                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)"><a href="#">{{artist.name}}</a></li>
-
-
+                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)" class="hover"><a href="#">{{artist.name}}</a></li>
 
                 <li *ngIf="authService.venueExist()" class="divider"></li>
-                <li *ngIf="authService.venueExist()"><a>Venues</a></li>
+                <li *ngIf="authService.venueExist()" class="item"><a>Venues</a></li>
                 <li *ngIf="authService.venueExist()" class="divider"></li>
 
-                <li *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)"><a href="#">{{venue.name}}</a></li>
+                <li *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="hover"><a href="#">{{venue.name}}</a></li>
 
               </ul>
 
