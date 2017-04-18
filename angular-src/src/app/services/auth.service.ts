@@ -15,88 +15,17 @@ export class AuthService {
   {
   }
 
-  registerUser(user){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/register', user,{headers: headers})
-        .map(res => res.json());
-  }
-
-  registerArtist(artist){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/artists/register', artist,{headers: headers})
-        .map(res => res.json());
-  }
-  updateArtistArray(artistArray){
-   var user = JSON.parse(localStorage.getItem('user'));
-    user.artists = artistArray;
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-  updateVenueArray(venueArray){
-    var user = JSON.parse(localStorage.getItem('user'));
-    user.venues = venueArray;
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-  registerVenue(venue){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/venues/register', venue,{headers: headers})
-        .map(res => res.json());
-  }
-  authenticateUser(user){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user,{headers: headers})
-        .map(res => res.json());
-  }
-  getUserId(){
-    return this.user
-  }
-  getProfile(){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
-        .map(res => res.json());
-  }
-
-  getVenueProfile(name){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/venues/getProfile',name,{headers: headers})
-        .map(res => res.json());
-  }
-
-  getArtistProfile(name){
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/artists/getProfile',name,{headers: headers})
-        .map(res => res.json());
-  }
-
-  getCurrentUsername()
+  //Method that checks if venue or artists exist (navbar)
+  accountExist()
   {
-    return JSON.parse(localStorage.getItem('user')).username;
-  }
-
-  changeUsername(data)
-  {
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/changeusername',data,{headers: headers})
-        .map(res => res.json());
-  }
-
-
-  storeUserData(token, user){
-    localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user; // _id, name, username, email, artists, venues
+    if(this.artistExist() || this.venueExist())
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   //Method that checks if artists exist (navbar)
@@ -112,30 +41,27 @@ export class AuthService {
     }
   }
 
-  //Method that checks if venues exist (navbar)
-  venueExist()
-  {
-    if(JSON.parse(localStorage.getItem('user')).venues.length>0)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+  authenticateUser(user){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/authenticate', user,{headers: headers})
+        .map(res => res.json());
   }
 
-  //Method that checks if venue or artists exist (navbar)
-  accountExist()
+  changeUsername(data)
   {
-    if(this.artistExist() || this.venueExist())
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changeusername',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  getArtistProfile(name){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/getProfile',name,{headers: headers})
+        .map(res => res.json());
   }
 
   getArtists()
@@ -144,21 +70,36 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')).artists;
   }
 
+
+  getCurrentUsername()
+  {
+    return JSON.parse(localStorage.getItem('user')).username;
+  }
+
+  getProfile(){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+        .map(res => res.json());
+  }
+
+  getUserId(){
+    return this.user
+  }
+
+  getVenueProfile(name){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/venues/getProfile',name,{headers: headers})
+        .map(res => res.json());
+  }
+
   getVenues()
   {
     return JSON.parse(localStorage.getItem('user')).venues;
-  }
-
-  setActive(selectedEntity){
-
-    localStorage.setItem('active', JSON.stringify(selectedEntity));
-  }
-
-  search(query){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/artists/search', query,{headers: headers})
-        .map(res => res.json());
   }
 
   loadToken(){
@@ -174,6 +115,70 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
+  }
+
+  registerArtist(artist){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/register', artist,{headers: headers})
+        .map(res => res.json());
+  }
+
+  registerUser(user){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/register', user,{headers: headers})
+        .map(res => res.json());
+  }
+
+
+  registerVenue(venue){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/venues/register', venue,{headers: headers})
+        .map(res => res.json());
+  }
+
+  search(query){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/search', query,{headers: headers})
+        .map(res => res.json());
+  }
+
+  setActive(selectedEntity){
+
+    localStorage.setItem('active', JSON.stringify(selectedEntity));
+  }
+
+  storeUserData(token, user){
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.authToken = token;
+    this.user = user; // _id, name, username, email, artists, venues
+  }
+
+  updateArtistArray(artistArray){
+   var user = JSON.parse(localStorage.getItem('user'));
+    user.artists = artistArray;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+  updateVenueArray(venueArray){
+    var user = JSON.parse(localStorage.getItem('user'));
+    user.venues = venueArray;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  venueExist()
+  {
+    if(JSON.parse(localStorage.getItem('user')).venues.length>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
