@@ -78,6 +78,20 @@ export class AuthService {
         .map(res => res.json());
   }
 
+  getCurrentUsername()
+  {
+    return JSON.parse(localStorage.getItem('user')).username;
+  }
+
+  changeUsername(data)
+  {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changeusername',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

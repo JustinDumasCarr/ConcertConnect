@@ -71,4 +71,50 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
+
+//Change username
+router.post('/changeusername', (req, res, next) =>
+{
+
+    //This variable will not be used if user already exists
+    const userInfo =
+        {
+          username: req.body.username,
+          currUsername: req.body.currentUsername
+        };
+
+
+    //Checks if username exists
+    User.getUserByUsername(userInfo.username, (err, user) =>
+    {
+        if (err) throw err;
+        if (user)
+        {
+            return res.json({success: false, msg: 'Username already exists'});
+        }
+        else
+        {
+            User.changeUsername(userInfo, (err, callback) => {
+                if(callback)
+                {
+                    console.log(callback);
+                    return res.json({success: true, msg: 'Username has been changed successfully'});
+                }
+
+            });
+        }
+
+
+
+    });
+
+});
+
+//Change name
+
+//Change email
+
+//Change password
+
+
 module.exports = router;
