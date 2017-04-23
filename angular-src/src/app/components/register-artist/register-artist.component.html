@@ -19,7 +19,10 @@
 
       <div class="form-group">
         <label>Profile Picture (Optional)</label>
-        <input type="file"  name="profilePicture" class="form-control profilePicture">
+        <input  type="file" ng2FileDrop
+                [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                (fileOver)="fileOverBase($event)"
+                [uploader]="uploader" name="profilePicture" class="form-control profilePicture">
       </div>
 
 
