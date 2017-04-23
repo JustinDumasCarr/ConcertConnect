@@ -23,7 +23,7 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 
-
+import {ImageUploadModule} from 'angular2-image-upload';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -52,13 +52,14 @@ const appRoutes: Routes =  [
     RegisterVenueComponent,
     ArtistComponent,
     VenueComponent,
-    SearchResultComponent
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    ImageUploadModule.forRoot(),
     FlashMessagesModule
   ],
   providers: [ValidateService, AuthService, AuthGuard],

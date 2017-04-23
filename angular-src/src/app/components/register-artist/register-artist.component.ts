@@ -3,8 +3,6 @@ import {ValidateService} from '../../services/validate.service'
 import {AuthService} from '../../services/auth.service'
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
-import { FileUploader } from 'ng2-file-upload';
-
 
 
 @Component({
@@ -19,12 +17,12 @@ export class RegisterArtistComponent implements OnInit {
   email: String;
   userId: String; // is this necessary
 
+
   constructor(
       private validateService: ValidateService,
       private flashMessage:FlashMessagesService,
       private authService:AuthService,
-      private router: Router
-  ) { }
+      private router: Router) { }
 
   ngOnInit() {
   }

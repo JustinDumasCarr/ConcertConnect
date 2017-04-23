@@ -48,6 +48,14 @@ export class AuthService {
         .map(res => res.json());
   }
 
+  changeEmail(data)
+  {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changeemail',data,{headers: headers})
+        .map(res => res.json());
+  }
+
   changeUsername(data)
   {
     let headers = new Headers();
@@ -70,6 +78,10 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')).artists;
   }
 
+  getCurrentEmail()
+  {
+    return JSON.parse(localStorage.getItem('user')).email;
+  }
 
   getCurrentUsername()
   {

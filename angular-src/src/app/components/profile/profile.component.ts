@@ -88,6 +88,15 @@ export class ProfileComponent implements OnInit {
       if(data.success)
       {
         this.flashMessage.show('You have successfully changed your username', {cssClass: 'alert-success', timeout: 3000});
+        this.authService.getProfile().subscribe(profile => {
+              this.user = profile.user;
+            },
+            err => {
+              console.log(err);
+              return false;
+            });
+
+            this.editUsernameField = false;
       }
       else
       {
@@ -111,6 +120,35 @@ export class ProfileComponent implements OnInit {
     }
 
     //Backend code here
+    const data = {
+      email: this.emailField,
+      currentEmail: this.authService.getCurrentEmail()
+    };
+
+    this.authService.changeEmail(data).subscribe(data => {
+      if(data.success)
+      {
+        this.flashMessage.show('You have successfully changed your email', {cssClass: 'alert-success', timeout: 3000});
+        this.authService.getProfile().subscribe(profile => {
+              this.user = profile.user;
+            },
+            err => {
+              console.log(err);
+              return false;
+            });
+
+        this.editEmailField = false;
+
+      }
+      else
+      {
+        this.errorMessage('The email you have chosen is already in use');
+      }
+    });
+
+    //Reload local storage data here
+
+
 
   }
 

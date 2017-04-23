@@ -113,6 +113,45 @@ router.post('/changeusername', (req, res, next) =>
 //Change name
 
 //Change email
+router.post('/changeemail', (req, res, next) =>
+{
+
+    //This variable will not be used if user already exists
+    const userInfo =
+        {
+            email: req.body.email,
+            currentEmail: req.body.currentEmail
+        };
+
+
+    //Checks if email exists
+    User.getUserByEmail(userInfo.email, (err, user) =>
+    {
+        if (err) throw err;
+        if (user)
+        {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+        else
+        {
+            User.changeEmail(userInfo, (err, callback) => {
+                if(callback)
+                {
+                    console.log(callback);
+                    return res.json({success: true, msg: 'Email has been changed successfully'});
+                }
+
+            });
+        }
+
+
+
+    });
+
+});
+
+
+
 
 //Change password
 
