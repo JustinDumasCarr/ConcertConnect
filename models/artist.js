@@ -20,8 +20,11 @@ const ArtistSchema = mongoose.Schema({
         {
             type: String,
             required: true
-        }
-
+        },
+    profileImageURL: {
+        type: String,
+        required: false
+    }
 
 
 });

@@ -3,12 +3,15 @@ import {Router}  from '@angular/router';
 class SearchResult {
     name: string;
     email: string;
-    link: string;
+    profileImageURL: string;
 
-    constructor(name: string, email: string, link:string) {
+
+    constructor(name: string, email: string, profileImageURL: string) {
         this.name = name;
         this.email = email;
-        this.link = link ;
+        this.profileImageURL = profileImageURL;
+
+        console.log("url :" +this.profileImageURL);
     }
 }
 
@@ -23,14 +26,14 @@ export class SearchResultComponent implements OnInit {
 
     searchResult: SearchResult;
 
-    constructor(private router:Router,) {
+    constructor(private router: Router,) {
     }
 
     ngOnInit() {
     }
 
-    getProfile(name){
-        this.router.navigate(['/artist',name]);
+    getProfile(name) {
+        this.router.navigate(['/artist', name]);
         return false;
     }
 }

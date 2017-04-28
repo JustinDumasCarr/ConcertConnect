@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   searchResults: SearchResultComponent[];
 
   name : string;
-  results = [];
+
 
   constructor(
       private authService:AuthService

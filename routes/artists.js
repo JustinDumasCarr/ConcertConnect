@@ -6,6 +6,10 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Artist = require('../models/artist');
 const users = require('./users');
+const aws = require('aws-sdk');
+
+
+const S3_BUCKET =   process.env.S3_BUCKET;
 
 
 //Gets latest id for an artist
@@ -15,7 +19,8 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         userId: req.body.userId,
-        type: 'artist'
+        type: 'artist',
+        profileImageURL: req.body.imageURL
     });
 
     Artist.addArtist(newArtist, (err, artist) => {
@@ -42,7 +47,7 @@ router.post('/register', (req, res, next) => {
 
 });
 router.post('/search', (req, res, next) => {
-    Artist.find({ 'name': new RegExp(req.body.name,'i')}, 'name email', function (err, artists) {
+    Artist.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL', function (err, artists) {
         if (err) return (err);
         console.log(artists);
         return res.json(artists);
@@ -64,6 +69,35 @@ router.post('/getProfile', (req, res, next) => {
         }
     });
 
+});
+
+router.get('/sign-s3', (req, res) => {
+    const s3 = new aws.S3();
+    console.log(req.query);
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: fileName,
+        Expires: 60,
+        ContentType: fileType,
+        ACL: 'public-read'
+    };
+
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+        if(err){
+            console.log(err);
+            return res.end();
+        }
+        const returnData = {
+            signedRequest: data,
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        };
+        console.log(returnData);
+         return res.json(returnData);
+
+
+    });
 });
 
 module.exports = router;

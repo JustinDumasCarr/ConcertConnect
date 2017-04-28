@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
-
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
@@ -97,8 +97,11 @@ export class AuthService {
         .map(res => res.json());
   }
 
-  getUserId(){
-    return this.user
+  getAWSUploadURL(fileName, fileType){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/users/artists/sign-s3?file-name='+fileName+'&file-type='+fileType,{headers: headers})
+        .map(res => res.json());
   }
 
   getVenueProfile(name){
@@ -113,7 +116,6 @@ export class AuthService {
   {
     return JSON.parse(localStorage.getItem('user')).venues;
   }
-
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;
@@ -127,6 +129,26 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
     localStorage.clear();
+  }
+  putImageToAWS(signedRequest, file){
+
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+
+      let xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+
+          } else {
+            console.log("File Upload Error");
+          }
+        }
+      };
+      xhr.open("PUT", signedRequest, true);
+      xhr.send(file);
+    }));
+
   }
 
   registerArtist(artist){
