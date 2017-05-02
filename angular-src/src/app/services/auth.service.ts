@@ -97,6 +97,16 @@ export class AuthService {
         .map(res => res.json());
   }
 
+  getUserLocal()
+  {
+    return localStorage.getItem('user');
+  }
+
+  getActiveLocal()
+  {
+    return localStorage.getItem('active');
+  }
+
   getAWSUploadURL(fileName, fileType){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
@@ -181,8 +191,12 @@ export class AuthService {
   }
 
   setActive(selectedEntity){
-
     localStorage.setItem('active', JSON.stringify(selectedEntity));
+  }
+
+  setUser(user)
+  {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   storeUserData(token, user){

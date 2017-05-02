@@ -79,12 +79,12 @@ export class ProfileComponent implements OnInit {
     }
 
     //Backend code here
-    const data = {
+    const dataSend = {
       username: this.usernameField,
       currentUsername: this.authService.getCurrentUsername()
     };
 
-    this.authService.changeUsername(data).subscribe(data => {
+    this.authService.changeUsername(dataSend).subscribe(data => {
       if(data.success)
       {
         this.flashMessage.show('You have successfully changed your username', {cssClass: 'alert-success', timeout: 3000});
@@ -97,17 +97,19 @@ export class ProfileComponent implements OnInit {
             });
 
             this.editUsernameField = false;
+
+            //Reloads local storage data with new values
+            let newUser = JSON.parse(this.authService.getUserLocal());
+            newUser.username = dataSend.username;
+            this.authService.setUser(newUser);
+            this.authService.setActive(newUser);
+
       }
       else
       {
         this.errorMessage('The username you have chosen is already in use');
       }
     });
-
-    //Need to reload local storage data here
-
-
-
   }
 
   changeEmail()
@@ -120,12 +122,12 @@ export class ProfileComponent implements OnInit {
     }
 
     //Backend code here
-    const data = {
+    const dataSend = {
       email: this.emailField,
       currentEmail: this.authService.getCurrentEmail()
     };
 
-    this.authService.changeEmail(data).subscribe(data => {
+    this.authService.changeEmail(dataSend).subscribe(data => {
       if(data.success)
       {
         this.flashMessage.show('You have successfully changed your email', {cssClass: 'alert-success', timeout: 3000});
@@ -136,20 +138,19 @@ export class ProfileComponent implements OnInit {
               console.log(err);
               return false;
             });
-
         this.editEmailField = false;
 
+        //Reloads local storage data with new values
+        let newUser = JSON.parse(this.authService.getUserLocal());
+        newUser.email = dataSend.email;
+        this.authService.setUser(newUser);
+        this.authService.setActive(newUser);
       }
       else
       {
         this.errorMessage('The email you have chosen is already in use');
       }
     });
-
-    //Reload local storage data here
-
-
-
   }
 
   errorMessage(message)
