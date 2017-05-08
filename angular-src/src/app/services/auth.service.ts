@@ -108,11 +108,11 @@ export class AuthService {
   }
 
   getAWSUploadURL(fileName, fileType){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/artists/sign-s3?file-name='+fileName+'&file-type='+fileType,{headers: headers})
-        .map(res => res.json());
-  }
+  let headers = new Headers();
+  headers.append('Content-Type','application/json');
+  return this.http.get('http://localhost:3000/users/sign-s3?file-name='+fileName+'&file-type='+fileType,{headers: headers})
+      .map(res => res.json());
+}
 
   getVenueProfile(name){
     let headers = new Headers();
@@ -183,12 +183,7 @@ export class AuthService {
         .map(res => res.json());
   }
 
-  search(query){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/artists/search', query,{headers: headers})
-        .map(res => res.json());
-  }
+
 
   setActive(selectedEntity){
     localStorage.setItem('active', JSON.stringify(selectedEntity));

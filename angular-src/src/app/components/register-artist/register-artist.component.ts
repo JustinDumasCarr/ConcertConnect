@@ -56,7 +56,7 @@ export class RegisterArtistComponent implements OnInit {
             if (data.success) {
                 this.flashMessage.show('Artist registered', {cssClass: 'alert-success', timeout: 3000});
                 this.authService.updateArtistArray(data.artists);
-
+console.log("signedRequest: " +this.signedRequest);
                 this.authService.putImageToAWS(this.signedRequest, this.file).subscribe(data => {
 
                 });
@@ -72,6 +72,7 @@ export class RegisterArtistComponent implements OnInit {
 
     //split join removes whitespace
         this.authService.getAWSUploadURL(event.file.name.split(' ').join(''), event.file.type).subscribe(data => {
+            console.log("imageUrl: "+this.imageURL)
             this.signedRequest = data.signedRequest;
             this.imageURL = data.url;
             this.file = event.file;

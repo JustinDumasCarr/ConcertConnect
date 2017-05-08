@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router}  from '@angular/router';
-class SearchResult {
+
+class ArtistResult {
     name: string;
     email: string;
     profileImageURL: string;
@@ -11,20 +12,19 @@ class SearchResult {
         this.email = email;
         this.profileImageURL = profileImageURL;
 
-        console.log("url :" +this.profileImageURL);
     }
 }
 
 @Component({
-    selector: 'app-search-result',
-    templateUrl: './search-result.component.html',
-    styleUrls: ['./search-result.component.css'],
-    inputs: ['searchResult']
+    selector: 'artist-result',
+    templateUrl: 'artist-result.component.html',
+    styleUrls: ['artist-result.component.css'],
+    inputs: ['artistResult']
 })
 
-export class SearchResultComponent implements OnInit {
+export class ArtistResultComponent implements OnInit {
 
-    searchResult: SearchResult;
+    artistResult: ArtistResult;
 
     constructor(private router: Router,) {
     }

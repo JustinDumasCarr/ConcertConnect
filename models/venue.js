@@ -20,8 +20,11 @@ const VenueSchema = mongoose.Schema({
         {
             type:String,
             required: true
-        }
-
+        },
+    profileImageURL: {
+        type: String,
+        required: false
+    }
 });
 
 const Venue = module.exports = mongoose.model('Venue', VenueSchema);

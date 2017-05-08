@@ -1,6 +1,5 @@
 <div *ngIf="user">
   <h2 class="page-header">{{user.name}}</h2>
-
   <ul class="list-group">
     <li class="list-group-item">Username: {{user.username}} <a class="editLink" (click)="toggleEditUsername()">Edit</a></li>
     <li *ngIf="editUsernameField" class="list-group-item"> <input type="text" [(ngModel)]="usernameField"> <button class="btn-success" (click)="changeUsername()">Save</button> <button class="btn-danger" (click)="toggleEditUsername()">Cancel</button></li>

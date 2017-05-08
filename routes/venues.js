@@ -13,7 +13,8 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         userId: req.body.userId,
-        type: 'venue'
+        type: 'venue',
+        profileImageURL: req.body.imageURL
     });
 
 
@@ -66,5 +67,12 @@ router.post('/getProfile', (req, res, next) =>
 
 });
 
+router.post('/search', (req, res, next) => {
+    Venue.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL', function (err, venues) {
+        if (err) return (err);
+        console.log(venues);
+        return res.json(venues);
+    })
+});
 
 module.exports = router;

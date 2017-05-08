@@ -2,7 +2,7 @@
     <div class="input-group">
         <input type="text"
                id="query"
-               [(ngModel)]="name"
+               [(ngModel)]="artistName"
                name="query"
                class="form-control"
                placeholder="Search..."
@@ -16,18 +16,10 @@
                      (click)="getResults()">Search</button>
         </span>
     </div>
-    <span>
-        <div class="checkbox">
-            <label><input type="checkbox" value="">Artists</label>
-                   <label><input type="checkbox" value="">Venues</label>
-        </div>
-
-    </span>
-
-
-    <div class="card-deck-wrapper">
-        <div class="card-deck">
-            <app-search-result *ngFor="let foobar of searchResults" [searchResult]="foobar"></app-search-result>
-        </div>
-    </div>
 </form>
+
+<div class="card-deck-wrapper">
+    <div class="card-deck">
+        <artist-result *ngFor="let aArtistResult of artistResults" [artistResult]="aArtistResult"></artist-result>
+    </div>
+</div>

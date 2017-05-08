@@ -6,16 +6,16 @@
 
                 </div>
                 <div class="avatar">
-                    <img alt="" src="{{searchResult.profileImageURL}}">
+                    <img [src]="artistResult.profileImageURL">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" (click)="getProfile(searchResult.name)">{{searchResult.name}}</a>
+                        <a target="_blank" (click)="getProfile(artistResult.name)">{{artistResult.name}}</a>
                     </div>
                     <div class="desc">Artist</div>    <!--Gotta add variable-->
                     <div class="desc">bicurious</div>
-                    <div class="desc">{{searchResult.email}}</div>
-                    <button type="button"  (click)="getProfile(searchResult.name)">Profile</button>
+                    <div class="desc">{{artistResult.email}}</div>
+                    <button type="button"  (click)="getProfile(artistResult.name)">Profile</button>
                 </div>
                 <div class="bottom">
                     <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">

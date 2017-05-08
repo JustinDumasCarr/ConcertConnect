@@ -1,4 +1,5 @@
 <div *ngIf="artistExist">
+  <img [src]="artist.profileImageURL" style="max-width: 800px;">
   <h2 class="page-header">{{artist.name}}</h2>
   <ul class="list-group">
     <li class="list-group-item">Email: {{artist.email}}</li>

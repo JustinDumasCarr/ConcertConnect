@@ -1,0 +1,38 @@
+
+
+<div class="col-lg-4">
+  <div class="card hovercard">
+    <div class="cardheader">
+
+    </div>
+    <div class="avatar">
+      <img [src]="venueResult.profileImageURL">
+    </div>
+    <div class="info">
+      <div class="title">
+        <a target="_blank" (click)="getProfile(venueResult.name)">{{venueResult.name}}</a>
+      </div>
+      <div class="desc">Venue</div>    <!--Gotta add variable-->
+      <div class="desc">bicurious</div>
+      <div class="desc">{{venueResult.email}}</div>
+      <button type="button"  (click)="getProfile(venueResult.name)">Profile</button>
+    </div>
+    <div class="bottom">
+      <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+        <i class="fa fa-twitter"></i>
+      </a>
+      <a class="btn btn-danger btn-sm" rel="publisher"
+         href="https://plus.google.com/+ahmshahnuralam">
+        <i class="fa fa-google-plus"></i>
+      </a>
+      <a class="btn btn-primary btn-sm" rel="publisher"
+         href="https://plus.google.com/shahnuralam">
+        <i class="fa fa-facebook"></i>
+      </a>
+      <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+        <i class="fa fa-behance"></i>
+      </a>
+    </div>
+  </div>
+
+</div>

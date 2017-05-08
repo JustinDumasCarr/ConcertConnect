@@ -11,7 +11,7 @@
         <label>Name</label>
         <input type="text" [(ngModel)]="name" name="name" class="form-control">
       </div>
-
+      <div>{{signedRequest}}</div>
       <div class="form-group">
         <label>Email</label>
         <input type="text" [(ngModel)]="email" name="email" class="form-control">
@@ -19,8 +19,12 @@
 
       <div class="form-group">
         <label>Profile Picture (Optional)</label>
-        <input type="file"  name="profilePicture" class="form-control profilePicture">
+
+        <image-upload (onFileUploadFinish)="imageUploadedToBrowser($event)"
+                      [buttonCaption]="'Select Image'">
+        </image-upload>
       </div>
+
 
       <input type="submit" class="btn btn-primary" value="Submit">
     </form>

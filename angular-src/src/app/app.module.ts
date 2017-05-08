@@ -11,19 +11,24 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { SearchComponent } from './components/search/search.component';
+import { SearchArtistComponent } from './components/search-artist/search-artist.component';
 import { RegisterArtistComponent } from './components/register-artist/register-artist.component';
 import { RegisterVenueComponent } from './components/register-venue/register-venue.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
+import {SearchService} from './services/search.service';
+
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
-import { SearchResultComponent } from './components/search-result/search-result.component';
+import { ArtistResultComponent } from './components/artist-result/artist-result.component';
 
 import {ImageUploadModule} from 'angular2-image-upload';
+import { DiscoverComponent } from './components/discover/discover.component';
+import { SearchVenueComponent } from './components/search-venue/search-venue.component';
+import { VenueResultComponent } from './components/venue-result/venue-result.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -31,11 +36,13 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'search', component: SearchComponent, canActivate:[AuthGuard]},
+  {path:'discover', component: DiscoverComponent},
+  {path:'search/artist', component: SearchArtistComponent},
+  {path:'search/venue', component: SearchVenueComponent},
   {path:'registerArtist', component: RegisterArtistComponent, canActivate:[AuthGuard]},
   {path:'registerVenue', component: RegisterVenueComponent, canActivate:[AuthGuard]},
-  {path:'artist/:id', component: ArtistComponent, canActivate:[AuthGuard]},
-  {path:'venue/:id', component: VenueComponent, canActivate:[AuthGuard]}
+  {path:'artist/:id', component: ArtistComponent},
+  {path:'venue/:id', component: VenueComponent}
 ]
 
 @NgModule({
@@ -47,12 +54,15 @@ const appRoutes: Routes =  [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    SearchComponent,
+    SearchArtistComponent,
     RegisterArtistComponent,
     RegisterVenueComponent,
     ArtistComponent,
     VenueComponent,
-    SearchResultComponent,
+    ArtistResultComponent,
+    DiscoverComponent,
+    SearchVenueComponent,
+    VenueResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +72,7 @@ const appRoutes: Routes =  [
     ImageUploadModule.forRoot(),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, SearchService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
