@@ -36,8 +36,29 @@ module.exports.getArtistByName = function(name, callback){
     Artist.findOne(query, callback);
 };
 
+module.exports.getArtistByEmail = function(name, callback){
+    const query = {email: name};
+    Artist.findOne(query, callback);
+};
+
 module.exports.addArtist = function(newArtist, callback){
             newArtist.save(callback);
+};
+
+module.exports.changeName = function(userInfo, callback){
+
+    Artist.update({name: userInfo.currentName}, {
+        name: userInfo.name
+    }, callback);
+
+};
+
+module.exports.changeEmail = function (userInfo,callback) {
+    Artist.update({email: userInfo.currentEmail},
+        {
+            email: userInfo.email
+        }, callback)
+
 };
 
 

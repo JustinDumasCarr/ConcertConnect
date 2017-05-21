@@ -1,7 +1,12 @@
 <div *ngIf="venueExist">
   <h2 class="page-header">{{venue.name}}</h2>
   <ul class="list-group">
-    <li class="list-group-item">Email: {{venue.email}}</li>
+    <li class="list-group-item">Name: {{venue.name}} <a *ngIf="isVenueDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>
+    <li *ngIf="isVenueDisplay && editNameField" class="list-group-item"> <input type="text" [(ngModel)]="nameField"> <button class="btn-success" (click)="changeName()">Save</button> <button class="btn-danger" (click)="toggleEditName()">Cancel</button></li>
+
+    <li class="list-group-item">Email: {{venue.email}} <a *ngIf="isVenueDisplay" class="editLink" (click)="toggleEditEmail()">Edit</a></li>
+    <li *ngIf="isVenueDisplay && editEmailField" class="list-group-item"> <input type="text" [(ngModel)]="emailField"> <button class="btn-success" (click)="changeEmail()">Save</button> <button class="btn-danger" (click)="toggleEditEmail()">Cancel</button></li>
+
   </ul>
 </div>
 

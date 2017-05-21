@@ -13,9 +13,18 @@ export class VenueComponent implements OnInit {
   venue: Object;
   venueExist: boolean;
   venueNotExist: boolean;
+  isVenueDisplay: boolean;
+
+  editEmailField: boolean;
+  editNameField: boolean;
+
+  nameField: string;
+  emailField: string;
 
   constructor(private route: ActivatedRoute,private authService: AuthService)
   {
+    this.editNameField = false;
+    this.editEmailField = false;
   }
 
   ngOnInit()
@@ -41,6 +50,8 @@ export class VenueComponent implements OnInit {
               this.venueExist = true;
             }
 
+            this.isVenue();
+
           },
 
           err => {
@@ -51,6 +62,53 @@ export class VenueComponent implements OnInit {
 
     })
 
+  }
+
+
+  isVenue() {
+    let venues = this.authService.getVenues();
+    for(let i=0; i<venues.length; i++) {
+      if(venues[i].name==this.venue['name']) {
+        this.isVenueDisplay = true;
+      }
+    }
+  }
+
+  changeName() {
+    //Backend call here
+    console.log(this.nameField);
+  }
+
+  changeEmail() {
+    //Backend call here
+    console.log(this.emailField);
+  }
+
+
+  toggleEditName() {
+
+    if(this.editNameField == false) {
+      this.editNameField = true;
+      return false;
+    }
+
+    if(this.editNameField == true) {
+      this.editNameField = false;
+      return false;
+    }
+
+  }
+
+  toggleEditEmail() {
+    if(this.editEmailField == false) {
+      this.editEmailField = true;
+      return false;
+    }
+
+    if(this.editEmailField == true) {
+      this.editEmailField = false;
+      return false;
+    }
   }
 
 

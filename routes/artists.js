@@ -100,4 +100,69 @@ router.get('/sign-s3', (req, res) => {
     });
 });
 
+
+//Change username
+router.post('/changename', (req, res, next) =>
+{
+
+    //This variable will not be used if user already exists
+    const userInfo =
+        {
+            name: req.body.name,
+            currentName: req.body.currentName
+        };
+
+
+    //Checks if username exists
+    Artist.getArtistByName(userInfo.name, (err, user) =>
+    {
+        if (err) throw err;
+        if (user) {
+            return res.json({success: false, msg: 'Name already exists'});
+        }
+        else
+        {
+            Artist.changeName(userInfo, (err, callback) => {
+                if(callback)
+                {
+                    console.log(callback);
+                    return res.json({success: true, msg: 'Name has been changed successfully'});
+                }
+            });
+        }
+    });
+});
+
+//Change email
+router.post('/changeemail', (req, res, next) =>
+{
+
+    //This variable will not be used if user already exists
+    const userInfo =
+        {
+            email: req.body.email,
+            currentEmail: req.body.currentEmail
+        };
+
+
+    //Checks if username exists
+    Artist.getArtistByEmail(userInfo.email, (err, user) =>
+    {
+        if (err) throw err;
+        if (user) {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+        else
+        {
+            Artist.changeEmail(userInfo, (err, callback) => {
+                if(callback)
+                {
+                    console.log(callback);
+                    return res.json({success: true, msg: 'Email has been changed successfully'});
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;

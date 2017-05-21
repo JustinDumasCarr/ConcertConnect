@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit()
   {
-
     this.editUsernameField = false;
     this.editEmailField = false;
 
@@ -35,7 +34,6 @@ export class ProfileComponent implements OnInit {
       console.log(err);
       return false;
     });
-
   }
 
   toggleEditUsername()
@@ -104,6 +102,7 @@ export class ProfileComponent implements OnInit {
             this.authService.setUser(newUser);
             this.authService.setActive(newUser);
 
+
       }
       else
       {
@@ -145,6 +144,7 @@ export class ProfileComponent implements OnInit {
         newUser.email = dataSend.email;
         this.authService.setUser(newUser);
         this.authService.setActive(newUser);
+
       }
       else
       {
