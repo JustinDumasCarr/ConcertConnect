@@ -1,5 +1,5 @@
 <div *ngIf="artistExist">
-  <img [src]="artist.profileImageURL" style="max-width: 800px;">
+  <img [src]="artist.profileImageURL" style="max-width: 200px;">
   <h2 class="page-header">{{artist.name}}</h2>
   <ul class="list-group">
     <li class="list-group-item">Name: {{artist.name}} <a *ngIf="isArtistDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>
