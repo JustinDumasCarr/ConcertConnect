@@ -31,7 +31,7 @@ import { SearchVenueComponent } from './components/search-venue/search-venue.com
 import { VenueResultComponent } from './components/venue-result/venue-result.component';
 
 //angular2-material
-import {MdButtonModule, MdCheckboxModule, MdSelectModule, MdToolbarModule} from '@angular/material';
+import { MaterialModule, MdButtonModule, MdCheckboxModule, MdSelectModule, MdToolbarModule,MdInputModule, MdDialogModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
@@ -80,7 +80,10 @@ const appRoutes: Routes =  [
     MdSelectModule,
     MdToolbarModule,
     MdCheckboxModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdInputModule,
+    MdDialogModule,
+    MaterialModule
   ],
   providers: [ValidateService, AuthService, SearchService, AuthGuard],
   bootstrap: [AppComponent]
