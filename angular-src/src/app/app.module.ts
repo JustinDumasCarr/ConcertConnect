@@ -30,6 +30,11 @@ import { DiscoverComponent } from './components/discover/discover.component';
 import { SearchVenueComponent } from './components/search-venue/search-venue.component';
 import { VenueResultComponent } from './components/venue-result/venue-result.component';
 
+//angular2-material
+import {MdButtonModule, MdCheckboxModule, MdSelectModule, MdToolbarModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
@@ -70,7 +75,12 @@ const appRoutes: Routes =  [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     ImageUploadModule.forRoot(),
-    FlashMessagesModule
+    FlashMessagesModule,
+    MdButtonModule,
+    MdSelectModule,
+    MdToolbarModule,
+    MdCheckboxModule,
+    BrowserAnimationsModule
   ],
   providers: [ValidateService, AuthService, SearchService, AuthGuard],
   bootstrap: [AppComponent]

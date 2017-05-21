@@ -14,6 +14,11 @@ export class SearchArtistComponent implements OnInit {
 
   artistName : string;
 
+  foods = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'}
+  ];
 
   constructor(
       private searchService:SearchService

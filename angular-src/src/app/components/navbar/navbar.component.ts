@@ -37,17 +37,17 @@ export class NavbarComponent implements OnInit {
 
     router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
-        console.log(event.url);
-        if (event.url == "/profile") {
+        console.log(event['url']);
+        if (event['url'] == "/profile") {
           this.profileValue = 'active';
         }
-        if (event.url.includes("/venue")) {
+        if (event['url'].includes("/venue")) {
           this.profileValue = 'active';
         }
-        if (event.url.includes("/artist")) {
+        if (event['url'].includes("/artist")) {
           this.profileValue = 'active';
         }
-        if (!(event.url == "/profile" || event.url.includes("/venue") || event.url.includes("/artist"))) {
+        if (!(event['url'] == "/profile" || event['url'].includes("/venue") || event['url'].includes("/artist"))) {
           this.profileValue = '';
         }
 

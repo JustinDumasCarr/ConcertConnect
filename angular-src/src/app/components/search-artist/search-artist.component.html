@@ -18,6 +18,10 @@
     </div>
 </form>
 
+<md-select placeholder="Genre" multiple="true">
+    <md-option>Electronic</md-option>
+    <md-option>Metal</md-option>
+</md-select>
 <div class="card-deck-wrapper">
     <div class="card-deck">
         <artist-result *ngFor="let aArtistResult of artistResults" [artistResult]="aArtistResult"></artist-result>
