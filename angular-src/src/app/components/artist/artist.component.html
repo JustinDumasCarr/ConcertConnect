@@ -2,11 +2,16 @@
   <img [src]="artist.profileImageURL" style="max-width: 800px;">
   <h2 class="page-header">{{artist.name}}</h2>
   <ul class="list-group">
-    <li class="list-group-item">Email: {{artist.email}}</li>
+    <li class="list-group-item">Name: {{artist.name}} <a *ngIf="isArtistDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>
+    <li *ngIf="isArtistDisplay && editNameField" class="list-group-item"> <input type="text" [(ngModel)]="nameField"> <button class="btn-success" (click)="changeName()">Save</button> <button class="btn-danger" (click)="toggleEditName()">Cancel</button></li>
+
+    <li class="list-group-item">Email: {{artist.email}} <a *ngIf="isArtistDisplay" class="editLink" (click)="toggleEditEmail()">Edit</a></li>
+    <li *ngIf="isArtistDisplay && editEmailField" class="list-group-item"> <input type="text" [(ngModel)]="emailField"> <button class="btn-success" (click)="changeEmail()">Save</button> <button class="btn-danger" (click)="toggleEditEmail()">Cancel</button></li>
   </ul>
 </div>
 
 <div *ngIf="artistNotExist">
   <h2 class="page-header">Artist does not exist</h2>
 </div>
+
 

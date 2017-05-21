@@ -86,6 +86,24 @@ module.exports.changeEmail = function (userInfo,callback) {
 
 };
 
+//changing the artist name
+module.exports.changeArtistName = function (userInfo,callback) {
+    User.update({'artists.name': userInfo.currentName},{
+        '$set': {
+            'artists.$.name': userInfo.name
+        }}, callback)
+
+};
+
+//Changing the artist email//changing the artist name
+module.exports.changeArtistEmail = function (userInfo,callback) {
+    User.update({'artists.email': userInfo.currentEmail},{
+        '$set': {
+            'artists.$.email': userInfo.email
+        }}, callback)
+
+};
+
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {

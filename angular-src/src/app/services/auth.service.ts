@@ -11,8 +11,7 @@ export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http:Http)
-  {
+  constructor(private http:Http) {
   }
 
   //Method that checks if venue or artists exist (navbar)
@@ -64,9 +63,46 @@ export class AuthService {
         .map(res => res.json());
   }
 
+  changeArtistName(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/changename',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  changeArtistNameProfile(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changeartistname',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  changeArtistEmail(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/changeemail',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  changeArtistEmailProfile(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changeartistemail',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  changeVenueEmail(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+  }
+
+  changeVenueName() {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+  }
+
   getArtistProfile(name){
     let headers = new Headers();
-    this.loadToken();
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/getProfile',name,{headers: headers})
         .map(res => res.json());
@@ -122,8 +158,7 @@ export class AuthService {
         .map(res => res.json());
   }
 
-  getVenues()
-  {
+  getVenues() {
     return JSON.parse(localStorage.getItem('user')).venues;
   }
   loadToken(){
@@ -174,7 +209,6 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/register', user,{headers: headers})
         .map(res => res.json());
   }
-
 
   registerVenue(venue){
     let headers = new Headers();

@@ -1,0 +1,17 @@
+.editLink
+{
+    cursor: pointer;
+    color: #1c94c4;
+}
+
+input[type=text] {
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 2px solid #555;
+}
