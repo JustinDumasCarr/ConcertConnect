@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import {MdDialog} from '@angular/material';
-import {MD_DIALOG_DATA} from '@angular/material';
-
 
 
 @Component({
@@ -27,7 +24,7 @@ export class ArtistComponent implements OnInit
   nameField: string;
   emailField: string;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService,private flashMessage:FlashMessagesService, public dialog: MdDialog)
+  constructor(private route: ActivatedRoute,private authService: AuthService,private flashMessage:FlashMessagesService)
   {
       this.editEmailField = false;
       this.editNameField = false;
@@ -57,9 +54,7 @@ export class ArtistComponent implements OnInit
       })
      }
 
-    openDialog() {
-        this.dialog.open(DialogOverviewExampleDialog);
-    }
+
 
      isArtist() {
          let artists = this.authService.getArtists();
@@ -236,8 +231,3 @@ export class ArtistComponent implements OnInit
 
 }
 
-@Component({
-    selector: 'dialog-overview-example-dialog',
-    templateUrl: './dialog-overview-example-dialog.html',
-})
-export class DialogOverviewExampleDialog {}
