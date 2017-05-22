@@ -11,9 +11,11 @@ export class AppComponent {
   title = 'app works!';
 
 
+  /* Part of the example
   onToggle() {
     jQuery('.ui.sidebar').sidebar('setting', 'transition', 'push').sidebar('toggle');
   }
+  */
 
 
 

@@ -1,3 +1,4 @@
+<!--
 <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -27,7 +28,7 @@
 
               <ul class="dropdown-menu">
 
-                <!-- Putting all three under a single and using ngIf causes layout issue, fix later, use ngcontainer -->
+                <!-- Putting all three under a single and using ngIf causes layout issue, fix later, use ngcontainer
                 <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
                 <li *ngIf="authService.artistExist() || authService.venueExist()" class="item"><a>User</a></li>
                 <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
@@ -52,6 +53,37 @@
             <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#">Logout</a></li>
 
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
+-->
+
+
+<div class="ui menu">
+  <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"  [routerLink]="['/dashboard']" class="item">Dashboard</a>
+  <a *ngIf="authService.loggedIn()"  (click)="profileClick()" class="item">Profile</a>
+  <a [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" class="item">Discover</a>
+
+  <div class="right menu">
+    <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" class="item">Register</a>
+    <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']"  class="item">Log In</a>
+
+
+    <!--
+    <div class="ui dropdown item">{{toggleValue}}
+      <div class="menu">
+
+        <a *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)" class="item">{{artist.name}}</a>
+        <a *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="item">{{venue.name}}</a>
+
+
+      </div>
+    </div>
+-->
+
+    <a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" class="item">Logout</a>
+
+  </div>
+
+</div>
+

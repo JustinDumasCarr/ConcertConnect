@@ -3,6 +3,9 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 
+declare let jQuery: any;
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -61,6 +64,9 @@ export class NavbarComponent implements OnInit {
     if(this.authService.loggedIn()) {
       this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
+
+    jQuery('.ui.dropdown').dropdown();
+
   }
 
   onLogoutClick() {
