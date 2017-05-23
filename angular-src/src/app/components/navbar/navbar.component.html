@@ -58,32 +58,45 @@
     </nav>
 -->
 
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"  [routerLink]="['/dashboard']" class="item">Dashboard</a>
+    <a *ngIf="authService.loggedIn()"  [ngClass]="{'active': profileValue!='' }" (click)="profileClick()" class="item">Profile</a>
+    <a [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" class="item">Discover</a>
 
-<div class="ui menu">
-  <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"  [routerLink]="['/dashboard']" class="item">Dashboard</a>
-  <a *ngIf="authService.loggedIn()"  (click)="profileClick()" class="item">Profile</a>
-  <a [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" class="item">Discover</a>
-
-  <div class="right menu">
-    <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" class="item">Register</a>
-    <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']"  class="item">Log In</a>
-
-
-    <!--
-    <div class="ui dropdown item">{{toggleValue}}
-      <div class="menu">
-
-        <a *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)" class="item">{{artist.name}}</a>
-        <a *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="item">{{venue.name}}</a>
+    <div class="right menu">
+      <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" class="item">Register</a>
+      <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']"  class="item">Log In</a>
 
 
-      </div>
-    </div>
+        <div *ngIf="authService.loggedIn() && authService.accountExist()" class="ui dropdown item">{{toggleValue}}
+          <div class="menu">
+
+
+            <div  class="item" (click)="changeUser()">{{userName}}</div>
+
+
+            <div *ngFor="let artist of authService.getArtists()"  class="item">{{artist.name}}</div>
+
+
+
+
+<!--
+          <div *ngIf="authService.venueExist()">
+            <a *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="item">{{venue.name}}</a>
+          </div>
 -->
 
-    <a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" class="item">Logout</a>
+
+
+           <div class="item">Test Item</div>
+          </div>
+        </div>
+
+      <a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" class="item">Logout</a>
+
+    </div>
 
   </div>
-
 </div>
 

@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   profileCurrent: boolean;
   profileValue: String;
   toggleValue: String;
+  initializeCounter: number;
 
   userName: String;
 
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
               private router: Router,
               private flashMessage: FlashMessagesService) {
 
+    this.initializeCounter = 0;
 
     //Possible receive this value later
     this.profileCurrent = false;
@@ -65,8 +67,25 @@ export class NavbarComponent implements OnInit {
       this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
 
-    jQuery('.ui.dropdown').dropdown();
+    //jQuery('.ui.dropdown').dropdown();
 
+  }
+
+  ngAfterViewInit() {
+  // /  jQuery('.ui.dropdown').dropdown();
+  }
+
+  ngAfterViewChecked() {
+
+  //  jQuery('.ui.dropdown').dropdown({action:'nothing'});
+ //   this.initializeCounter++;
+
+   // if ((this.initializeCounter-2) % 7 == 0) {
+    //  console.log("RUN ONCE");
+      jQuery('.ui.dropdown').dropdown();
+  //  }
+
+ //   console.log(this.initializeCounter);
   }
 
   onLogoutClick() {
