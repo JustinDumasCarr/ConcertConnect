@@ -30,6 +30,20 @@ import { DiscoverComponent } from './components/discover/discover.component';
 import { SearchVenueComponent } from './components/search-venue/search-venue.component';
 import { VenueResultComponent } from './components/venue-result/venue-result.component';
 
+import { CovalentLayoutModule, CovalentStepsModule /*, any other modules */ } from '@covalent/core';
+// (optional) Additional Covalent Modules imports
+import { CovalentHttpModule } from '@covalent/http';
+import { CovalentHighlightModule } from '@covalent/highlight';
+import { CovalentMarkdownModule } from '@covalent/markdown';
+import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
+
+import { CovalentMessageModule } from '@covalent/core';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule} from '@angular/material';
+
+
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -71,7 +85,22 @@ const appRoutes: Routes =  [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     ImageUploadModule.forRoot(),
-    FlashMessagesModule
+    FlashMessagesModule,
+    CovalentLayoutModule,
+    CovalentStepsModule,
+    // (optional) Additional Covalent Modules imports
+    CovalentHttpModule.forRoot(),
+    CovalentHighlightModule,
+    CovalentMarkdownModule,
+    CovalentDynamicFormsModule,
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    MdInputModule,
+    MdToolbarModule,
+    CovalentMessageModule,
+    MdIconModule,
+    MdMenuModule
   ],
   providers: [ValidateService, AuthService, SearchService, AuthGuard],
   bootstrap: [AppComponent]

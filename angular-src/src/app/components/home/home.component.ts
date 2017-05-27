@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+
+  items = [
+    {text: 'Refresh'},
+    {text: 'Settings'},
+    {text: 'Help', disabled: true},
+    {text: 'Sign Out'}
+  ];
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }

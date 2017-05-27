@@ -23,3 +23,44 @@
 }
 
 */
+
+.demo-toolbar {
+    padding: 6px;
+}
+
+.demo-toolbar-icon {
+    padding: 0 14px;
+}
+
+.demo-fill-remaining {
+    flex: 1 1 auto;
+}
+
+.title {
+    margin-right: 1em;
+}
+
+.right {
+    float: right;
+}
+
+
+
+.demo-menu {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.menu-section {
+    width: 300px;
+    margin: 20px;
+}
+
+.end-icon {
+    align-items: flex-end;
+}
+
+.dropdown {
+    margin-right: 1em;
+    width: 5%;
+}

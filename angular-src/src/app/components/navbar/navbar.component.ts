@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
 
   userName: String;
 
+
   constructor(private authService: AuthService,
               private router: Router,
               private flashMessage: FlashMessagesService) {
@@ -67,12 +68,16 @@ export class NavbarComponent implements OnInit {
       this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
 
-    //jQuery('.ui.dropdown').dropdown();
+//    jQuery('.ui.dropdown').dropdown();
 
+
+    // setTimeout(() => {
+    //   jQuery('.ui.dropdown').dropdown();
+    // }, 1)
   }
 
   ngAfterViewInit() {
-  // /  jQuery('.ui.dropdown').dropdown();
+//   jQuery('.ui.dropdown').dropdown();
   }
 
   ngAfterViewChecked() {
@@ -82,7 +87,7 @@ export class NavbarComponent implements OnInit {
 
    // if ((this.initializeCounter-2) % 7 == 0) {
     //  console.log("RUN ONCE");
-      jQuery('.ui.dropdown').dropdown();
+   //   jQuery('.ui.dropdown').dropdown();
   //  }
 
  //   console.log(this.initializeCounter);

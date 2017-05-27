@@ -57,46 +57,46 @@
       </div>
     </nav>
 -->
+  <md-toolbar color="primary">
+    <span class="title">Concert Connect</span>
+    <button *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/dashboard']" md-button>Dashboard</button>
+    <button *ngIf="authService.loggedIn()" (click)="profileClick()" md-button>Profile</button>
+    <button [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" md-button>Discover</button>
 
-<div class="ui inverted segment">
-  <div class="ui inverted secondary pointing menu">
-    <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"  [routerLink]="['/dashboard']" class="item">Dashboard</a>
-    <a *ngIf="authService.loggedIn()"  [ngClass]="{'active': profileValue!='' }" (click)="profileClick()" class="item">Profile</a>
-    <a [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" class="item">Discover</a>
+    <!-- Right Side -->
+    <span class="demo-fill-remaining"></span>
+    <button *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" md-button>Register</button>
+    <button *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']" md-button>Login</button>
 
-    <div class="right menu">
-      <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/register']" class="item">Register</a>
-      <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/login']"  class="item">Log In</a>
-
-
-        <div *ngIf="authService.loggedIn() && authService.accountExist()" class="ui dropdown item">{{toggleValue}}
-          <div class="menu">
-
-
-            <div  class="item" (click)="changeUser()">{{userName}}</div>
-
-
-            <div *ngFor="let artist of authService.getArtists()"  class="item">{{artist.name}}</div>
-
-
-
-
-<!--
-          <div *ngIf="authService.venueExist()">
-            <a *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="item">{{venue.name}}</a>
-          </div>
--->
-
-
-
-           <div class="item">Test Item</div>
-          </div>
-        </div>
-
-      <a *ngIf="authService.loggedIn()" (click)="onLogoutClick()" class="item">Logout</a>
-
+    <div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">
+      <md-toolbar color="primary" class="dropdown">
+        <button md-icon-button [mdMenuTriggerFor]="menu" aria-label="Open basic menu">
+          Toggle
+          <md-icon>arrow_drop_down</md-icon>
+        </button>
+      </md-toolbar>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item>
+          User
+        </button>
+        <button *ngIf="authService.artistExist() || authService.venueExist()" (click)="changeUser()" md-menu-item>
+          {{userName}}
+        </button>
+        <button *ngIf="authService.artistExist()" md-menu-item>
+          Artist
+        </button>
+        <button *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)" md-menu-item>
+          {{artist.name}}
+        </button>
+        <button *ngIf="authService.venueExist()" md-menu-item>
+          Venue
+        </button>
+        <button *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" md-menu-item>
+          {{venue.name}}
+        </button>
+      </md-menu>
     </div>
+    <button *ngIf="authService.loggedIn()" (click)="onLogoutClick()" md-button>Logout</button>
+  </md-toolbar>
 
-  </div>
-</div>
 

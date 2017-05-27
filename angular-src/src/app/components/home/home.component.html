@@ -23,3 +23,17 @@
     <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
   </div>
 </div>
+
+
+  <md-toolbar>
+    <button md-icon-button [mdMenuTriggerFor]="menu" aria-label="Open basic menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+  </md-toolbar>
+
+  <md-menu #menu="mdMenu">
+    <button md-menu-item *ngFor="let item of items" (click)="select(item.text)" [disabled]="item.disabled">
+      {{ item.text }}
+    </button>
+  </md-menu>
+
