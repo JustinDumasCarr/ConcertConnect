@@ -57,10 +57,10 @@
       </div>
     </nav>
 -->
-  <md-toolbar color="primary">
+  <md-toolbar color="primary" class="mat-toolbar mat-toolbar-row white-text">
     <span class="title">Concert Connect</span>
     <button *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/dashboard']" md-button>Dashboard</button>
-    <button *ngIf="authService.loggedIn()" (click)="profileClick()" md-button>Profile</button>
+    <button *ngIf="authService.loggedIn()" (click)="profileClick()" md-button >Profile</button>
     <button [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/discover']" md-button>Discover</button>
 
     <!-- Right Side -->
@@ -75,7 +75,7 @@
           <md-icon>arrow_drop_down</md-icon>
         </button>
       </md-toolbar>
-      <md-menu #menu="mdMenu">
+      <md-menu #menu="mdMenu" xPosition="before" [overlapTrigger]="false">
         <button md-menu-item>
           User
         </button>

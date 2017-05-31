@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.white-text {
+    color: #FFF!important;
+}
+.mat-toolbar-row{
+    height:42px !important;
+}
+.mat-toolbar{
+    min-height: 42px !important;
+}
