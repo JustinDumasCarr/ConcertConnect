@@ -220,7 +220,9 @@ export class AuthService {
 
 
   setActive(selectedEntity){
+    console.log(selectedEntity);
     localStorage.setItem('active', JSON.stringify(selectedEntity));
+    console.log(selectedEntity);
   }
 
   setUser(user)

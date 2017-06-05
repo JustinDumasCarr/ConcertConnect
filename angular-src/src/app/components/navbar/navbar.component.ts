@@ -132,24 +132,26 @@ export class NavbarComponent implements OnInit {
 
   profileClick()
   {
-    let profileName = JSON.parse(localStorage.getItem('active')).name;
-    console.log(profileName); //This logs the correct name
+
 
     if(JSON.parse(localStorage.getItem('active')).type == 'user')
     {
+      let profile_id = JSON.parse(localStorage.getItem('active'))._id;
       this.router.navigate(['/profile']);
     }
 
     if(JSON.parse(localStorage.getItem('active')).type == 'artist')
     {
-      console.log(profileName);
-      this.router.navigate(['/artist',profileName]);
+      let profile_id = JSON.parse(localStorage.getItem('active')).artistId;
+      console.log(profile_id);
+      this.router.navigate(['/artist',profile_id]);
     }
 
     if(JSON.parse(localStorage.getItem('active')).type == 'venue')
     {
-      console.log(profileName);
-      this.router.navigate(['/venue',profileName]);
+      let profile_id = JSON.parse(localStorage.getItem('active')).venueId;
+      console.log(profile_id);
+      this.router.navigate(['/venue',profile_id]);
     }
 
   }
