@@ -1,5 +1,6 @@
-<div *ngIf="venueExist">
-  <img [src]="venue.profileImageURL">
+<div *ngIf="venueExist" class="side-margin">
+  <cover-photos [imageArray]="venue.profileImageURL"></cover-photos>
+  <img [src]="venue.profileImageURL" class="profile-image">
   <h2 class="page-header">{{venue.name}}</h2>
   <ul class="list-group">
     <li class="list-group-item">Name: {{venue.name}} <a *ngIf="isVenueDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>

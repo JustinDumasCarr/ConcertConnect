@@ -9,3 +9,16 @@
 .mat-toolbar{
     min-height: 42px !important;
 }
+.side-margin{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.profile-image{
+    position:relative;
+    top: -120px;
+    left: 20px;
+
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
