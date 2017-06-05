@@ -57,9 +57,12 @@ router.post('/search', (req, res, next) => {
 //Returns venue information based on details
 router.post('/getProfile', (req, res, next) => {
 
-    Artist.getArtistByName(req.body.name, (err, artistexists) => {
+console.log(req.body);
+
+    Artist.getArtistByID(req.body._id, (err, artistexists) => {
         //Not sure if this actually throws an error
         if (err) throw err;
+        console.log(artistexists);
         if (artistexists) {
             return res.json(artistexists);
         }

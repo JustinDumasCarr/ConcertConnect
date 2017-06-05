@@ -101,10 +101,10 @@ export class AuthService {
     headers.append('Content-Type','application/json');
   }
 
-  getArtistProfile(name){
+  getArtistProfile(artist){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/artists/getProfile',name,{headers: headers})
+    return this.http.post('http://localhost:3000/users/artists/getProfile',artist,{headers: headers})
         .map(res => res.json());
   }
 
@@ -150,11 +150,11 @@ export class AuthService {
       .map(res => res.json());
 }
 
-  getVenueProfile(name){
+  getVenueProfile(venue){
     let headers = new Headers();
     this.loadToken();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/venues/getProfile',name,{headers: headers})
+    return this.http.post('http://localhost:3000/users/venues/getProfile',venue,{headers: headers})
         .map(res => res.json());
   }
 

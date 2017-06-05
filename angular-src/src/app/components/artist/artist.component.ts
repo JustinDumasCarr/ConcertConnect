@@ -33,7 +33,7 @@ export class ArtistComponent implements OnInit
   ngOnInit() {
       this.route.params.forEach(params => {
           this.id = params['id'];
-          this.artist = {"name": this.id};
+          this.artist = {"_id": this.id};
           this.artist = JSON.stringify(this.artist);
           this.authService.getArtistProfile(this.artist).subscribe(data => {
               if (data == "") {

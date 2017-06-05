@@ -51,7 +51,7 @@ router.post('/register', (req, res, next) => {
 router.post('/getProfile', (req, res, next) =>
 {
 
-    Venue.getVenueByName(req.body.name, (err,Venueexists) =>
+    Venue.getVenueByID(req.body._id, (err,Venueexists) =>
     {
         //Not sure if this actually throws an error
         if(err) throw err;

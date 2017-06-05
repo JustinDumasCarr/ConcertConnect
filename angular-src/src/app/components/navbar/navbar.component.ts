@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
       this.toggleValue = "Toggle User";
     }
     else {
-      this.toggleValue = JSON.parse(localStorage.getItem('active')).name;
+      this.toggleValue = JSON.parse(localStorage.getItem('active'))._id;
     }
 
 
@@ -112,19 +112,21 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  changeUserArtist(selectedArtist,newName)
+  changeUserArtist(selectedArtist,newID)
   {
-    this.toggleValue = newName;
+
+    console.log("newID: "+ newID);
+    this.toggleValue = newID;
     this.authService.setActive(selectedArtist);
-    this.router.navigate(['/artist',newName]);
+    this.router.navigate(['/artist',newID]);
     return false;
   }
 
-  changeUserVenue(selectedVenue,newName)
+  changeUserVenue(selectedVenue,newID)
   {
-    this.toggleValue = newName;
+    this.toggleValue = newID;
     this.authService.setActive(selectedVenue);
-    this.router.navigate(['/venue',newName]);
+    this.router.navigate(['/venue',newID]);
     return false;
   }
 

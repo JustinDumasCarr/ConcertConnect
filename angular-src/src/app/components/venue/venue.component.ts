@@ -35,7 +35,7 @@ export class VenueComponent implements OnInit {
 
       this.id = params['id'];
 
-      this.venue = {"name": this.id};
+      this.venue = {"_id": this.id};
       this.venue = JSON.stringify(this.venue);
 
 
