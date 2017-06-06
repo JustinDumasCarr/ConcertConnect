@@ -24,8 +24,11 @@
 
 */
 
-.demo-toolbar {
-    padding: 6px;
+.md-toolbar-concertconnect {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: fixed;
+    z-index: 9;
 }
 
 .demo-toolbar-icon {

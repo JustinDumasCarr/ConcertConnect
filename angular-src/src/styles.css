@@ -12,6 +12,8 @@
 .side-margin{
     margin-left: 40px;
     margin-right: 40px;
+    position: absolute;
+    top:42px;
 }
 .profile-image{
     position:relative;
@@ -21,4 +23,8 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }

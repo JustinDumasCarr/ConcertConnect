@@ -57,7 +57,7 @@
       </div>
     </nav>
 -->
-  <md-toolbar color="primary" class="mat-toolbar mat-toolbar-row white-text">
+  <md-toolbar color="primary" class="mat-toolbar mat-toolbar-row white-text md-toolbar-concertconnect">
     <span class="title">Concert Connect</span>
     <button *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/dashboard']" md-button>Dashboard</button>
     <button *ngIf="authService.loggedIn()" (click)="profileClick()" md-button >Profile</button>
