@@ -75,6 +75,7 @@
           <md-icon>arrow_drop_down</md-icon>
         </button>
       </md-toolbar>
+
       <md-menu #menu="mdMenu" xPosition="before" [overlapTrigger]="false">
         <button md-menu-item>
           User
@@ -82,13 +83,13 @@
         <button *ngIf="authService.artistExist() || authService.venueExist()" (click)="changeUser()" md-menu-item>
           {{userName}}
         </button>
-        <button *ngIf="authService.artistExist()" md-menu-item>
+        <button class="toggle-label" *ngIf="authService.artistExist()" md-menu-item>
           Artist
         </button>
         <button *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.artistId)" md-menu-item>
           {{artist.name}}
         </button>
-        <button *ngIf="authService.venueExist()" md-menu-item>
+        <button class="toggle-label" *ngIf="authService.venueExist()" md-menu-item>
           Venue
         </button>
         <button *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.venueId)" md-menu-item>

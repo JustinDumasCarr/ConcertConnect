@@ -64,3 +64,11 @@
     margin-right: 1em;
     width: 5%;
 }
+
+.toggle-label {
+    background-color: royalblue;
+}
+
+.toggle-label:hover {
+    background-color: royalblue;
+}

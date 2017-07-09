@@ -8,3 +8,21 @@
     <li *ngIf="editEmailField" class="list-group-item"> <input type="text" [(ngModel)]="emailField"> <button class="btn-success" (click)="changeEmail()">Save</button> <button class="btn-danger" (click)="toggleEditEmail()">Cancel</button></li>
   </ul>
 </div>
+
+
+<md-card *ngIf="user" class="profile-card">
+  <md-card-title-group>
+    <md-card-title>{{user.name}}</md-card-title>
+  </md-card-title-group>
+
+  <md-card-title-group>
+    <md-card-subtitle>Username: {{user.username}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <md-card-title-group>
+    <md-card-subtitle>Email: {{user.email}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <button md-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
+
+</md-card>
