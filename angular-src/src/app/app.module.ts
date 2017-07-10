@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 
@@ -15,20 +15,23 @@ import { SearchArtistComponent } from './components/search-artist/search-artist.
 import { RegisterArtistComponent } from './components/register-artist/register-artist.component';
 import { RegisterVenueComponent } from './components/register-venue/register-venue.component';
 
-import {ValidateService} from './services/validate.service';
-import {AuthService} from './services/auth.service';
-import {SearchService} from './services/search.service';
+import { ValidateService } from './services/validate.service';
+import { AuthService } from './services/auth.service';
+import { SearchService } from './services/search.service';
 
-import {FlashMessagesModule} from 'angular2-flash-messages';
-import {AuthGuard} from './guards/auth.guard';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
 import { ArtistResultComponent } from './components/artist-result/artist-result.component';
 
-import {ImageUploadModule} from 'angular2-image-upload';
+import { ImageUploadModule } from 'angular2-image-upload';
 import { DiscoverComponent } from './components/discover/discover.component';
 import { SearchVenueComponent } from './components/search-venue/search-venue.component';
 import { VenueResultComponent } from './components/venue-result/venue-result.component';
+
+//Dialogs
+import { EditProfile } from './components/profile/edit.profile';
 
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
@@ -36,13 +39,10 @@ import { CovalentHttpModule } from '@covalent/http';
 import { CovalentHighlightModule } from '@covalent/highlight';
 import { CovalentMarkdownModule } from '@covalent/markdown';
 import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
-
 import { CovalentMessageModule } from '@covalent/core';
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdDialogModule} from '@angular/material';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule} from '@angular/material';
 
 
 
@@ -81,6 +81,7 @@ const appRoutes: Routes =  [
     SearchVenueComponent,
     VenueResultComponent,
     CoverPhotosComponent,
+    EditProfile
   ],
   imports: [
     BrowserModule,
@@ -88,6 +89,7 @@ const appRoutes: Routes =  [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     ImageUploadModule.forRoot(),
+    ReactiveFormsModule,
     FlashMessagesModule,
     CovalentLayoutModule,
     CovalentStepsModule,
@@ -105,14 +107,19 @@ const appRoutes: Routes =  [
     MdToolbarModule,
     CovalentMessageModule,
     MdIconModule,
-    MdMenuModule
+    MdMenuModule,
+    MdCardModule,
+    MdDialogModule,
+    MdProgressSpinnerModule
+  ],
 
-  ],
-  entryComponents: [
-    ArtistComponent,
-    VenueComponent
-  ],
-  providers: [ValidateService, AuthService, SearchService, AuthGuard],
+
+
+
+
+  entryComponents: [EditProfile,   ArtistComponent,
+    VenueComponent],
+  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

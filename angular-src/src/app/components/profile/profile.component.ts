@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
+
+//Dialog Stuff
+import { EditProfile } from '../profile/edit.profile';
+import {DOCUMENT} from '@angular/platform-browser';
+import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +24,43 @@ export class ProfileComponent implements OnInit {
   emailField: string;
 
 
-  constructor(private authService: AuthService, private router: Router,private flashMessage:FlashMessagesService)
-  { }
+  //Dialog values
+  dialogRef: MdDialogRef<EditProfile>;
+  lastCloseResult: string;
+  actionsAlignment: string;
+  config: MdDialogConfig = {
+    disableClose: false,
+    hasBackdrop: true,
+    backdropClass: '',
+    width: '',
+    height: '',
+    position: {
+      top: '',
+      bottom: '',
+      left: '',
+      right: ''
+    },
+    data: {
+      message: ''
+    }
+  };
+  numTemplateOpens = 0;
+  @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  ngOnInit()
-  {
+  constructor(private authService: AuthService, private router: Router, private flashMessage:FlashMessagesService,
+              public dialog: MdDialog, @Inject(DOCUMENT) doc: any) {
+
+    dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
+      if (!doc.body.classList.contains('no-scroll')) {
+        doc.body.classList.add('no-scroll');
+      }
+    });
+    dialog.afterAllClosed.subscribe(() => {
+      doc.body.classList.remove('no-scroll');
+    });
+  }
+
+  ngOnInit() {
     this.editUsernameField = false;
     this.editEmailField = false;
 
@@ -36,42 +73,34 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  toggleEditUsername()
-  {
+  toggleEditUsername() {
 
-    if(this.editUsernameField == false)
-    {
+    if(this.editUsernameField == false) {
       this.editUsernameField = true;
       return false;
     }
 
-    if(this.editUsernameField == true)
-    {
+    if(this.editUsernameField == true) {
       this.editUsernameField = false;
       return false;
     }
 
   }
 
-  toggleEditEmail()
-  {
-    if(this.editEmailField == false)
-    {
+  toggleEditEmail() {
+    if(this.editEmailField == false) {
       this.editEmailField = true;
       return false;
     }
 
-    if(this.editEmailField == true)
-    {
+    if(this.editEmailField == true) {
       this.editEmailField = false;
       return false;
     }
   }
 
-  changeUsername()
-  {
-    if(this.usernameField == undefined || this.usernameField == "" || this.usernameField == null)
-    {
+  changeUsername() {
+    if(this.usernameField == undefined || this.usernameField == "" || this.usernameField == null) {
       this.errorMessage("Please do not leave any empty fields");
       return false;
     }
@@ -83,8 +112,7 @@ export class ProfileComponent implements OnInit {
     };
 
     this.authService.changeUsername(dataSend).subscribe(data => {
-      if(data.success)
-      {
+      if(data.success) {
         this.flashMessage.show('You have successfully changed your username', {cssClass: 'alert-success', timeout: 3000});
         this.authService.getProfile().subscribe(profile => {
               this.user = profile.user;
@@ -101,21 +129,15 @@ export class ProfileComponent implements OnInit {
             newUser.username = dataSend.username;
             this.authService.setUser(newUser);
             this.authService.setActive(newUser);
-
-
       }
-      else
-      {
+      else {
         this.errorMessage('The username you have chosen is already in use');
       }
     });
   }
 
-  changeEmail()
-  {
-
-    if(this.emailField == undefined || this.emailField == "" || this.emailField == null)
-    {
+  changeEmail() {
+    if(this.emailField == undefined || this.emailField == "" || this.emailField == null) {
       this.errorMessage("Please do not leave any empty fields");
       return false;
     }
@@ -127,8 +149,7 @@ export class ProfileComponent implements OnInit {
     };
 
     this.authService.changeEmail(dataSend).subscribe(data => {
-      if(data.success)
-      {
+      if(data.success) {
         this.flashMessage.show('You have successfully changed your email', {cssClass: 'alert-success', timeout: 3000});
         this.authService.getProfile().subscribe(profile => {
               this.user = profile.user;
@@ -146,18 +167,23 @@ export class ProfileComponent implements OnInit {
         this.authService.setActive(newUser);
 
       }
-      else
-      {
+      else {
         this.errorMessage('The email you have chosen is already in use');
       }
     });
   }
 
-  errorMessage(message)
-  {
+  openEdit() {
+    this.dialogRef = this.dialog.open(EditProfile, this.config);
+    this.dialogRef.afterClosed().subscribe((result: string) => {
+      this.lastCloseResult = result;
+      this.dialogRef = null;
+    });
+  }
+
+  errorMessage(message) {
     this.flashMessage.show(message, {
       cssClass: 'alert-danger',
       timeout: 5000});
   }
-
 }

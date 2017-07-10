@@ -1,0 +1,44 @@
+p {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+/*button {*/
+    /*display: block;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+/*}*/
+
+.title {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.description {
+    margin-bottom: 1em;
+}
+
+button {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+md-input-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button-container {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+md-spinner {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
