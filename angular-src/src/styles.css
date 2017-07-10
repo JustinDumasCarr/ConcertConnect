@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+.pushdown{
+    position: absolute;
+    top:42px;
+    width: 100%;
+
+}
 .white-text {
     color: #FFF!important;
 }
@@ -10,19 +16,20 @@
     min-height: 42px !important;
 }
 .side-margin{
-    margin-left: 40px;
-    margin-right: 40px;
-    position: absolute;
+    box-sizing: border-box;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
     top:42px;
+    width: 100%;
+    background-color: #eeeeee;
 }
 .profile-image{
-    position:relative;
-    top: -120px;
-    left: 20px;
+display: inline-block;
 
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+    width: 33%;
+    height: 50%;
+
 
     background-repeat: no-repeat;
     background-position: center center;

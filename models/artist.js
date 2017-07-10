@@ -11,6 +11,8 @@ const ArtistSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    contactEmail: String,
+    phoneNumber: String,
     userId: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
@@ -24,7 +26,13 @@ const ArtistSchema = mongoose.Schema({
     profileImageURL: {
         type: String,
         required: false
-    }
+    },
+    imageArray: [String],
+
+    genres: [String],
+    description: String,
+
+
 
 
 });

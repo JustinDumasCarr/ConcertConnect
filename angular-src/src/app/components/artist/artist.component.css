@@ -15,3 +15,13 @@ input[type=text] {
 input[type=text]:focus {
     border: 2px solid #555;
 }
+.inline{
+    vertical-align:top;
+    display:inline-block;
+    width:66%;
+    height:200px;
+}
+.parent-image-soundcloud{
+    width:auto;
+    background-color: #e;
+}

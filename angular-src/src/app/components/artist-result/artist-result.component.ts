@@ -5,13 +5,14 @@ class ArtistResult {
     name: string;
     email: string;
     profileImageURL: string;
+    artistId: string;
 
 
-    constructor(name: string, email: string, profileImageURL: string) {
+    constructor(name: string, email: string, profileImageURL: string, artistId : string) {
         this.name = name;
         this.email = email;
         this.profileImageURL = profileImageURL;
-
+this.artistId = artistId;
     }
 }
 
@@ -32,8 +33,8 @@ export class ArtistResultComponent implements OnInit {
     ngOnInit() {
     }
 
-    getProfile(name) {
-        this.router.navigate(['/artist', name]);
+    getProfile(artistId) {
+        this.router.navigate(['/artist', artistId]);
         return false;
     }
 }

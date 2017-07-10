@@ -28,6 +28,7 @@
     padding-left: 20px;
     padding-right: 20px;
     position: fixed;
+    top:0px;
     z-index: 9;
 }
 

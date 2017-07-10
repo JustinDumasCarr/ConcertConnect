@@ -1,4 +1,5 @@
-<div *ngIf="venueExist" class="side-margin">
+<div class="side-margin">
+<div *ngIf="venueExist" >
   <cover-photos [imageArray]="venue.profileImageURL"></cover-photos>
   <img [src]="venue.profileImageURL" class="profile-image">
   <h2 class="page-header">{{venue.name}}</h2>
@@ -18,3 +19,4 @@
   <h2 class="page-header">Venue does not exist</h2>
 </div>
 
+</div>

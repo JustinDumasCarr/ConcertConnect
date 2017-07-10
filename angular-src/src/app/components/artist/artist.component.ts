@@ -65,6 +65,11 @@ export class ArtistComponent implements OnInit
          }
      }
 
+    messageArtist(){
+
+
+    }
+
      changeName() {
          if(this.nameField == undefined || this.nameField == "" || this.nameField == null) {
              this.errorMessage("Please do not leave any empty fields");

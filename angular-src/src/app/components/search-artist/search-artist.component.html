@@ -1,32 +1,24 @@
-<form>
-    <div class="input-group">
-        <input type="text"
-               id="query"
-               [(ngModel)]="artistName"
-               name="query"
-               class="form-control"
-               placeholder="Search..."
-               aria-describedby="sizing-addon2"
 
-        />
-        <span class="input-group-btn">
-             <button
-                     type="submit"
-                     class="btn btn-default search-button"
-                     (click)="getResults()">Search</button>
-        </span>
+
+
+
+
+<div class="pushdown ">
+    <div class="genre-container">
+        <div class="genre" *ngFor="let genre of genres; let i = index" (click)="changeGenre(genre) " [style.background-color]="getStyle(genre)">
+            {{genre[0]}}
+        </div>
     </div>
-</form>
+    <div class="sub-genre-container">
+        <div class="genre" *ngFor="let subgenre of selectedGenre[1]; let i = index">
+            {{subgenre}}
+        </div>
+    </div>
+    <div class="side-margin">
 
-<!--
-<md-select placeholder="Genre" multiple="true">
-    <md-option>Electronic</md-option>
-    <md-option>Metal</md-option>
-</md-select>
--->
 
-<div class="card-deck-wrapper">
-    <div class="card-deck">
-        <artist-result *ngFor="let aArtistResult of artistResults" [artistResult]="aArtistResult"></artist-result>
+        <div class="card-container">
+            <artist-result *ngFor="let aArtistResult of artistResults" [artistResult]="aArtistResult"></artist-result>
+        </div>
     </div>
 </div>

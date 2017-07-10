@@ -1,4 +1,13 @@
 .cover-photo{
+   width: 100%;
+
+
+
+}
+.cover-photo-container{
+    height: 200px;
     width: 100%;
-    height:260px;
+    overflow-x: hidden;
+    overflow-y:hidden;
+
 }

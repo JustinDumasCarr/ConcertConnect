@@ -1,7 +1,12 @@
-<div *ngIf="artistExist" class="side-margin">
-  <cover-photos [imageArray]="artist.profileImageURL"></cover-photos>
-  <img [src]="artist.profileImageURL" class="profile-image">
+<div class="side-margin">
+<div *ngIf="artistExist" >
+
+  <div class="parent-image-soundcloud">
+ <img [src]="artist.profileImageURL" class="profile-image">
+  <soundcloud-container class="inline"></soundcloud-container>
+  </div>
   <h2 class="page-header">{{artist.name}}</h2>
+  <button md-button (click)="messageArtist()">Contact</button>
   <ul class="list-group">
     <li class="list-group-item">Name: {{artist.name}} <a *ngIf="isArtistDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>
     <li *ngIf="isArtistDisplay && editNameField" class="list-group-item"> <input type="text" [(ngModel)]="nameField"> <button class="btn-success" (click)="changeName()">Save</button> <button class="btn-danger" (click)="toggleEditName()">Cancel</button></li>
@@ -14,4 +19,4 @@
 <div *ngIf="artistNotExist">
   <h2 class="page-header">Artist does not exist</h2>
 </div>
-
+</div>

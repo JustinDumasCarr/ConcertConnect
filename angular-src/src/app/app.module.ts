@@ -41,8 +41,9 @@ import { CovalentMessageModule } from '@covalent/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdDialogModule} from '@angular/material';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
+
 
 
 
@@ -105,6 +106,11 @@ const appRoutes: Routes =  [
     CovalentMessageModule,
     MdIconModule,
     MdMenuModule
+
+  ],
+  entryComponents: [
+    ArtistComponent,
+    VenueComponent
   ],
   providers: [ValidateService, AuthService, SearchService, AuthGuard],
   bootstrap: [AppComponent]
