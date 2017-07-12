@@ -48,6 +48,10 @@ export class EditProfile {
     currentUsername: string;
     currentEmail: string;
 
+    userChange: boolean;
+    emailChange: boolean;
+    bothChange: boolean;
+
     formSubmit: boolean;
     formSuccess: boolean;
     formFail: boolean;
@@ -80,17 +84,23 @@ export class EditProfile {
         console.log("Change data function has been pressed");
         //Set the placeholder to be the current username
 
-        let userChange = false;
+        //Both username and email need to be changed
+        if((this.username.value != null && this.username.value.trim() != "") && (this.email.value != null && this.email.value.trim() != "")) {
+            this.formStatus="form-loading";
+            //Use callback function here. When the function starts, it will trigger the loading state. When the function
+            //ends (both userChange and emailChange are true then move to the finished state => display success message)
+            this.changeBoth("");
+        }
+
+
+
+
         if(this.username.value != null && this.username.value.trim() != "") {
-            userChange = true;
-            console.log("username is valid");
             this.changeUsername();
         }
 
-        let emailChange = false;
         if(this.email.value != null && this.email.value.trim() != "") {
-            emailChange = true;
-            console.log("email is valid");
+            this.changeEmail();
         }
 
 
@@ -103,9 +113,16 @@ export class EditProfile {
         //Check to see if the password if unchanged
     }
 
+
+    changeBoth(callback) {
+        this.formStatus = "form-submitted";
+        if(this.userChange ==  true && this.emailChange == true) {
+            callback();
+        }
+    }
+
     changeUsername() {
 
-        console.log("Change username function has been called");
 
         //Backend code here
         const dataSend = {
@@ -115,7 +132,6 @@ export class EditProfile {
 
         this.authService.changeUsername(dataSend).subscribe(data => {
             if(data.success) {
-                alert("You have successfully changed your username");
 
                 //
                 // this.authService.getProfile().subscribe(profile => {
@@ -131,11 +147,15 @@ export class EditProfile {
                 newUser.username = dataSend.username;
                 this.authService.setUser(newUser);
                 this.authService.setActive(newUser);
-                return true;
+
+                this.formSubmit = true;
+                this.formSuccess = true;
+                this.userChange = true;
             }
             else {
-                alert('The username you have chosen is already in use');
-                return true;
+                this.formSubmit = true;
+                this.formSuccess = false;
+                //alert('The username you have chosen is already in use');
             }
         });
     }
@@ -166,9 +186,16 @@ export class EditProfile {
                 this.authService.setUser(newUser);
                 this.authService.setActive(newUser);
 
+                this.formSubmit = true;
+                this.formSuccess = true;
+                this.emailChange = true;
+
             }
             else {
                 // this.errorMessage('The email you have chosen is already in use');
+                this.formSubmit = true;
+                this.formSuccess = false;
+                return false;
             }
         });
     }
