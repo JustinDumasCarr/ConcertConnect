@@ -135,6 +135,53 @@ router.post('/changeemail', (req, res, next) => {
     });
 });
 
+
+
+//Change email
+router.post('/changeusernamandemail', (req, res, next) => {
+
+    //This variable will not be used if user already exists
+    const userInfo = {
+        email: req.body.email,
+        currentEmail: req.body.currentEmail,
+        username: req.body.username,
+        currentUsername: req.body.currentUsername
+    };
+
+    //Checks if email exists
+    User.getUserByEmail(userInfo.email, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+        else {
+            User.changeEmail(userInfo, (err, callback) => {
+                if (callback) {
+                    console.log(callback);
+                    // return res.json({success: true, msg: 'Email has been changed successfully'});
+                    User.getUserByUsername(userInfo.username, (err, user) => {
+                        if (err) throw err;
+                        if (user) {
+                            return res.json({success: false, msg: 'Username already exists, email has been changed'});
+                        }
+                        else {
+                            User.changeUsername(userInfo, (err, callback) => {
+                                if (callback) {
+                                    console.log(callback);
+                                    return res.json({success: true, msg: 'Username and email have been changed successfully'});
+                                }
+
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+
 router.get('/sign-s3', (req, res) => {
     const s3 = new aws.S3();
     console.log(req.query);
