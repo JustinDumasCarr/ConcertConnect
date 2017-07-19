@@ -145,7 +145,7 @@ router.post('/changeusernamandemail', (req, res, next) => {
         email: req.body.email,
         currentEmail: req.body.currentEmail,
         username: req.body.username,
-        currentUsername: req.body.currentUsername
+        currUsername: req.body.currentUsername
     };
 
     //Checks if email exists

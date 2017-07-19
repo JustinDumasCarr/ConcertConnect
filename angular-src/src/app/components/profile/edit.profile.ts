@@ -75,128 +75,45 @@ export class EditProfile {
     }
 
     changeData() {
-
-        //Don't forget to reset boolean values before and after data is changed
-        console.log("Testing form input");
-        console.log(this.username.value);
-        console.log(this.email.value);
-
-        console.log("Change data function has been pressed");
-        //Set the placeholder to be the current username
-
         //Both username and email need to be changed
         if((this.username.value != null && this.username.value.trim() != "") && (this.email.value != null && this.email.value.trim() != "")) {
             this.formStatus="form-loading";
-            //Use callback function here. When the function starts, it will trigger the loading state. When the function
-            //ends (both userChange and emailChange are true then move to the finished state => display success message)
-            this.changeBoth("");
-        }
-
-
-
-
-        if(this.username.value != null && this.username.value.trim() != "") {
-            this.changeUsername();
-        }
-
-        if(this.email.value != null && this.email.value.trim() != "") {
-            this.changeEmail();
-        }
-
-
-        //Next steps:
-        // On submit, it will execute the existing logic and change the username and email for the user
-
-
-        //Check to see if the username is unchanged
-
-        //Check to see if the password if unchanged
-    }
-
-
-    changeBoth(callback) {
-        this.formStatus = "form-submitted";
-        if(this.userChange ==  true && this.emailChange == true) {
-            callback();
+            this.changeUsernameAndEmail();
         }
     }
 
-    changeUsername() {
-
-
-        //Backend code here
+    changeUsernameAndEmail() {
         const dataSend = {
             username: this.username.value,
-            currentUsername: this.authService.getCurrentUsername()
-        };
-
-        this.authService.changeUsername(dataSend).subscribe(data => {
-            if(data.success) {
-
-                //
-                // this.authService.getProfile().subscribe(profile => {
-                //        // this.user = profile.user;
-                //     },
-                //     err => {
-                //         console.log(err);
-                //         return false;
-                //     });
-               // this.editUsernameField = false;
-                //Reloads local storage data with new values
-                let newUser = JSON.parse(this.authService.getUserLocal());
-                newUser.username = dataSend.username;
-                this.authService.setUser(newUser);
-                this.authService.setActive(newUser);
-
-                this.formSubmit = true;
-                this.formSuccess = true;
-                this.userChange = true;
-            }
-            else {
-                this.formSubmit = true;
-                this.formSuccess = false;
-                //alert('The username you have chosen is already in use');
-            }
-        });
-    }
-
-    changeEmail() {
-
-        //Backend code here
-        const dataSend = {
+            currentUsername: this.authService.getCurrentUsername(),
             email: this.email.value,
             currentEmail: this.authService.getCurrentEmail()
         };
 
-        this.authService.changeEmail(dataSend).subscribe(data => {
+        this.authService.changeEmailAndUsername(dataSend).subscribe(data => {
             if(data.success) {
-                // this.flashMessage.show('You have successfully changed your email', {cssClass: 'alert-success', timeout: 3000});
-                this.authService.getProfile().subscribe(profile => {
-                        // this.user = profile.user;
-                    },
-                    err => {
-                        console.log(err);
-                        return false;
-                    });
-                // this.editEmailField = false;
 
-                //Reloads local storage data with new values
-                let newUser = JSON.parse(this.authService.getUserLocal());
+                // Updating user information on the front-end
+                let newUser = JSON.parse(this.authService.getUserLocal()); // This line may be causing the problem
+                newUser.username = dataSend.username;
                 newUser.email = dataSend.email;
                 this.authService.setUser(newUser);
                 this.authService.setActive(newUser);
 
+                this.originalUsername = this.authService.getCurrentUsername();
+                this.originalEmail = this.authService.getCurrentEmail();
+
                 this.formSubmit = true;
                 this.formSuccess = true;
-                this.emailChange = true;
-
-            }
-            else {
-                // this.errorMessage('The email you have chosen is already in use');
+                this.userChange = true;
+                this.formStatus = "form-submitted";
+            } else {
                 this.formSubmit = true;
                 this.formSuccess = false;
-                return false;
             }
-        });
+        })
     }
+
+
+
 }
