@@ -18,10 +18,17 @@ input[type=text]:focus {
 .inline{
     vertical-align:top;
     display:inline-block;
-    width:66%;
-    height:200px;
+
 }
 .parent-image-soundcloud{
     width:auto;
     background-color: #e;
+}
+
+.section{
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    width:100%;
+    height:auto;
 }

@@ -1,38 +1,22 @@
 
+<md-card class="example-card">
+  <md-card-header>
+    <div md-card-avatar class="example-header-image"></div>
+    <md-card-title>{{venueResult.name}}</md-card-title>
+    <md-card-subtitle>Venue</md-card-subtitle>
+  </md-card-header>
+  <img md-card-image class="background-image-size" [src]="venueResult.profileImageURL">
+  <md-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
 
-<div class="col-lg-4">
-  <div class="card hovercard">
-    <div class="cardheader">
+    </p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button color="accent" (click)="getProfile(venueResult._id)">Profile</button>
 
-    </div>
-    <div class="avatar">
-      <img [src]="venueResult.profileImageURL">
-    </div>
-    <div class="info">
-      <div class="title">
-        <a target="_blank" (click)="getProfile(venueResult.name)">{{venueResult.name}}</a>
-      </div>
-      <div class="desc">Venue</div>    <!--Gotta add variable-->
-      <div class="desc">bicurious</div>
-      <div class="desc">{{venueResult.email}}</div>
-      <button type="button"  (click)="getProfile(venueResult.name)">Profile</button>
-    </div>
-    <div class="bottom">
-      <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
-        <i class="fa fa-twitter"></i>
-      </a>
-      <a class="btn btn-danger btn-sm" rel="publisher"
-         href="https://plus.google.com/+ahmshahnuralam">
-        <i class="fa fa-google-plus"></i>
-      </a>
-      <a class="btn btn-primary btn-sm" rel="publisher"
-         href="https://plus.google.com/shahnuralam">
-        <i class="fa fa-facebook"></i>
-      </a>
-      <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
-        <i class="fa fa-behance"></i>
-      </a>
-    </div>
-  </div>
+  </md-card-actions>
+</md-card>
 
-</div>
+
+

@@ -1,25 +1,6 @@
-<form>
-  <div class="input-group">
-    <input type="text"
-           id="query"
-           [(ngModel)]="venueName"
-           name="query"
-           class="form-control"
-           placeholder="Search..."
-           aria-describedby="sizing-addon2"
-
-    />
-    <span class="input-group-btn">
-             <button
-                     type="submit"
-                     class="btn btn-default search-button"
-                     (click)="getResults()">Search</button>
-        </span>
-  </div>
-
-  <div class="card-deck-wrapper">
-    <div class="card-deck">
+<div class="side-margin">
+  <div class="card-container">
       <venue-result *ngFor="let aVenueResult of venueResults" [venueResult]="aVenueResult"></venue-result>
-    </div>
+
   </div>
-</form>
+</div>

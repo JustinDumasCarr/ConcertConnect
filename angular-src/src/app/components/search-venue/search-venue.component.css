@@ -4,3 +4,11 @@
     flex-wrap: wrap;
     background-color: seashell;
 }
+
+.card-container {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    justify-content: space-around;
+}

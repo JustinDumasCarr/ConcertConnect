@@ -69,6 +69,13 @@ export class AuthService {
       return this.http.post('http://localhost:3000/users/changeusernamandemail',data,{headers: headers})
           .map(res => res.json());
   }
+  changeArtistInformation(data) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    console.log('changeartistinfo');
+    return this.http.post('http://localhost:3000/users/artists/changeartistinformation',data,{headers: headers})
+        .map(res => res.json());
+  }
 
   changeArtistName(data) {
     let headers = new Headers();

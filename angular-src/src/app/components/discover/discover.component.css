@@ -1,32 +1,26 @@
-.card{
 
-    padding: 5px;
-    background-color: #eeece1;
-    max-width: 300px;
-    width: 250px;
-    height: 300px;
-    border-radius: 10px;
-    position:relative;
+
+.card-container {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.btn{
-width: 100px;
-}
+
 .title{
-    padding: 10px;
-    height: 50px;
+  margin:10px;
+    display: inline-block;
+    font-size: 22px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: 500;
 }
-.info{
-    height: 120px;
-    padding: 10px;
-}
-.container {
 
-    position: relative;
-    width: 100%;
-}
-.row {
-min-width: 50%;
-    margin-left: 100px;
-    margin-right: 100px;
+
+.artist-section{
+    padding-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    width:100%;
+    height:auto;
 }

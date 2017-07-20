@@ -19,9 +19,12 @@
     box-sizing: border-box;
     padding-left: 40px;
     padding-right: 40px;
+    padding-top:20px;
+
     position: relative;
     top:42px;
     width: 100%;
+    height: 100%;
     background-color: #eeeeee;
 }
 .profile-image{
@@ -29,9 +32,11 @@ display: inline-block;
 
     width: 33%;
     height: 50%;
+}
+.soundcloud-image{
 
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    display: inline-block;
+    width: 60%;
+    height: 50%;
+    margin-right: auto;
 }
