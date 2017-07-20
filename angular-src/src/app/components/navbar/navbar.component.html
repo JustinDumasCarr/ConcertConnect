@@ -71,7 +71,7 @@
     <div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">
       <md-toolbar color="primary" class="dropdown">
         <button md-icon-button [mdMenuTriggerFor]="menu" aria-label="Open basic menu">
-          Toggle
+          {{currentActiveAccount}}
           <md-icon>arrow_drop_down</md-icon>
         </button>
       </md-toolbar>

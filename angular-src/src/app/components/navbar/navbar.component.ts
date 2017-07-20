@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
 
   userName: String;
 
+  currentActiveAccount: string;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -68,29 +69,7 @@ export class NavbarComponent implements OnInit {
       this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
 
-//    jQuery('.ui.dropdown').dropdown();
-
-
-    // setTimeout(() => {
-    //   jQuery('.ui.dropdown').dropdown();
-    // }, 1)
-  }
-
-  ngAfterViewInit() {
-//   jQuery('.ui.dropdown').dropdown();
-  }
-
-  ngAfterViewChecked() {
-
-  //  jQuery('.ui.dropdown').dropdown({action:'nothing'});
- //   this.initializeCounter++;
-
-   // if ((this.initializeCounter-2) % 7 == 0) {
-    //  console.log("RUN ONCE");
-   //   jQuery('.ui.dropdown').dropdown();
-  //  }
-
- //   console.log(this.initializeCounter);
+    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
   }
 
   onLogoutClick() {
@@ -109,16 +88,17 @@ export class NavbarComponent implements OnInit {
     this.toggleValue = this.userName;
     this.router.navigate(['/profile']);
     this.authService.setActive(JSON.parse(localStorage.getItem('user')));
+    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
     return false;
   }
 
   changeUserArtist(selectedArtist,newID)
   {
-
     console.log("newID: "+ newID);
     this.toggleValue = newID;
     this.authService.setActive(selectedArtist);
     this.router.navigate(['/artist',newID]);
+    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
     return false;
   }
 
@@ -127,13 +107,12 @@ export class NavbarComponent implements OnInit {
     this.toggleValue = newID;
     this.authService.setActive(selectedVenue);
     this.router.navigate(['/venue',newID]);
+    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
     return false;
   }
 
   profileClick()
   {
-
-
     if(JSON.parse(localStorage.getItem('active')).type == 'user')
     {
       let profile_id = JSON.parse(localStorage.getItem('active'))._id;
@@ -153,7 +132,6 @@ export class NavbarComponent implements OnInit {
       console.log(profile_id);
       this.router.navigate(['/venue',profile_id]);
     }
-
   }
 
 
