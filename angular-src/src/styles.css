@@ -40,3 +40,7 @@ display: inline-block;
     height: 50%;
     margin-right: auto;
 }
+
+body, head {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}

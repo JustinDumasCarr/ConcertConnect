@@ -1,0 +1,34 @@
+.dashboard-card {
+    margin-top: 4em;
+}
+
+md-card {
+    padding-bottom: 1em;
+}
+
+md-card-title {
+    text-align: center;
+    font-size: 2em;
+}
+
+md-card-subtitle {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+md-card-content {
+    text-align: center;
+    font-size: 1em;
+}
+
+.register-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #424242;
+    color: white;
+}
+
+.register-section {
+    margin-bottom: 2.5em;
+}

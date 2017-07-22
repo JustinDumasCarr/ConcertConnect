@@ -54,7 +54,7 @@ router.post('/search', (req, res, next) => {
 });
 
 
-//Returns venue information based on details
+//Returns artist information based on details
 router.post('/getProfile', (req, res, next) => {
 
 console.log(req.body);

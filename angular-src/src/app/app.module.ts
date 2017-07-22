@@ -32,6 +32,7 @@ import { VenueResultComponent } from './components/venue-result/venue-result.com
 
 //Dialogs
 import { EditProfile } from './components/profile/edit.profile';
+import { EditArtist } from './components/artist/edit.artist';
 
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
@@ -81,7 +82,8 @@ const appRoutes: Routes =  [
     SearchVenueComponent,
     VenueResultComponent,
     CoverPhotosComponent,
-    EditProfile
+    EditProfile,
+    EditArtist
   ],
   imports: [
     BrowserModule,
@@ -112,14 +114,8 @@ const appRoutes: Routes =  [
     MdDialogModule,
     MdProgressSpinnerModule
   ],
-
-
-
-
-
-  entryComponents: [EditProfile,   ArtistComponent,
-    VenueComponent],
-  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile],
+  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist],
+  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

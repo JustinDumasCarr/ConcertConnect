@@ -1,36 +1,15 @@
-<div class="side-margin">
-    <div class="section">
-    <div *ngIf="artistExist">
+<md-card *ngIf="artist" class="profile-card">
+    <md-card-title-group>
+        <md-card-title>{{artist.name}}</md-card-title>
+    </md-card-title-group>
 
-        <div >
-            <!--<img class="inline profile-image" [src]="artist.profileImageURL" >-->
-            <img class="inline profile-image" [src]="'/src/app/images/placeholder-user.jpg'" >
-            <img class="inline soundcloud-image" [src]="'/src/app/images/soundcloud.png'">
-        </div>
-        <h2 class="page-header">{{artist.name}}</h2>
+    <md-card-title-group>
+        <md-card-subtitle>Artist Name: {{artist.name}}</md-card-subtitle>
+    </md-card-title-group>
 
+    <md-card-title-group>
+        <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
+    </md-card-title-group>
 
-        <ul class="list-group">
-            <li class="list-group-item">Name: {{artist.name}} <a *ngIf="isArtistDisplay" class="editLink"
-                                                                 (click)="toggleEditName()">Edit</a></li>
-            <li *ngIf="isArtistDisplay && editNameField" class="list-group-item"><input type="text"
-                                                                                        [(ngModel)]="nameField">
-                <button class="btn-success" (click)="changeName()">Save</button>
-                <button class="btn-danger" (click)="toggleEditName()">Cancel</button>
-            </li>
-
-            <li class="list-group-item">Email: {{artist.email}} <a *ngIf="isArtistDisplay" class="editLink"
-                                                                   (click)="toggleEditEmail()">Edit</a></li>
-            <li *ngIf="isArtistDisplay && editEmailField" class="list-group-item"><input type="text"
-                                                                                         [(ngModel)]="emailField">
-                <button class="btn-success" (click)="changeEmail()">Save</button>
-                <button class="btn-danger" (click)="toggleEditEmail()">Cancel</button>
-            </li>
-        </ul>
-    </div>
-    </div>
-
-    <div *ngIf="artistNotExist">
-        <h2 class="page-header">Artist does not exist</h2>
-    </div>
-</div>
+    <button md-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
+</md-card>
