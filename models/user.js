@@ -104,6 +104,14 @@ module.exports.changeArtistEmail = function (userInfo,callback) {
 
 };
 
+// Changing venue name
+module.exports.changeVenueName = function (userInfo,callback) {
+    User.update({'venues.name': userInfo.currentName},{
+        '$set': {
+            'venues.$.name': userInfo.name
+        }}, callback)
+
+};
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {

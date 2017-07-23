@@ -1,22 +1,15 @@
-<div class="side-margin">
-<div *ngIf="venueExist" >
-  <cover-photos [imageArray]="venue.profileImageURL"></cover-photos>
-  <img [src]="venue.profileImageURL" class="profile-image">
-  <h2 class="page-header">{{venue.name}}</h2>
-  <ul class="list-group">
-    <li class="list-group-item">Name: {{venue.name}} <a *ngIf="isVenueDisplay" class="editLink" (click)="toggleEditName()">Edit</a></li>
-    <li *ngIf="isVenueDisplay && editNameField" class="list-group-item"> <input type="text" [(ngModel)]="nameField"> <button class="btn-success" (click)="changeName()">Save</button> <button class="btn-danger" (click)="toggleEditName()">Cancel</button></li>
+<md-card *ngIf="venue" class="profile-card">
+  <md-card-title-group>
+    <md-card-title>{{venue.name}}</md-card-title>
+  </md-card-title-group>
 
-    <li class="list-group-item">Email: {{venue.email}} <a *ngIf="isVenueDisplay" class="editLink" (click)="toggleEditEmail()">Edit</a></li>
-    <li *ngIf="isVenueDisplay && editEmailField" class="list-group-item"> <input type="text" [(ngModel)]="emailField"> <button class="btn-success" (click)="changeEmail()">Save</button> <button class="btn-danger" (click)="toggleEditEmail()">Cancel</button></li>
+  <md-card-title-group>
+    <md-card-subtitle>Venue Name: {{venue.name}}</md-card-subtitle>
+  </md-card-title-group>
 
-  </ul>
+  <md-card-title-group>
+    <md-card-subtitle>Email: {{venue.email}}</md-card-subtitle>
+  </md-card-title-group>
 
-
-</div>
-
-<div *ngIf="venueNotExist">
-  <h2 class="page-header">Venue does not exist</h2>
-</div>
-
-</div>
+  <button md-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
+</md-card>

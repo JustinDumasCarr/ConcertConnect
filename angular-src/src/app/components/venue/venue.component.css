@@ -1,17 +1,10 @@
-.editLink
-{
-    cursor: pointer;
-    color: #1c94c4;
+/* Card CSS */
+.profile-card {
+    margin-top: 5em;
+    width: 40em;
+    padding-bottom: .5em;
 }
 
-input[type=text] {
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-}
-
-input[type=text]:focus {
-    border: 2px solid #555;
+.edit-button {
+    margin-left: .5em;
 }

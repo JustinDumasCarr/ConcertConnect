@@ -75,4 +75,42 @@ router.post('/search', (req, res, next) => {
     })
 });
 
+//Change name and email
+router.post('/changenameandemail', (req, res, next) => {
+    const emailInfo = {
+        email: req.body.email,
+        currentEmail: req.body.currentEmail,
+    };
+
+    const nameInfo = {
+        name: req.body.name,
+        currentName: req.body.currentName
+    };
+
+    //Checks if artist exists
+    Venue.getVenueByEmail(emailInfo.email, (err, user) =>
+    {
+        if (err) throw err;
+        if (user) {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+        else
+        {
+            Venue.changeEmail(emailInfo, (err, callback) => {
+                if(callback)
+                {
+                    Venue.changeName(nameInfo, (err, callback) => {
+                        if(callback)
+                        {
+                            return res.json({success: true, msg: 'Name and Email have been changed successfully'});
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+});
+
+
 module.exports = router;

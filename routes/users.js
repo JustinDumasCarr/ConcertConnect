@@ -210,37 +210,51 @@ router.get('/sign-s3', (req, res) => {
 });
 
 //Change artist name
-        router.post('/changeartistname', (req, res, next) => {
-            //This variable will not be used if user already exists
-            const userInfo = {
-                name: req.body.name,
-                currentName: req.body.currentName
-            };
+router.post('/changeartistname', (req, res, next) => {
+    //This variable will not be used if user already exists
+    const userInfo = {
+        name: req.body.name,
+        currentName: req.body.currentName
+    };
 
-            User.changeArtistName(userInfo, (err, callback) => {
-                if (callback) {
-                    console.log(callback);
-                    return res.json({success: true, msg: 'Artist name has been changed successfully'});
-                }
-
-            });
-        });
+    User.changeArtistName(userInfo, (err, callback) => {
+        if (callback) {
+            console.log(callback);
+            return res.json({success: true, msg: 'Artist name has been changed successfully'});
+        }
+    });
+});
 
 //Change artist email
-        router.post('/changeartistemail', (req, res, next) => {
-            //This variable will not be used if user already exists
-            const userInfo = {
-                email: req.body.email,
-                currentEmail: req.body.currentEmail
-            };
+router.post('/changeartistemail', (req, res, next) => {
+    //This variable will not be used if user already exists
+    const userInfo = {
+        email: req.body.email,
+        currentEmail: req.body.currentEmail
+    };
 
-            User.changeArtistEmail(userInfo, (err, callback) => {
-                if (callback) {
-                    console.log(callback);
-                    return res.json({success: true, msg: 'Artist name has been changed successfully'});
-                }
-            });
-        });
+    User.changeArtistEmail(userInfo, (err, callback) => {
+        if (callback) {
+            console.log(callback);
+            return res.json({success: true, msg: 'Artist name has been changed successfully'});
+        }
+    });
+});
 
+// Change venue name
+router.post('/changevenuename', (req, res, next) => {
+    //This variable will not be used if user already exists
+    const userInfo = {
+        name: req.body.name,
+        currentName: req.body.currentName
+    };
 
-        module.exports = router;
+    User.changeVenueName(userInfo, (err, callback) => {
+        if (callback) {
+            console.log(callback);
+            return res.json({success: true, msg: 'Venue name has been changed successfully'});
+        }
+    });
+});
+
+module.exports = router;

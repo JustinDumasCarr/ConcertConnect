@@ -1,12 +1,17 @@
-<h2 class="page-header">Login</h2>
+<md-card class="login-card">
+<md-card-title>Login</md-card-title>
 <form (submit)="onLoginSubmit()">
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" [(ngModel)]="username" name="username">
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" [(ngModel)]="password" name="password">
-  </div>
-  <input type="submit" class="btn btn-primary" value="Login">
+
+  <md-input-container>
+    <input mdInput placeholder="Username" type="text" class="form-control" [(ngModel)]="username" name="username">
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Password" type="password" class="form-control" [(ngModel)]="password" name="password">
+  </md-input-container>
+
+  <button md-raised-button type="submit" class="login-button">Login</button>
+
+
 </form>
+</md-card>

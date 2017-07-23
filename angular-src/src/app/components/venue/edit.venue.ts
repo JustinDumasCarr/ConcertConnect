@@ -11,10 +11,10 @@ import {AuthService} from '../../services/auth.service';
             <p class="title">Edit Information</p>
             <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
                 <md-input-container>
-                    <input mdInput type="text" value="{{artist.name}}" formControlName="artistName">
+                    <input mdInput type="text" value="{{venue.name}}" formControlName="venueName">
                 </md-input-container>
                 <md-input-container>
-                    <input mdInput type="text" value="{{artist.email}}" formControlName="artistEmail">
+                    <input mdInput type="text" value="{{venue.email}}" formControlName="venueEmail">
                 </md-input-container>
                 <div class="button-container">
                     <button md-raised-button (click)="dialogRef.close()">Cancel</button>
@@ -36,13 +36,13 @@ import {AuthService} from '../../services/auth.service';
         </div>
         <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
        `,
-    styleUrls: ['edit.artist.css']
+    styleUrls: ['edit.venue.css']
 })
-export class EditArtist {
+export class EditVenue {
     private _dimesionToggle = false;
     userInformation: FormGroup;
-    artistName: FormControl;
-    artistEmail: FormControl;
+    venueName: FormControl;
+    venueEmail: FormControl;
 
     originalUsername: string;
     originalEmail: string;
@@ -55,20 +55,20 @@ export class EditArtist {
     formSuccess: boolean;
     formFail: boolean;
     formStatus: string;
-    artist: Object;
+    venue: Object;
     updateProfile = new EventEmitter();
 
     constructor(
-        public dialogRef: MdDialogRef<EditArtist>, private route: ActivatedRoute,
+        public dialogRef: MdDialogRef<EditVenue>, private route: ActivatedRoute,
         @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
-        this.artistName = new FormControl();
-        this.artistEmail = new FormControl();
-        this.userInformation = new FormGroup({artistName: this.artistName, artistEmail: this.artistEmail});
+        this.venueName = new FormControl();
+        this.venueEmail = new FormControl();
+        this.userInformation = new FormGroup({venueName: this.venueName, venueEmail: this.venueEmail});
         this.formSubmit = false;
         this.formSuccess = false;
         this.formFail = false;
         this.formStatus = "form-not-submitted";
-        this.artist = this.data;
+        this.venue = this.data;
 
     }
 
@@ -77,48 +77,46 @@ export class EditArtist {
 
     changeData() {
         //Both username and email need to be changed
-        if((this.artistName.value != null && this.artistName.value.trim() != "") && (this.artistEmail.value != null && this.artistEmail.value.trim() != "")) {
+        if((this.venueName.value != null && this.venueName.value.trim() != "") && (this.venueEmail.value != null && this.venueEmail.value.trim() != "")) {
             this.formStatus="form-loading";
             this.changeNameAndEmail();
         }
     }
 
     changeNameAndEmail() {
-        console.log("Name and email function called");
-
         const dataSend = {
-          name: this.artistName.value,
-          currentName: this.artist['name'],
-          email: this.artistEmail.value,
-          currentEmail: this.artist['email']
+            name: this.venueName.value,
+            currentName: this.venue['name'],
+            email: this.venueEmail.value,
+            currentEmail: this.venue['email']
         };
 
         const nameData = {
-          name: this.artistName.value,
-          currentName: this.artist['name']
+            name: this.venueName.value,
+            currentName: this.venue['name']
         };
 
-        this.authService.changeArtistNameProfile(nameData).subscribe(data => {
+        this.authService.changeVenueNameProfile(nameData).subscribe(data => {
             if(data.success) {
-             // Validate and handle errors here later
+                // Validate and handle errors here later
             }
         });
 
-        this.authService.changeArtistNameAndEmail(dataSend).subscribe(data => {
-           if(data.success) {
-               this.artist['name'] =  this.artistName.value;
-               this.artist['email'] = this.artistEmail.value;
-               this.updateProfile.emit(this.artist);
+        this.authService.changeVenueNameAndEmail(dataSend).subscribe(data => {
+            if(data.success) {
+                this.venue['name'] =  this.venueName.value;
+                this.venue['email'] = this.venueEmail.value;
+                this.updateProfile.emit(this.venue);
 
-               this.formSubmit = true;
-               this.formSuccess = true;
-               this.userChange = true;
-               this.formStatus = "form-submitted";
+                this.formSubmit = true;
+                this.formSuccess = true;
+                this.userChange = true;
+                this.formStatus = "form-submitted";
 
-           } else {
-               this.formSubmit = true;
-               this.formSuccess = false;
-           }
+            } else {
+                this.formSubmit = true;
+                this.formSuccess = false;
+            }
         });
     }
 }

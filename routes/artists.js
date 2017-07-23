@@ -140,6 +140,42 @@ router.post('/changeemail', (req, res, next) =>
     });
 });
 
+//Change name and email
+router.post('/changenameandemail', (req, res, next) => {
+   const emailInfo = {
+       email: req.body.email,
+       currentEmail: req.body.currentEmail,
+   };
+
+   const nameInfo = {
+       name: req.body.name,
+       currentName: req.body.currentName
+   };
+
+    //Checks if artist exists
+    Artist.getArtistByEmail(emailInfo.email, (err, user) =>
+    {
+        if (err) throw err;
+        if (user) {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+        else
+        {
+            Artist.changeEmail(emailInfo, (err, callback) => {
+                if(callback)
+                {
+                    Artist.changeName(nameInfo, (err, callback) => {
+                        if(callback)
+                        {
+                            return res.json({success: true, msg: 'Name and Email have been changed successfully'});
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+});
 
 
 module.exports = router;

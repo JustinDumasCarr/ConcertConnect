@@ -1,0 +1,25 @@
+md-card {
+    padding: 2% 2% 2% 2%;
+}
+
+md-card-title {
+    text-align: center;
+}
+
+md-input-container {
+    width: 100%;
+}
+
+.login-card {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+    width: 30%;
+}
+
+.login-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

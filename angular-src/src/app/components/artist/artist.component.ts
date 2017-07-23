@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {FlashMessagesService} from 'angular2-flash-messages';
 
 //Dialog Stuff
 import { EditArtist } from '../artist/edit.artist';
@@ -21,9 +20,6 @@ export class ArtistComponent implements OnInit
     artistExist: boolean;
     artistNotExist: boolean;
     isArtistDisplay: boolean;
-
-    editEmailField: boolean;
-    editNameField: boolean;
 
     nameField: string;
     emailField: string;
@@ -45,7 +41,6 @@ export class ArtistComponent implements OnInit
             right: ''
         },
         data: {
-            message: ''
         }
     };
     numTemplateOpens = 0;
@@ -75,9 +70,9 @@ export class ArtistComponent implements OnInit
                     }
                     else {
                         this.artist = data;
+                        this.config.data = data;
                         this.artistExist = true;
                     }
-
                     this.isArtist();
                 },
                 err => {
@@ -87,8 +82,6 @@ export class ArtistComponent implements OnInit
             );
         })
     }
-
-
 
     isArtist() {
         let artists = this.authService.getArtists();
@@ -104,9 +97,14 @@ export class ArtistComponent implements OnInit
 
     openEdit() {
         this.dialogRef = this.dialog.open(EditArtist, this.config);
+        const sub = this.dialogRef.componentInstance.updateProfile.subscribe((data) => {
+            this.artist = data;
+            this.config.data = data;
+        });
         this.dialogRef.afterClosed().subscribe((result: string) => {
             this.lastCloseResult = result;
             this.dialogRef = null;
+            sub.unsubscribe();
         });
     }
 }

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+
+//Dialog Stuff
+import { EditVenue } from '../venue/edit.venue';
+import {DOCUMENT} from '@angular/platform-browser';
+import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-venue',
@@ -15,16 +20,42 @@ export class VenueComponent implements OnInit {
   venueNotExist: boolean;
   isVenueDisplay: boolean;
 
-  editEmailField: boolean;
-  editNameField: boolean;
+    nameField: string;
+    emailField: string;
 
-  nameField: string;
-  emailField: string;
+    //Dialog values
+    dialogRef: MdDialogRef<EditVenue>;
+    lastCloseResult: string;
+    actionsAlignment: string;
+    config: MdDialogConfig = {
+        disableClose: false,
+        hasBackdrop: true,
+        backdropClass: '',
+        width: '',
+        height: '',
+        position: {
+            top: '',
+            bottom: '',
+            left: '',
+            right: ''
+        },
+        data: {
+        }
+    };
+    numTemplateOpens = 0;
+    @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService)
+  constructor(private route: ActivatedRoute,private authService: AuthService, public dialog: MdDialog,
+              @Inject(DOCUMENT) doc: any)
   {
-    this.editNameField = false;
-    this.editEmailField = false;
+      dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
+          if (!doc.body.classList.contains('no-scroll')) {
+              doc.body.classList.add('no-scroll');
+          }
+      });
+      dialog.afterAllClosed.subscribe(() => {
+          doc.body.classList.remove('no-scroll');
+      });
   }
 
   ngOnInit()
@@ -32,36 +63,26 @@ export class VenueComponent implements OnInit {
 
     this.route.params.forEach(params =>
     {
-
       this.id = params['id'];
-
       this.venue = {"_id": this.id};
       this.venue = JSON.stringify(this.venue);
-
-
       this.authService.getVenueProfile(this.venue).subscribe(data => {
-
-
             if (data == "") {
               this.venueNotExist = true;
             }
             else {
               this.venue = data;
+              this.config.data = data;
               this.venueExist = true;
             }
-
             this.isVenue();
-
           },
 
           err => {
             console.log(err);
             return false;
           }
-      );
-
-    })
-
+      );})
   }
 
 
@@ -74,43 +95,17 @@ export class VenueComponent implements OnInit {
     }
   }
 
-  changeName() {
-    //Backend call here
-    console.log(this.nameField);
-  }
-
-  changeEmail() {
-    //Backend call here
-    console.log(this.emailField);
-  }
-
-
-  toggleEditName() {
-
-    if(this.editNameField == false) {
-      this.editNameField = true;
-      return false;
+    openEdit() {
+        this.dialogRef = this.dialog.open(EditVenue, this.config);
+        const sub = this.dialogRef.componentInstance.updateProfile.subscribe((data) => {
+            this.venue = data;
+            this.config.data = data;
+        });
+        this.dialogRef.afterClosed().subscribe((result: string) => {
+            this.lastCloseResult = result;
+            this.dialogRef = null;
+            sub.unsubscribe();
+        });
     }
-
-    if(this.editNameField == true) {
-      this.editNameField = false;
-      return false;
-    }
-
-  }
-
-  toggleEditEmail() {
-    if(this.editEmailField == false) {
-      this.editEmailField = true;
-      return false;
-    }
-
-    if(this.editEmailField == true) {
-      this.editEmailField = false;
-      return false;
-    }
-  }
-
-
 
 }

@@ -105,14 +105,25 @@ export class AuthService {
         .map(res => res.json());
   }
 
-  changeVenueEmail(data) {
+  changeArtistNameAndEmail(data) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/artists/changenameandemail',data,{headers: headers})
+        .map(res => res.json());
   }
 
-  changeVenueName() {
+  changeVenueNameProfile(data) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/changevenuename',data,{headers: headers})
+        .map(res => res.json());
+  }
+
+  changeVenueNameAndEmail(data) {
+      let headers = new Headers();
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/users/venues/changenameandemail',data,{headers: headers})
+          .map(res => res.json());
   }
 
   getArtistProfile(artist){

@@ -65,7 +65,6 @@ module.exports.changeEmail = function (userInfo,callback) {
         {
             email: userInfo.email
         }, callback)
-
 };
 
 
