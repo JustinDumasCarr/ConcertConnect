@@ -16,8 +16,8 @@ import {AuthService} from '../../services/auth.service';
                     <input mdInput type="text" value="{{originalEmail}}" formControlName="email">
                 </md-input-container>
                 <div class="button-container">
-                    <button md-raised-button (click)="dialogRef.close()">Cancel</button>
-                    <button md-raised-button type="submit">Save</button>
+                    <button md-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
+                    <button md-raised-button type="submit" color="primary">Save</button>
                 </div>
             </form>
         </div>
@@ -25,12 +25,12 @@ import {AuthService} from '../../services/auth.service';
             <div *ngIf="formSubmit && formSuccess" class="change-success">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
         </div>
         <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
@@ -75,7 +75,7 @@ export class EditProfile {
     }
 
     changeData() {
-        //Both username and email need to be changed
+        // Execute if both username and email are
         if((this.username.value != null && this.username.value.trim() != "") && (this.email.value != null && this.email.value.trim() != "")) {
             this.formStatus="form-loading";
             this.changeUsernameAndEmail();

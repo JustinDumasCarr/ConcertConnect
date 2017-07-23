@@ -17,8 +17,8 @@ import {AuthService} from '../../services/auth.service';
                     <input mdInput type="text" value="{{artist.email}}" formControlName="artistEmail">
                 </md-input-container>
                 <div class="button-container">
-                    <button md-raised-button (click)="dialogRef.close()">Cancel</button>
-                    <button md-raised-button type="submit">Save</button>
+                    <button md-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
+                    <button md-raised-button type="submit" color="primary">Save</button>
                 </div>
             </form>
         </div>

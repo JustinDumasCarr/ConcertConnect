@@ -2,12 +2,10 @@
     <div class="artist-section">
         <div class="title">Artists</div>
         <button md-raised-button color="accent" [routerLink]="['/search/artist']">See more</button>
-
         <div class="card-container">
             <artist-result *ngFor="let aArtistResult of (artistResults ? artistResults.concat([]).slice(0, 3): [])"
                            [artistResult]="aArtistResult"></artist-result>
         </div>
-
     </div>
     <div class="artist-section">
         <div class="title">Venues</div>
@@ -17,6 +15,5 @@
             <venue-result *ngFor="let aVenueResult of (venueResults ? venueResults.concat([]).slice(0, 3): [])"
                           [venueResult]="aVenueResult"></venue-result>
         </div>
-
     </div>
 </div>

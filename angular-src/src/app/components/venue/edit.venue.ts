@@ -26,12 +26,12 @@ import {AuthService} from '../../services/auth.service';
             <div *ngIf="formSubmit && formSuccess" class="change-success">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button md-raised-button (click)="dialogRef.close()" color="primary">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button md-raised-button (click)="dialogRef.close()" color="accent">OK</button>
             </div>
         </div>
         <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>

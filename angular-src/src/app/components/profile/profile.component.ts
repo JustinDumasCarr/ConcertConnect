@@ -18,10 +18,8 @@ export class ProfileComponent implements OnInit {
 
   editUsernameField: boolean;
   editEmailField: boolean;
-
   usernameField: string;
   emailField: string;
-
 
   //Dialog values
   dialogRef: MdDialogRef<EditProfile>;
@@ -70,32 +68,6 @@ export class ProfileComponent implements OnInit {
       console.log(err);
       return false;
     });
-  }
-
-  toggleEditUsername() {
-
-    if(this.editUsernameField == false) {
-      this.editUsernameField = true;
-      return false;
-    }
-
-    if(this.editUsernameField == true) {
-      this.editUsernameField = false;
-      return false;
-    }
-
-  }
-
-  toggleEditEmail() {
-    if(this.editEmailField == false) {
-      this.editEmailField = true;
-      return false;
-    }
-
-    if(this.editEmailField == true) {
-      this.editEmailField = false;
-      return false;
-    }
   }
 
   openEdit() {

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ValidateService} from '../../services/validate.service'
 import {AuthService} from '../../services/auth.service'
-import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
-
 
 @Component({
     selector: 'app-register-artist',
@@ -11,7 +9,6 @@ import {Router} from '@angular/router';
     styleUrls: ['./register-artist.component.css']
 })
 export class RegisterArtistComponent implements OnInit {
-
 
     name: String;
     email: String;
@@ -21,7 +18,6 @@ export class RegisterArtistComponent implements OnInit {
     file : any;
 
     constructor(private validateService: ValidateService,
-                private flashMessage: FlashMessagesService,
                 private authService: AuthService,
                 private router: Router) {
     }
@@ -30,7 +26,6 @@ export class RegisterArtistComponent implements OnInit {
     }
 
     onRegisterSubmit() {
-
 
         const artist = {
             name: this.name,
@@ -41,20 +36,17 @@ export class RegisterArtistComponent implements OnInit {
 
         // Required Fields
         if (!this.validateService.validateRegisterArtist(artist)) {
-            this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
             return false;
         }
 
         // Validate Email
         if (!this.validateService.validateEmail(artist.email)) {
-            this.flashMessage.show('Please use a valid email', {cssClass: 'alert-danger', timeout: 3000});
             return false;
         }
 
         // Register artist
         this.authService.registerArtist(artist).subscribe(data => {
             if (data.success) {
-                this.flashMessage.show('Artist registered', {cssClass: 'alert-success', timeout: 3000});
                 this.authService.updateArtistArray(data.artists);
 console.log("signedRequest: " +this.signedRequest);
                 this.authService.putImageToAWS(this.signedRequest, this.file).subscribe(data => {
@@ -62,7 +54,6 @@ console.log("signedRequest: " +this.signedRequest);
                 });
 
             } else {
-                this.flashMessage.show('Artist name already exists', {cssClass: 'alert-danger', timeout: 3000});
             }
         });
 
@@ -72,15 +63,10 @@ console.log("signedRequest: " +this.signedRequest);
 
     //split join removes whitespace
         this.authService.getAWSUploadURL(event.file.name.split(' ').join(''), event.file.type).subscribe(data => {
-            console.log("imageUrl: "+this.imageURL)
+            console.log("imageUrl: "+this.imageURL);
             this.signedRequest = data.signedRequest;
             this.imageURL = data.url;
             this.file = event.file;
-
-
-
         });
-
-
     }
 }

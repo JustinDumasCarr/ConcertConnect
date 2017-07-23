@@ -7,12 +7,20 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-grey, 800);
-$accent:  mat-palette($mat-light-blue, 600, A100, A400);
+//$primary: mat-palette($mat-grey, 800);
+//$accent:  mat-palette($mat-light-blue, 600, A100, A400);
+//
+//$warn:    mat-palette($mat-red, 600);
+//
+//$theme: mat-light-theme($primary, $accent, $warn);
 
+$primary: mat-palette($mat-blue-grey, 900);
+$accent:  mat-palette($mat-blue-grey, 200);
 $warn:    mat-palette($mat-red, 600);
+$foreground: mat-palette($mat-grey, 50);
 
 $theme: mat-light-theme($primary, $accent, $warn);
+
 
 @include angular-material-theme($theme);
 @include covalent-theme($theme);

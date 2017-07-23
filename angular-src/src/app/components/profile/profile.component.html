@@ -2,14 +2,11 @@
   <md-card-title-group>
     <md-card-title>{{user.name}}</md-card-title>
   </md-card-title-group>
-
   <md-card-title-group>
     <md-card-subtitle>Username: {{this.authService.getCurrentUsername()}}</md-card-subtitle>
   </md-card-title-group>
-
   <md-card-title-group>
     <md-card-subtitle>Email: {{this.authService.getCurrentEmail()}}</md-card-subtitle>
   </md-card-title-group>
-
-  <button md-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
+  <button md-raised-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
 </md-card>

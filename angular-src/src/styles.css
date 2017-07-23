@@ -41,6 +41,15 @@ display: inline-block;
     margin-right: auto;
 }
 
-body, head {
+html {
     font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #F7F7F7 !important;
+}
+
+body {
+    background-color: #F7F7F7 !important;
+}
+
+md-card {
+    background-color: #FBFBFB !important;
 }
