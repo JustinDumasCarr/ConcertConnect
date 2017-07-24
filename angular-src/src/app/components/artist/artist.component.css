@@ -1,10 +1,13 @@
 /* Card CSS */
 .profile-card {
     margin-top: 5em;
-    width: 40em;
+    width: 20em;
     padding-bottom: .5em;
 }
 
 .edit-button {
     margin-left: .5em;
+}
+.profile-picture{
+    width:200px;
 }

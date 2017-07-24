@@ -2,8 +2,9 @@
     <md-card-title-group>
         <md-card-title>{{artist.name}}</md-card-title>
     </md-card-title-group>
+   <img md-card-image [src]="'/src/app/images/placeholder-user.jpg'" >
 
-    <md-card-title-group>
+        <md-card-title-group>
         <md-card-subtitle>Artist Name: {{artist.name}}</md-card-subtitle>
     </md-card-title-group>
 
@@ -11,5 +12,5 @@
         <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
     </md-card-title-group>
 
-    <button md-button class="edit-button" (click)="openEdit()" color="primary">Edit</button>
+    <button md-raised-button class="edit-button" (click)="openEdit()" color="accent">Edit</button>
 </md-card>
