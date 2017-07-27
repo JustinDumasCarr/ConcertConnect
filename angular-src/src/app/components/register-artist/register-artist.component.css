@@ -10,6 +10,11 @@ md-input-container {
     width: 100%;
 }
 
+md-checkbox {
+    margin-right: 0.5em;
+    margin-top: 1em;
+}
+
 .register-card {
     display: block;
     margin-left: auto;
@@ -25,6 +30,18 @@ md-input-container {
 }
 
 .upload-container {
+    margin-bottom: 1em;
+}
+
+.genres-title {
+    color: darkgray;
+}
+
+.checkbox-container {
+    width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 1em;
 }
 

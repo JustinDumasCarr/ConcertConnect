@@ -44,7 +44,7 @@ import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule} from '@angular/material';
 
 
 
@@ -62,7 +62,7 @@ const appRoutes: Routes =  [
   {path:'registerVenue', component: RegisterVenueComponent, canActivate:[AuthGuard]},
   {path:'artist/:id', component: ArtistComponent},
   {path:'venue/:id', component: VenueComponent}
-]
+];
 
 @NgModule({
   declarations: [
@@ -114,7 +114,8 @@ const appRoutes: Routes =  [
     MdMenuModule,
     MdCardModule,
     MdDialogModule,
-    MdProgressSpinnerModule
+    MdProgressSpinnerModule,
+    MdChipsModule
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue],
   providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue],

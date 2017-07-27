@@ -2,14 +2,20 @@
     <md-card-title-group>
         <md-card-title>{{artist.name}}</md-card-title>
     </md-card-title-group>
-
     <md-card-title-group>
         <md-card-subtitle>Artist Name: {{artist.name}}</md-card-subtitle>
     </md-card-title-group>
-
     <md-card-title-group>
         <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
     </md-card-title-group>
-
-    <button md-button class="edit-button" (click)="openEdit()" color="primary">Edit</button>
+    <md-card-title-group>
+        <md-card-subtitle>Description: {{artist.description}}</md-card-subtitle>
+    </md-card-title-group>
+    <md-card-title-group>
+        <md-card-subtitle>Genres: </md-card-subtitle>
+    </md-card-title-group>
+    <md-chip-list>
+        <md-chip *ngFor="let genre of artist.genres">{{genre}}</md-chip>
+    </md-chip-list>
+    <button md-raised-button class="edit-button" color="primary" (click)="openEdit()" >Edit</button>
 </md-card>

@@ -16,6 +16,12 @@ import {AuthService} from '../../services/auth.service';
                 <md-input-container>
                     <input mdInput type="text" value="{{artist.email}}" formControlName="artistEmail">
                 </md-input-container>
+                <md-input-container>
+                    <input mdInput type="text" value="{{artist.description}}" formControlName="artistDescription">
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput type="text" value="{{artist.genres[0]}}" formControlName="artistGenre[0]">
+                </md-input-container>
                 <div class="button-container">
                     <button md-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
                     <button md-raised-button type="submit" color="primary">Save</button>
@@ -43,6 +49,8 @@ export class EditArtist {
     userInformation: FormGroup;
     artistName: FormControl;
     artistEmail: FormControl;
+    artistGenre: FormControl;
+    artistDescription: FormControl;
 
     originalUsername: string;
     originalEmail: string;
@@ -63,13 +71,15 @@ export class EditArtist {
         @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.artistName = new FormControl();
         this.artistEmail = new FormControl();
-        this.userInformation = new FormGroup({artistName: this.artistName, artistEmail: this.artistEmail});
+        this.artistDescription = new FormControl();
+        this.artistGenre = new FormControl();
+        this.userInformation = new FormGroup({artistName: this.artistName, artistEmail: this.artistEmail,
+        artistDescription: this.artistDescription, artistGenre: this.artistGenre});
         this.formSubmit = false;
         this.formSuccess = false;
         this.formFail = false;
         this.formStatus = "form-not-submitted";
         this.artist = this.data;
-
     }
 
     ngOnInit() {
@@ -108,6 +118,8 @@ export class EditArtist {
            if(data.success) {
                this.artist['name'] =  this.artistName.value;
                this.artist['email'] = this.artistEmail.value;
+               this.artist['genres'][0] = this.artistGenre.value;
+               this.artist['description'] = this.artistDescription.value;
                this.updateProfile.emit(this.artist);
 
                this.formSubmit = true;

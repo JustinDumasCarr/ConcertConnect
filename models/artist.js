@@ -28,12 +28,8 @@ const ArtistSchema = mongoose.Schema({
         required: false
     },
     imageArray: [String],
-
     genres: [String],
     description: String,
-
-
-
 
 });
 

@@ -7,17 +7,14 @@ const User = require('../models/user');
 const Artist = require('../models/artist');
 const users = require('./users');
 
-
-
-
-
 //Gets latest id for an artist
-
 router.post('/register', (req, res, next) => {
     let newArtist = new Artist({
         name: req.body.name,
         email: req.body.email,
         userId: req.body.userId,
+        description: req.body.description,
+        genres: req.body.genres,
         type: 'artist',
         profileImageURL: req.body.imageURL
     });
