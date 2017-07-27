@@ -46,7 +46,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
 import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule} from '@angular/material';
 
-
+import { CalendarModule } from 'angular-calendar';
 
 
 const appRoutes: Routes =  [
@@ -115,7 +115,8 @@ const appRoutes: Routes =  [
     MdCardModule,
     MdDialogModule,
     MdProgressSpinnerModule,
-    MdChipsModule
+    MdChipsModule,
+    CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue],
   providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue],

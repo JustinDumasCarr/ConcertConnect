@@ -30,4 +30,11 @@ md-card-content {
 
 .register-section {
     margin-bottom: 2.5em;
+    display: inline-block;
+}
+
+.register-container {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }

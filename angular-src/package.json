@@ -29,6 +29,7 @@
     "@covalent/highlight": "^1.0.0-beta.4",
     "@covalent/http": "^1.0.0-beta.4",
     "@covalent/markdown": "^1.0.0-beta.4",
+    "angular-calendar": "^0.19.0",
     "angular2-flash-messages": "^1.0.5",
     "angular2-image-upload": "^0.5.1",
     "angular2-jwt": "^0.1.28",
@@ -37,7 +38,7 @@
     "rxjs": "^5.2.0",
     "ts-helpers": "^1.1.2",
     "typescript": "^2.3.2",
-    "zone.js": "^0.7.7"
+    "zone.js": "^0.8.0"
   },
   "devDependencies": {
     "@angular/cli": "^1.0.0-rc.1",
