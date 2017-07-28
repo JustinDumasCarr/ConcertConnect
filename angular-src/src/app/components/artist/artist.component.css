@@ -1,5 +1,10 @@
 md-card {
     padding: 1em;
+    color: #263238;
+}
+
+md-card md-card-subtitle {
+    color: #263238;
 }
 
 md-chip-list {
@@ -27,4 +32,8 @@ md-chip {
 }
 .profile-picture{
     width:200px;
+}
+
+.info-name {
+    font-weight: bold;
 }

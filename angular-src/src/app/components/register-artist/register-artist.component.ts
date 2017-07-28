@@ -13,7 +13,6 @@ export class RegisterArtistComponent implements OnInit {
     name: String;
     email: String;
     description: String;
-    genre: String;
     genres: String[];
     userId: String; // is this necessary //
     signedRequest: String;
@@ -51,10 +50,6 @@ export class RegisterArtistComponent implements OnInit {
         if(this.electronic == true) {
             this.genres.push("Electronic");
         }
-
-        //DELETE
-        console.log("Genres array test");
-        console.log(this.genres);
 
         const artist = {
             name: this.name,

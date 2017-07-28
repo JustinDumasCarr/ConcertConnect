@@ -7,40 +7,43 @@ const User = require('../models/user');
 const Venue = require('../models/venue');
 const users = require('./users');
 
-
 router.post('/register', (req, res, next) => {
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
         userId: req.body.userId,
         type: 'venue',
-        profileImageURL: req.body.imageURL
+        profileImageURL: req.body.imageURL,
+        description: req.body.description,
+        genres: req.body.genres,
+        capacity: req.body.capacity,
+        location: req.body.location,
     });
 
 
-            Venue.addVenue(newVenue, (err, Venue) => {
-                if (err) {
-                    res.json({success: false, msg: 'Failed to register Venue'});
-                } else {
+        Venue.addVenue(newVenue, (err, Venue) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to register Venue'});
+            } else {
 
-                    User.findByIdAndUpdate(
-                        newVenue.userId,
-                        {$push: {"venues": {venueId:Venue._id, name:Venue.name, type: 'venue'}}},
-                        {safe: true, upsert: true, new : true},
-                        function(err, model) { //unecessary
-                            if (err) {
-                                res.json({success: false, msg: 'Failed to update User'});
-                            } else {
-                                res.json({success: true, venues: model.venues});
+                User.findByIdAndUpdate(
+                    newVenue.userId,
+                    {$push: {"venues": {venueId:Venue._id, name:Venue.name, type: 'venue'}}},
+                    {safe: true, upsert: true, new : true},
+                    function(err, model) { //unecessary
+                        if (err) {
+                            res.json({success: false, msg: 'Failed to update User'});
+                        } else {
+                            res.json({success: true, venues: model.venues});
 
-                            }
                         }
-                    );
+                    }
+                );
 
 
 
-                }
-            });
+            }
+        });
 
 
 

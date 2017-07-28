@@ -1,5 +1,5 @@
 <md-card class="register-card">
-    <md-card-title>Register Artist</md-card-title>
+    <md-card-title>Register Venue</md-card-title>
     <form (submit)="onRegisterSubmit()">
         <md-input-container>
             <input mdInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
@@ -7,6 +7,23 @@
         <md-input-container>
             <input mdInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control">
         </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="Description" type="text" [(ngModel)]="description" name="description" class="form-control" required>
+        </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="Location" type="text" [(ngModel)]="location" name="location" class="form-control" required>
+        </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="Capacity" type="text" [(ngModel)]="capacity" name="capacity" class="form-control" required>
+        </md-input-container>
+        <p class="genres-title">Genres: </p>
+        <div class="checkbox-container">
+            <md-checkbox [(ngModel)]="rock" name="rock">Rock</md-checkbox>
+            <md-checkbox [(ngModel)]="jazz" name="jazz">Jazz</md-checkbox>
+            <md-checkbox [(ngModel)]="country" name="country">Country</md-checkbox>
+            <md-checkbox [(ngModel)]="reggae" name="reggae">Reggae</md-checkbox>
+            <md-checkbox [(ngModel)]="electronic" name="electronic">Electronic</md-checkbox>
+        </div>
         <div class="upload-container">
             <image-upload (onFileUploadFinish)="imageUploadedToBrowser($event)"
                           [buttonCaption]="'Select Image'">

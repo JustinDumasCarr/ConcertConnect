@@ -24,7 +24,11 @@ const VenueSchema = mongoose.Schema({
     profileImageURL: {
         type: String,
         required: false
-    }
+    },
+    genres: [String],
+    description: String,
+    location: String,
+    capacity: Number
 });
 
 const Venue = module.exports = mongoose.model('Venue', VenueSchema);

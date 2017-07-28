@@ -9,17 +9,27 @@ import {Router} from '@angular/router';
 })
 export class RegisterVenueComponent implements OnInit {
 
-
     name: String;
     email: String;
     userId: String; // is this necessary
     signedRequest: String;
     imageURL: String;
+    genres: String[];
+    description: String;
+    location: String;
+    capacity: String;
     file: any;
+
+    rock: boolean = false;
+    jazz: boolean = false;
+    country: boolean = false;
+    reggae: boolean = false;
+    electronic: boolean = false;
 
     constructor(private validateService: ValidateService,
                 private authService: AuthService,
                 private router: Router) {
+        this.genres = [];
     }
 
     ngOnInit() {
@@ -27,10 +37,30 @@ export class RegisterVenueComponent implements OnInit {
 
     onRegisterSubmit() {
 
+        //Change logic to all multiple genres later
+        if(this.rock == true) {
+            this.genres.push("Rock");
+        }
+        if(this.jazz == true) {
+            this.genres.push("Jazz");
+        }
+        if(this.country == true) {
+            this.genres.push("Country");
+        }
+        if(this.reggae == true) {
+            this.genres.push("Reggae");
+        }
+        if(this.electronic == true) {
+            this.genres.push("Electronic");
+        }
 
         const venue = {
             name: this.name,
             email: this.email,
+            description: this.description,
+            genres: this.genres,
+            location: this.location,
+            capacity: this.capacity,
             userId: JSON.parse(localStorage.getItem('user')).id,
             imageURL: this.imageURL
         };
@@ -64,8 +94,6 @@ export class RegisterVenueComponent implements OnInit {
             this.signedRequest = data.signedRequest;
             this.imageURL = data.url;
             this.file = event.file;
-
-
         });
     }
 }

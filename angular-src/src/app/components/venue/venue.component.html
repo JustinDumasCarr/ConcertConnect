@@ -4,12 +4,32 @@
   </md-card-title-group>
 
   <md-card-title-group>
-    <md-card-subtitle>Venue Name: {{venue.name}}</md-card-subtitle>
+    <md-card-subtitle><span class="info-name">Venue Name:</span> {{venue.name}}</md-card-subtitle>
   </md-card-title-group>
 
   <md-card-title-group>
-    <md-card-subtitle>Email: {{venue.email}}</md-card-subtitle>
+    <md-card-subtitle><span class="info-name">Email:</span> {{venue.email}}</md-card-subtitle>
   </md-card-title-group>
 
-  <button md-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
+  <md-card-title-group>
+    <md-card-subtitle><span class="info-name">Description:</span> {{venue.description}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <md-card-title-group>
+    <md-card-subtitle><span class="info-name">Location:</span> {{venue.location}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <md-card-title-group>
+    <md-card-subtitle><span class="info-name">Capacity:</span> {{venue.capacity}}</md-card-subtitle>
+  </md-card-title-group>
+
+  <md-card-title-group>
+    <md-card-subtitle><span class="info-name">Genres:</span> </md-card-subtitle>
+  </md-card-title-group>
+
+  <md-chip-list>
+    <md-chip *ngFor="let genre of venue.genres">{{genre}}</md-chip>
+  </md-chip-list>
+
+  <button md-raised-button color="primary" class="edit-button" (click)="openEdit()">Edit</button>
 </md-card>

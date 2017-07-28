@@ -1,10 +1,39 @@
+md-card {
+    padding: 1em;
+    color: #263238;
+}
+
+md-card md-card-subtitle {
+    color: #263238;
+}
+
+md-chip-list {
+    margin-bottom: 3em;
+}
+
+md-chip-list md-chip {
+    margin-left: 0.5em !important;
+    margin-right: 0.5em !important;
+    margin-bottom: 0.5em;
+}
+md-chip {
+}
+
 /* Card CSS */
 .profile-card {
     margin-top: 5em;
-    width: 40em;
+    width: 20em;
     padding-bottom: .5em;
 }
 
 .edit-button {
+    margin-top: 1em;
     margin-left: .5em;
+}
+.profile-picture{
+    width:200px;
+}
+
+.info-name {
+    font-weight: bold;
 }
