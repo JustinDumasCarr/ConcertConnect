@@ -1,5 +1,8 @@
 .dashboard-card {
     margin-top: 4em;
+    display: inline-block;
+    width: 600px;
+
 }
 
 md-card {
@@ -37,4 +40,17 @@ md-card-content {
     display: table;
     margin-left: auto;
     margin-right: auto;
+
+
+
+}
+.register-section2 {
+    margin-bottom: 2.5em;
+
+
+}
+.dashboard-calendar{
+    margin-left:10%;
+    margin-right:10%;
+
 }
