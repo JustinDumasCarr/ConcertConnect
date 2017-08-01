@@ -1,20 +1,39 @@
-<md-card class="dashboard-card">
-    <md-card-title>Dashboard</md-card-title>
-        <div class="register-container">
-            <div class="register-section">
-                <md-card-subtitle>Create New Artist</md-card-subtitle>
-                <md-card-content>Click here if you're an artist looking to find bands to join or shows to book.</md-card-content>
-                <button class="register-button" md-raised-button color="primary" [routerLink]="['/registerArtist']">Register Artist</button>
-            </div>
-            <div class="register-section">
-                <md-card-subtitle>Create New Venue</md-card-subtitle>
-                <md-card-content>Click here if you want to book some artists and bands.</md-card-content>
-                <button class="register-button" md-raised-button color="primary" [routerLink]="['/registerVenue']">Register Venue</button>
-            </div>
-        </div>
-</md-card>
 
-<mwl-calendar-month-view
-        [viewDate]="viewDate"
-        [events]="events">
-</mwl-calendar-month-view>
+
+<div class="flex-container">
+    <md-card class="dashboard-card">
+        <md-card-title>Dashboard</md-card-title>
+
+        <div class="register-section">
+            <md-card-subtitle>Create New Artist</md-card-subtitle>
+            <md-card-content>Click here if you're an artist looking to find bands to join or shows to book.
+            </md-card-content>
+            <button class="register-button" md-raised-button color="primary" [routerLink]="['/registerArtist']">Register
+                Artist
+            </button>
+        </div>
+
+    </md-card>
+    <md-card class="dashboard-card">
+        <md-card-title>Dashboard</md-card-title>
+
+
+        <div class="register-section2">
+            <md-card-subtitle>Create New Venue</md-card-subtitle>
+            <md-card-content>Click here if you want to book some artists and bands.</md-card-content>
+            <button class="register-button" md-raised-button color="primary" [routerLink]="['/registerVenue']">Register
+                Venue
+            </button>
+        </div>
+    </md-card>
+
+</div>
+
+<div class="dashboard-calendar">
+
+
+    <mwl-calendar-month-view
+            [viewDate]="viewDate"
+            [events]="events">
+    </mwl-calendar-month-view>
+</div>

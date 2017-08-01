@@ -17,12 +17,10 @@ export class AuthService {
   //Method that checks if venue or artists exist (navbar)
   accountExist()
   {
-    if(this.artistExist() || this.venueExist())
-    {
+    if(this.artistExist() || this.venueExist()) {
       return true;
     }
-    else
-    {
+    else {
       return false;
     }
   }
@@ -30,12 +28,10 @@ export class AuthService {
   //Method that checks if artists exist (navbar)
   artistExist()
   {
-    if(JSON.parse(localStorage.getItem('user')).artists.length>0)
-    {
+    if(JSON.parse(localStorage.getItem('user')).artists.length>0) {
       return true;
     }
-    else
-    {
+    else {
       return false;
     }
   }

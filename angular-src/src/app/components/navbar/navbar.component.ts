@@ -65,8 +65,9 @@ export class NavbarComponent implements OnInit {
     if(this.authService.loggedIn()) {
       this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
-
-    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
+    if(this.authService.loggedIn()) {
+        this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
+    }
   }
 
   onLogoutClick() {

@@ -75,10 +75,22 @@ export class EditProfile {
     }
 
     changeData() {
+
+        console.log("Usename field testing");
+        console.log(this.username.value);
+
+        console.log("Email field testing");
+        console.log(this.email.value);
+
         // Execute if both username and email are
         if((this.username.value != null && this.username.value.trim() != "") && (this.email.value != null && this.email.value.trim() != "")) {
             this.formStatus="form-loading";
-            this.changeUsernameAndEmail();
+            console.log("Change both");
+            // this.changeUsernameAndEmail();
+        } else if(this.username.value != null && this.username.value.trim() != "") {
+            this.changeUsername();
+        } else if(this.email.value != null && this.email.value.trim() != "") {
+            this.changeEmail();
         }
     }
 
@@ -114,6 +126,12 @@ export class EditProfile {
         })
     }
 
+    changeUsername() {
+        console.log("Change username");
+    }
 
+    changeEmail() {
+        console.log("Change email");
+    }
 
 }

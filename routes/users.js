@@ -107,8 +107,6 @@ router.post('/changeusername', (req, res, next) => {
 
 });
 
-//Change name
-
 //Change email
 router.post('/changeemail', (req, res, next) => {
 
@@ -158,17 +156,16 @@ router.post('/changeusernamandemail', (req, res, next) => {
             User.changeEmail(userInfo, (err, callback) => {
                 if (callback) {
                     console.log(callback);
-                    // return res.json({success: true, msg: 'Email has been changed successfully'});
                     User.getUserByUsername(userInfo.username, (err, user) => {
                         if (err) throw err;
                         if (user) {
-                            return res.json({success: false, msg: 'Username already exists, email has been changed'});
+                            return res.json({success: false, msg: 'There was an error changing the username. Email has been changed successfully'});
                         }
                         else {
                             User.changeUsername(userInfo, (err, callback) => {
                                 if (callback) {
                                     console.log(callback);
-                                    return res.json({success: true, msg: 'Username and email have been changed successfully'});
+                                    return res.json({success: true, msg: 'Username and Email have been changed successfully'});
                                 }
 
                             });
@@ -179,8 +176,6 @@ router.post('/changeusernamandemail', (req, res, next) => {
         }
     });
 });
-
-
 
 router.get('/sign-s3', (req, res) => {
     const s3 = new aws.S3();

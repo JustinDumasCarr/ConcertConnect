@@ -43,7 +43,7 @@ router.post('/register', (req, res, next) => {
 
 });
 router.post('/search', (req, res, next) => {
-    Artist.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL', function (err, artists) {
+    Artist.find({ 'genres': new RegExp(req.body.genre,'i')}, 'name email description genres profileImageURL', function (err, artists) {
         if (err) return (err);
         console.log(artists);
         return res.json(artists);
