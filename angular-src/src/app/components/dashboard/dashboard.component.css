@@ -54,3 +54,7 @@ md-card-content {
     margin-right:10%;
 
 }
+.flex-container{
+    display: flex;
+    justify-content: space-around;
+}

@@ -14,6 +14,11 @@ import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/ma
 })
 export class ArtistComponent implements OnInit
 {
+
+//calendar stuff
+    viewDate: Date = new Date();
+    events = [];
+
     id: string;
     artist: Object;
     //Having two separate values ensures that the 'Not found' message does not show up while it's loading

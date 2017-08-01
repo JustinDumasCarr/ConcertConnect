@@ -9,7 +9,8 @@
     display: -webkit-flex;
     display: flex;
     flex-wrap: wrap;
-    background-color: seashell;
+    background-color: #eeeeee;
+    height: 100%;
     justify-content: space-around;
 }
 

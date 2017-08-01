@@ -6,13 +6,17 @@ class ArtistResult {
     email: string;
     profileImageURL: string;
     artistId: string;
+genres: string[];
+    description: string;
 
-
-    constructor(name: string, email: string, profileImageURL: string, artistId : string) {
+    constructor(name: string, email: string, profileImageURL: string, artistId : string, genres: string[],
+    description: string) {
         this.name = name;
         this.email = email;
         this.profileImageURL = profileImageURL;
 this.artistId = artistId;
+        this.description = description;
+        this.genres=genres;
     }
 }
 

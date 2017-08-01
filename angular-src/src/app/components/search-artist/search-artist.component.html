@@ -4,16 +4,16 @@
             {{genre[0]}}
         </div>
     </div>
-    <div class="sub-genre-container">
-        <div class="genre" *ngFor="let subgenre of selectedGenre[1]; let i = index">
-            {{subgenre}}
-        </div>
-    </div>
-    <div class="side-margin">
+    <!--<div class="sub-genre-container">-->
+        <!--<div class="genre" *ngFor="let subgenre of selectedGenre[1]; let i = index">-->
+            <!--{{subgenre}}-->
+        <!--</div>-->
+    <!--</div>-->
+
 
 
         <div class="card-container">
             <artist-result *ngFor="let aArtistResult of artistResults" [artistResult]="aArtistResult"></artist-result>
         </div>
-    </div>
+
 </div>

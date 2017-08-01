@@ -16,7 +16,6 @@ md-chip {
 
 /* Card CSS */
 .profile-card {
-    margin-top: 5em;
     width: 20em;
     padding-bottom: .5em;
 }
@@ -27,4 +26,18 @@ md-chip {
 }
 .profile-picture{
     width:200px;
+}
+.side-picture{
+    width: 800px;
+}
+.card-container-profile {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.artist-calendar{
+    margin-left:10%;
+    margin-right:10%;
+
 }
