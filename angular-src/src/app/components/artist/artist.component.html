@@ -1,68 +1,34 @@
 <div class="pushdown">
     <div class="card-container-profile">
-
-<<<<<<< HEAD
-    <md-card-title-group>
-   <img md-card-image [src]="'/src/app/images/placeholder-user.jpg'" >
-    </md-card-title-group>
-    <md-card-title-group>
-        <md-card-subtitle><span class="info-name">Artist Name:</span> {{artist.name}}</md-card-subtitle>
-    </md-card-title-group>
-
-    <md-card-title-group>
-        <md-card-subtitle><span class="info-name">Email:</span> {{artist.email}}</md-card-subtitle>
-    </md-card-title-group>
-
-    <md-card-title-group>
-        <md-card-subtitle><span class="info-name">Description:</span> {{artist.description}}</md-card-subtitle>
-    </md-card-title-group>
-
-    <md-card-title-group>
-        <md-card-subtitle><span class="info-name">Genres:</span> </md-card-subtitle>
-    </md-card-title-group>
-=======
         <md-card *ngIf="artist" class="profile-card">
             <md-card-title-group>
                 <md-card-title>{{artist.name}}</md-card-title>
             </md-card-title-group>
-
             <md-card-title-group>
                 <img md-card-image [src]="'/src/app/images/placeholder-user.jpg'" height="300%">
             </md-card-title-group>
             <md-card-title-group>
                 <md-card-subtitle>Artist Name: {{artist.name}}</md-card-subtitle>
             </md-card-title-group>
-
             <md-card-title-group>
                 <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
             </md-card-title-group>
-
             <md-card-title-group>
                 <md-card-subtitle>Description: {{artist.description}}</md-card-subtitle>
             </md-card-title-group>
->>>>>>> 169cfdc9f36689c6647fec4fc2e0621e07ee5f31
-
             <md-card-title-group>
                 <md-card-subtitle>Genres:</md-card-subtitle>
             </md-card-title-group>
-
             <md-chip-list>
                 <md-chip *ngFor="let genre of artist.genres">{{genre}}</md-chip>
             </md-chip-list>
-
             <button md-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
-
         </md-card>
-
         <md-card class="side-picture">
             <img md-card-image [src]="'/src/app/images/soundcloud.png'" height="100%">
-
-
         </md-card>
     </div>
     <div class="artist-calendar">
-
-
         <mwl-calendar-month-view
                 [viewDate]="viewDate"
                 [events]="events">

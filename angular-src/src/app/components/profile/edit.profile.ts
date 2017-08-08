@@ -28,8 +28,8 @@ import {AuthService} from '../../services/auth.service';
                 <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
-                <p class="title">Success!</p>
-                <p>Your information has been changed successfully</p>
+                <p class="title">Error</p>
+                <p>{{errorText}}</p>
                 <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
         </div>
@@ -47,6 +47,7 @@ export class EditProfile {
     originalEmail: string;
     currentUsername: string;
     currentEmail: string;
+    errorText: string;
 
     userChange: boolean;
     emailChange: boolean;
@@ -67,6 +68,7 @@ export class EditProfile {
         this.formSuccess = false;
         this.formFail = false;
         this.formStatus = "form-not-submitted";
+        this.errorText = "";
     }
 
     ngOnInit() {
@@ -82,14 +84,14 @@ export class EditProfile {
         console.log("Email field testing");
         console.log(this.email.value);
 
-        // Execute if both username and email are
         if((this.username.value != null && this.username.value.trim() != "") && (this.email.value != null && this.email.value.trim() != "")) {
             this.formStatus="form-loading";
-            console.log("Change both");
-            // this.changeUsernameAndEmail();
+            this.changeUsernameAndEmail();
         } else if(this.username.value != null && this.username.value.trim() != "") {
+            this.formStatus = "form-loading";
             this.changeUsername();
         } else if(this.email.value != null && this.email.value.trim() != "") {
+            this.formStatus = "form-loading";
             this.changeEmail();
         }
     }
@@ -120,18 +122,70 @@ export class EditProfile {
                 this.userChange = true;
                 this.formStatus = "form-submitted";
             } else {
+                this.errorText = "There was an error changing your username and email. Please try again later";
+                this.formStatus = "form-submitted";
                 this.formSubmit = true;
-                this.formSuccess = false;
+                this.formFail = true;
             }
         })
     }
 
     changeUsername() {
-        console.log("Change username");
+        const dataSend = {
+            username: this.username.value,
+            currentUsername: this.authService.getCurrentUsername()
+        };
+
+        this.authService.changeUsername(dataSend).subscribe(data => {
+           if(data.success) {
+               let newUser = JSON.parse(this.authService.getUserLocal());
+               newUser.username = dataSend.username;
+               this.authService.setUser(newUser);
+               this.authService.setActive(newUser);
+
+               this.originalUsername = this.authService.getCurrentUsername();
+
+               this.formSubmit = true;
+               this.formSuccess = true;
+               this.userChange = true;
+               this.formStatus = "form-submitted";
+
+           } else {
+               this.errorText = "There was an error changing your username. Please try again later";
+               this.formStatus = "form-submitted";
+               this.formSubmit = true;
+               this.formFail = true;
+           }
+        });
     }
 
     changeEmail() {
-        console.log("Change email");
+        const dataSend = {
+            email: this.email.value,
+            currentEmail: this.authService.getCurrentEmail()
+        };
+
+        this.authService.changeEmail(dataSend).subscribe(data => {
+            if(data.success) {
+                let newUser = JSON.parse(this.authService.getUserLocal());
+                newUser.email = dataSend.email;
+                this.authService.setUser(newUser);
+                this.authService.setActive(newUser);
+
+                this.originalEmail = this.authService.getCurrentEmail();
+
+                this.formSubmit = true;
+                this.formSuccess = true;
+                this.userChange = true;
+                this.formStatus = "form-submitted";
+
+            } else {
+                this.errorText = "There was an error changing your email. Please try again later";
+                this.formStatus = "form-submitted";
+                this.formSubmit = true;
+                this.formFail = true;
+            }
+        });
     }
 
 }

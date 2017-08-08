@@ -35,7 +35,7 @@ import {AuthService} from '../../services/auth.service';
                 <button md-raised-button (click)="dialogRef.close()">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
-                <p class="title">Success!</p>
+                <p class="title">Error</p>
                 <p>Your information has been changed successfully</p>
                 <button md-raised-button (click)="dialogRef.close()">OK</button>
             </div>
@@ -56,6 +56,7 @@ export class EditArtist {
     originalEmail: string;
     currentUsername: string;
     currentEmail: string;
+    errorText: string;
 
     userChange: boolean;
 
@@ -80,6 +81,7 @@ export class EditArtist {
         this.formFail = false;
         this.formStatus = "form-not-submitted";
         this.artist = this.data;
+        this.errorText = "";
     }
 
     ngOnInit() {
@@ -89,8 +91,15 @@ export class EditArtist {
         //Both username and email need to be changed
         if((this.artistName.value != null && this.artistName.value.trim() != "") && (this.artistEmail.value != null && this.artistEmail.value.trim() != "")) {
             this.formStatus="form-loading";
-            this.changeNameAndEmail();
+            // this.changeNameAndEmail();
+        } else if((this.artistName.value != null && this.artistName.value.trim() != "")) {
+            //
         }
+
+
+
+
+
     }
 
     changeNameAndEmail() {
@@ -133,4 +142,6 @@ export class EditArtist {
            }
         });
     }
+
+    change
 }
