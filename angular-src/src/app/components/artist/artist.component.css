@@ -32,11 +32,11 @@ md-chip {
 .profile-picture{
     width:200px;
 }
-<<<<<<< HEAD
 
 .info-name {
     font-weight: bold;
-=======
+}
+
 .side-picture{
     width: 800px;
 }
@@ -49,6 +49,4 @@ md-chip {
 .artist-calendar{
     margin-left:10%;
     margin-right:10%;
-
->>>>>>> 169cfdc9f36689c6647fec4fc2e0621e07ee5f31
 }
