@@ -46,6 +46,8 @@ export class AuthService {
   changeEmail(data)
   {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/changeemail',data,{headers: headers})
         .map(res => res.json());
@@ -54,6 +56,8 @@ export class AuthService {
   changeUsername(data)
   {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/changeusername',data,{headers: headers})
         .map(res => res.json());
@@ -61,12 +65,16 @@ export class AuthService {
 
   changeEmailAndUsername(data) {
       let headers = new Headers();
+      this.loadToken();
+      headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
       return this.http.post('http://localhost:3000/users/changeusernamandemail',data,{headers: headers})
           .map(res => res.json());
   }
   changeArtistInformation(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     console.log('changeartistinfo');
     return this.http.post('http://localhost:3000/users/artists/changeartistinformation',data,{headers: headers})
@@ -75,6 +83,8 @@ export class AuthService {
 
   changeArtistName(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/changename',data,{headers: headers})
         .map(res => res.json());
@@ -82,6 +92,8 @@ export class AuthService {
 
   changeArtistNameProfile(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/changeartistname',data,{headers: headers})
         .map(res => res.json());
@@ -89,6 +101,8 @@ export class AuthService {
 
   changeArtistEmail(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/changeemail',data,{headers: headers})
         .map(res => res.json());
@@ -96,6 +110,8 @@ export class AuthService {
 
   changeArtistEmailProfile(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/changeartistemail',data,{headers: headers})
         .map(res => res.json());
@@ -103,6 +119,8 @@ export class AuthService {
 
   changeArtistNameAndEmail(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/changenameandemail',data,{headers: headers})
         .map(res => res.json());
@@ -110,6 +128,8 @@ export class AuthService {
 
   changeVenueNameProfile(data) {
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/changevenuename',data,{headers: headers})
         .map(res => res.json());
@@ -117,6 +137,8 @@ export class AuthService {
 
   changeVenueNameAndEmail(data) {
       let headers = new Headers();
+      this.loadToken();
+      headers.append('Authorization', this.authToken);
       headers.append('Content-Type','application/json');
       return this.http.post('http://localhost:3000/users/venues/changenameandemail',data,{headers: headers})
           .map(res => res.json());
@@ -124,6 +146,8 @@ export class AuthService {
 
   getArtistProfile(artist){
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/getProfile',artist,{headers: headers})
         .map(res => res.json());
@@ -219,6 +243,8 @@ export class AuthService {
 
   registerArtist(artist){
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/artists/register', artist,{headers: headers})
         .map(res => res.json());
@@ -226,6 +252,8 @@ export class AuthService {
 
   registerUser(user){
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/register', user,{headers: headers})
         .map(res => res.json());
@@ -233,6 +261,8 @@ export class AuthService {
 
   registerVenue(venue){
     let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/venues/register', venue,{headers: headers})
         .map(res => res.json());

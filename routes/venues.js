@@ -7,7 +7,7 @@ const User = require('../models/user');
 const Venue = require('../models/venue');
 const users = require('./users');
 
-router.post('/register', (req, res, next) => {
+router.post('/register', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
@@ -51,7 +51,7 @@ router.post('/register', (req, res, next) => {
 });
 
 //Returns venue information based on details
-router.post('/getProfile', (req, res, next) =>
+router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) =>
 {
 
     Venue.getVenueByID(req.body._id, (err,Venueexists) =>
@@ -79,7 +79,7 @@ router.post('/search', (req, res, next) => {
 });
 
 //Change name and email
-router.post('/changenameandemail', (req, res, next) => {
+router.post('/changenameandemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     const emailInfo = {
         email: req.body.email,
         currentEmail: req.body.currentEmail,

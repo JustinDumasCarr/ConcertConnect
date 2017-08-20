@@ -59,7 +59,6 @@ router.post('/authenticate', (req, res, next) => {
                         email: user.email,
                         venues: user.venues,
                         artists: user.artists
-
                     }
                 });
             } else {
@@ -76,7 +75,7 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res
 
 
 //Change username
-router.post('/changeusername', (req, res, next) => {
+router.post('/changeusername',passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     //This variable will not be used if user already exists
     const userInfo =
@@ -108,7 +107,7 @@ router.post('/changeusername', (req, res, next) => {
 });
 
 //Change email
-router.post('/changeemail', (req, res, next) => {
+router.post('/changeemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     //This variable will not be used if user already exists
     const userInfo = {
@@ -136,7 +135,7 @@ router.post('/changeemail', (req, res, next) => {
 
 
 //Change email
-router.post('/changeusernamandemail', (req, res, next) => {
+router.post('/changeusernamandemail',passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     //This variable will not be used if user already exists
     const userInfo = {
@@ -205,7 +204,7 @@ router.get('/sign-s3', (req, res) => {
 });
 
 //Change artist name
-router.post('/changeartistname', (req, res, next) => {
+router.post('/changeartistname',passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         name: req.body.name,
@@ -221,7 +220,7 @@ router.post('/changeartistname', (req, res, next) => {
 });
 
 //Change artist email
-router.post('/changeartistemail', (req, res, next) => {
+router.post('/changeartistemail',passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         email: req.body.email,
@@ -237,7 +236,7 @@ router.post('/changeartistemail', (req, res, next) => {
 });
 
 // Change venue name
-router.post('/changevenuename', (req, res, next) => {
+router.post('/changevenuename',passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         name: req.body.name,

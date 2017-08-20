@@ -8,7 +8,7 @@ const Artist = require('../models/artist');
 const users = require('./users');
 
 //Gets latest id for an artist
-router.post('/register', (req, res, next) => {
+router.post('/register', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newArtist = new Artist({
         name: req.body.name,
         email: req.body.email,
@@ -42,7 +42,7 @@ router.post('/register', (req, res, next) => {
     });
 
 });
-router.post('/search', (req, res, next) => {
+router.post('/search',  (req, res, next) => {
     Artist.find({ 'genres': new RegExp(req.body.genre,'i')}, 'name email description genres profileImageURL', function (err, artists) {
         if (err) return (err);
         console.log(artists);
@@ -52,7 +52,7 @@ router.post('/search', (req, res, next) => {
 
 
 //Returns artist information based on details
-router.post('/getProfile', (req, res, next) => {
+router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
 console.log(req.body);
 
@@ -74,7 +74,7 @@ console.log(req.body);
 
 
 //Change username
-router.post('/changename', (req, res, next) =>
+router.post('/changename', passport.authenticate('jwt', {session: false}), (req, res, next) =>
 {
 
     //This variable will not be used if user already exists
@@ -106,7 +106,7 @@ router.post('/changename', (req, res, next) =>
 });
 
 //Change email
-router.post('/changeemail', (req, res, next) =>
+router.post('/changeemail', passport.authenticate('jwt', {session: false}), (req, res, next) =>
 {
 
     //This variable will not be used if user already exists
@@ -138,7 +138,7 @@ router.post('/changeemail', (req, res, next) =>
 });
 
 //Change name and email
-router.post('/changenameandemail', (req, res, next) => {
+router.post('/changenameandemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
    const emailInfo = {
        email: req.body.email,
        currentEmail: req.body.currentEmail,
