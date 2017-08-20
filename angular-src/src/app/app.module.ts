@@ -34,6 +34,8 @@ import { VenueResultComponent } from './components/venue-result/venue-result.com
 import { EditProfile } from './components/profile/edit.profile';
 import { EditArtist } from './components/artist/edit.artist';
 import { EditVenue } from './components/venue/edit.venue';
+import { LoginDialog } from './components/login/login.dialog';
+import { RegisterDialog } from './components/register/register.dialog';
 
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
@@ -85,7 +87,9 @@ const appRoutes: Routes =  [
     CoverPhotosComponent,
     EditProfile,
     EditArtist,
-    EditVenue
+    EditVenue,
+    LoginDialog,
+    RegisterDialog
   ],
   imports: [
     BrowserModule,
@@ -118,8 +122,8 @@ const appRoutes: Routes =  [
     MdChipsModule,
     CalendarModule.forRoot()
   ],
-  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue],
-  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue],
+  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, LoginDialog, RegisterDialog],
+  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue, LoginDialog, RegisterDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+
+//Dialog Stuff
+import { LoginDialog } from '../login/login.dialog';
+import {DOCUMENT} from '@angular/platform-browser';
+import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +16,30 @@ export class LoginComponent implements OnInit {
   username: String;
   password: String;
 
-  constructor(
-    private authService:AuthService,
-    private router:Router
-  ) { }
+  //Dialog values
+  dialogRef: MdDialogRef<LoginDialog>;
+  lastCloseResult: string;
+  actionsAlignment: string;
+  config: MdDialogConfig = {
+      disableClose: false,
+      hasBackdrop: true,
+      backdropClass: '',
+      width: '',
+      height: '',
+      position: {
+          top: '',
+          bottom: '',
+          left: '',
+          right: ''
+      },
+      data: {
+      }
+  };
+  numTemplateOpens = 0;
+  @ViewChild(TemplateRef) template: TemplateRef<any>;
+
+  constructor(private authService:AuthService, private router:Router, public dialog: MdDialog,
+              @Inject(DOCUMENT) doc: any) { }
 
   ngOnInit() {
   }
@@ -33,7 +58,8 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['dashboard']);
       } else {
-        this.router.navigate(['login']);
+        this.config.data = data;
+        this.dialogRef = this.dialog.open(LoginDialog, this.config);
       }
     });
   }

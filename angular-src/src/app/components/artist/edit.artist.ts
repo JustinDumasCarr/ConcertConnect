@@ -95,11 +95,6 @@ export class EditArtist {
         } else if((this.artistName.value != null && this.artistName.value.trim() != "")) {
             //
         }
-
-
-
-
-
     }
 
     changeNameAndEmail() {
