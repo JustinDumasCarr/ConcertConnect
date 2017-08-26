@@ -1,33 +1,6 @@
-/*
-
-.toggleSection
-{
-    font-weight: bold;
-    font-size: 40px;
-}
-
-.hover
-{
-    cursor: pointer;
-}
-
-.item
-{
-    background-color: #3e3f3a;
-    pointer-events: none;
-}
-
-.navbar,.navbar-default{
-    position: fixed;
-    width: 100%;
-}
-
-*/
-
 .md-toolbar-concertconnect {
     padding-left: 20px;
     padding-right: 20px;
-    position: fixed;
     top:0px;
     z-index: 9;
 }
@@ -48,8 +21,6 @@
     float: right;
 }
 
-
-
 .demo-menu {
     display: flex;
     flex-flow: row wrap;
@@ -67,4 +38,8 @@
 .dropdown {
     margin-right: 1em;
     width: 5%;
+}
+
+.dropdown-category {
+    background-color: #f7f7f7;
 }

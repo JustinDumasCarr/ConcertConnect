@@ -198,6 +198,7 @@ export class AuthService {
   getVenueProfile(venue){
     let headers = new Headers();
     this.loadToken();
+    headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/venues/getProfile',venue,{headers: headers})
         .map(res => res.json());

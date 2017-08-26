@@ -18,7 +18,7 @@ input[type=text]:focus {
 
 /* Card CSS */
 .profile-card {
-    margin-top: 5em;
+    margin-top: 2em;
     width: 40em;
     padding-bottom: .5em;
 }

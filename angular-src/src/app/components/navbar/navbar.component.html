@@ -1,63 +1,4 @@
-<!--
-<nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ConcertConnect</a>
-        </div>
-        <div id="navbar-collapse-1" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-            <li *ngIf="authService.loggedIn()" class="{{profileValue}} hover"><a (click)="profileClick()" >Profile</a></li>
-
-            <li  [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/discover']">Discover</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/register']">Register</a></li>
-
-            <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/login']">Login</a></li>
-
-            <li *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">{{toggleValue}} <b class="caret"></b></a>
-
-              <ul class="dropdown-menu">
-
-                <!-- Putting all three under a single and using ngIf causes layout issue, fix later, use ngcontainer
-                <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
-                <li *ngIf="authService.artistExist() || authService.venueExist()" class="item"><a>User</a></li>
-                <li *ngIf="authService.artistExist() || authService.venueExist()" class="divider"></li>
-
-                <li *ngIf="authService.artistExist() || authService.venueExist()" class="hover"><a (click)="changeUser()">{{userName}}</a></li>
-
-                <li *ngIf="authService.artistExist()" class="divider"></li>
-                <li *ngIf="authService.artistExist()" class="item"><a>Artists</a></li>
-                <li *ngIf="authService.artistExist()" class="divider"></li>
-
-                <li *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.name)" class="hover"><a href="#">{{artist.name}}</a></li>
-
-                <li *ngIf="authService.venueExist()" class="divider"></li>
-                <li *ngIf="authService.venueExist()" class="item"><a>Venues</a></li>
-                <li *ngIf="authService.venueExist()" class="divider"></li>
-
-                <li *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.name)" class="hover"><a href="#">{{venue.name}}</a></li>
-
-              </ul>
-
-            </li>
-            <li *ngIf="authService.loggedIn()"><a (click)="onLogoutClick()" href="#">Logout</a></li>
-
-          </ul>
-        </div>
-      </div>
-    </nav>
--->
-  <md-toolbar color="primary" class="mat-toolbar mat-toolbar-row white-text md-toolbar-concertconnect">
+<md-toolbar color="primary" class="mat-toolbar mat-toolbar-row white-text md-toolbar-concertconnect">
     <span class="title">Concert Connect</span>
     <button *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}" [routerLink]="['/dashboard']" md-button>Dashboard</button>
     <button *ngIf="authService.loggedIn()" (click)="profileClick()" md-button >Profile</button>
@@ -77,19 +18,21 @@
       </md-toolbar>
 
       <md-menu #menu="mdMenu" xPosition="before" [overlapTrigger]="false">
-        <button md-menu-item>
+        <button class="dropdown-category" md-menu-item>
           User
         </button>
         <button *ngIf="authService.artistExist() || authService.venueExist()" (click)="changeUser()" md-menu-item>
-          {{userName}}
+          <ng-container *ngIf="authService.loggedIn()">
+            {{ authService.getCurrentUsername() }}
+          </ng-container>
         </button>
-        <button class="toggle-label" *ngIf="authService.artistExist()" md-menu-item>
+        <button class="toggle-label dropdown-category" *ngIf="authService.artistExist()" md-menu-item>
           Artist
         </button>
         <button *ngFor="let artist of authService.getArtists()" (click) = "changeUserArtist(artist,artist.artistId)" md-menu-item>
           {{artist.name}}
         </button>
-        <button class="toggle-label" *ngIf="authService.venueExist()" md-menu-item>
+        <button class="toggle-label dropdown-category" *ngIf="authService.venueExist()" md-menu-item>
           Venue
         </button>
         <button *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.venueId)" md-menu-item>

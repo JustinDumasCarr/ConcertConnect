@@ -30,14 +30,12 @@ export class NavbarComponent implements OnInit {
     this.profileCurrent = false;
     this.profileValue = '';
 
-
     if (JSON.parse(localStorage.getItem('active')) == null) {
       this.toggleValue = "Toggle User";
     }
     else {
       this.toggleValue = JSON.parse(localStorage.getItem('active'))._id;
     }
-
 
     router.events.subscribe(event => {
       if (event.constructor.name === "NavigationEnd") {
@@ -57,16 +55,13 @@ export class NavbarComponent implements OnInit {
 
       }
     });
-
   }
 
   ngOnInit()
   {
     if(this.authService.loggedIn()) {
-      this.userName = JSON.parse(localStorage.getItem('user')).name;
-    }
-    if(this.authService.loggedIn()) {
         this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
+        // this.userName = JSON.parse(localStorage.getItem('user')).name;
     }
   }
 
