@@ -17,7 +17,7 @@ export class RegisterArtistComponent implements OnInit {
     userId: String; // is this necessary //
     signedRequest: String;
     imageURL: String;
-    file : any;
+    file: any;
 
     rock: boolean = false;
     jazz: boolean = false;
@@ -35,19 +35,19 @@ export class RegisterArtistComponent implements OnInit {
     onRegisterSubmit() {
 
         //Change logic to all multiple genres later
-        if(this.rock == true) {
+        if (this.rock == true) {
             this.genres.push("Rock");
         }
-        if(this.jazz == true) {
+        if (this.jazz == true) {
             this.genres.push("Jazz");
         }
-        if(this.country == true) {
+        if (this.country == true) {
             this.genres.push("Country");
         }
-        if(this.reggae == true) {
+        if (this.reggae == true) {
             this.genres.push("Reggae");
         }
-        if(this.electronic == true) {
+        if (this.electronic == true) {
             this.genres.push("Electronic");
         }
 
@@ -57,7 +57,7 @@ export class RegisterArtistComponent implements OnInit {
             description: this.description,
             genres: this.genres,
             userId: JSON.parse(localStorage.getItem('user')).id,
-            imageURL : this.imageURL
+            imageURL: this.imageURL
         };
 
         // Required Fields
@@ -74,7 +74,7 @@ export class RegisterArtistComponent implements OnInit {
         this.authService.registerArtist(artist).subscribe(data => {
             if (data.success) {
                 this.authService.updateArtistArray(data.artists);
-console.log("signedRequest: " +this.signedRequest);
+                console.log("signedRequest: " + this.signedRequest);
                 this.authService.putImageToAWS(this.signedRequest, this.file).subscribe(data => {
 
                 });
@@ -88,9 +88,9 @@ console.log("signedRequest: " +this.signedRequest);
 
     imageUploadedToBrowser(event) {
 
-    //split join removes whitespace
+        //split join removes whitespace
         this.authService.getAWSUploadURL(event.file.name.split(' ').join(''), event.file.type).subscribe(data => {
-            console.log("imageUrl: "+this.imageURL);
+            console.log("imageUrl: " + this.imageURL);
             this.signedRequest = data.signedRequest;
             this.imageURL = data.url;
             this.file = event.file;

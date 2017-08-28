@@ -1,6 +1,19 @@
-<div class="side-margin">
-  <div class="card-container">
-      <venue-result *ngFor="let aVenueResult of venueResults" [venueResult]="aVenueResult"></venue-result>
+<div class="pushdown ">
+    <div class="genre-container">
+        <div class="genre" *ngFor="let genre of genres; let i = index" (click)="changeGenre(genre) " [style.background-color]="getStyle(genre)">
+            {{genre[0]}}
+        </div>
+    </div>
+    <!--<div class="sub-genre-container">-->
+    <!--<div class="genre" *ngFor="let subgenre of selectedGenre[1]; let i = index">-->
+    <!--{{subgenre}}-->
+    <!--</div>-->
+    <!--</div>-->
 
-  </div>
+
+
+    <div class="card-container">
+        <venue-result *ngFor="let aVenueResult of venueResults" [venueResult]="aVenueResult"></venue-result>
+    </div>
+
 </div>

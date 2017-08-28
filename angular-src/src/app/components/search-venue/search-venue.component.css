@@ -9,6 +9,52 @@
     display: -webkit-flex;
     display: flex;
     flex-wrap: wrap;
-    background-color: #ffffff;
+    background-color: #eeeeee;
+    height: 100%;
     justify-content: space-around;
+}
+
+.genre-container {
+    position: relative;
+
+    height: 40px;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #bb3d1e;
+    align-items: center;
+
+}
+
+.sub-genre-container {
+    position: relative;
+
+    height: 40px;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #a0371c;
+    align-items: center;
+
+}
+
+.genre {
+
+    display: inline;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    -webkit-transition: 0.5s; /* Safari */
+    transition:  0.5s;
+}
+
+.genre:hover {
+    background-color: #444444;
+
 }

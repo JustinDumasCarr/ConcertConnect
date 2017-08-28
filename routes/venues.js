@@ -71,7 +71,7 @@ router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req,
 });
 
 router.post('/search', (req, res, next) => {
-    Venue.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL', function (err, venues) {
+    Venue.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL description genres capacity', function (err, venues) {
         if (err) return (err);
         console.log(venues);
         return res.json(venues);

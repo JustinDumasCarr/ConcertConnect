@@ -16,6 +16,15 @@ import {AuthService} from '../../services/auth.service';
                 <md-input-container>
                     <input mdInput type="text" value="{{venue.email}}" formControlName="venueEmail">
                 </md-input-container>
+                 <md-input-container>
+                    <input mdInput type="text" value="{{venue.description}}" formControlName="venueDescription">
+                </md-input-container>
+                 <md-input-container>
+                    <input mdInput type="text" value="{{venue.capacity}}" formControlName="venueCapacity">
+                </md-input-container>
+                 <md-input-container>
+                    <input mdInput type="text" value="{{venue.genres[0]}}" formControlName="venueGenre[0]">
+                </md-input-container>
                 <div class="button-container">
                     <button md-raised-button (click)="dialogRef.close()">Cancel</button>
                     <button md-raised-button type="submit">Save</button>
@@ -43,11 +52,16 @@ export class EditVenue {
     userInformation: FormGroup;
     venueName: FormControl;
     venueEmail: FormControl;
+    venueDescription: FormControl;
+    venueCapacity: FormControl;
+    venueGenre: FormControl;
+
 
     originalUsername: string;
     originalEmail: string;
     currentUsername: string;
     currentEmail: string;
+    errorText: string;
 
     userChange: boolean;
 
@@ -63,7 +77,10 @@ export class EditVenue {
         @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.venueName = new FormControl();
         this.venueEmail = new FormControl();
-        this.userInformation = new FormGroup({venueName: this.venueName, venueEmail: this.venueEmail});
+        this.venueDescription = new FormControl();
+        this.venueCapacity = new FormControl();
+        this.venueGenre = new FormControl();
+        this.userInformation = new FormGroup({venueName: this.venueName, venueEmail: this.venueEmail, venueDescription : this.venueDescription, venueCapacity: this.venueCapacity, venueGenre: this.venueGenre});
         this.formSubmit = false;
         this.formSuccess = false;
         this.formFail = false;

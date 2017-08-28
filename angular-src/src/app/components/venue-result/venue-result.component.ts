@@ -5,13 +5,14 @@ class VenueResult {
   name: string;
   email: string;
   profileImageURL: string;
+  description: string;
 
 
-  constructor(name: string, email: string, profileImageURL: string) {
+  constructor(name: string, email: string, profileImageURL: string,description: string) {
     this.name = name;
     this.email = email;
     this.profileImageURL = profileImageURL;
-
+this.description = description;
   }
 }
 

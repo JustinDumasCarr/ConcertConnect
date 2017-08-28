@@ -14,7 +14,12 @@ import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/ma
 })
 export class VenueComponent implements OnInit {
 
-  id: string;
+    //calendar stuff
+    viewDate: Date = new Date();
+    events = [];
+
+
+    id: string;
   venue: Object;
   venueExist: boolean;
   venueNotExist: boolean;
