@@ -4,6 +4,8 @@ import {AuthService} from '../../services/auth.service';
 
 //Dialog Stuff
 import { EditArtist } from '../artist/edit.artist';
+import { MessageArtist } from '../artist/message.artist';
+
 import {DOCUMENT} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
 
@@ -31,6 +33,7 @@ export class ArtistComponent implements OnInit
 
     //Dialog values
     dialogRef: MdDialogRef<EditArtist>;
+    dialogRefMessage: MdDialogRef<MessageArtist>;
     lastCloseResult: string;
     actionsAlignment: string;
     config: MdDialogConfig = {
@@ -97,7 +100,20 @@ export class ArtistComponent implements OnInit
         }
     }
 
-    messageArtist(){
+    openMessage(){
+
+        this.dialogRefMessage = this.dialog.open(MessageArtist, this.config);
+        const sub = this.dialogRefMessage.componentInstance.updateProfile.subscribe((data) => {
+            this.artist = data;
+            this.config.data = data;
+        });
+        this.dialogRefMessage.afterClosed().subscribe((result: string) => {
+            this.lastCloseResult = result;
+            this.dialogRefMessage = null;
+            sub.unsubscribe();
+        });
+
+
     }
 
     openEdit() {

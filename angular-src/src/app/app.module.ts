@@ -33,6 +33,7 @@ import { VenueResultComponent } from './components/venue-result/venue-result.com
 //Dialogs
 import { EditProfile } from './components/profile/edit.profile';
 import { EditArtist } from './components/artist/edit.artist';
+import { MessageArtist } from './components/artist/message.artist';
 import { EditVenue } from './components/venue/edit.venue';
 import { LoginDialog } from './components/login/login.dialog';
 import { RegisterDialog } from './components/register/register.dialog';
@@ -88,6 +89,7 @@ const appRoutes: Routes =  [
     EditProfile,
     EditArtist,
     EditVenue,
+    MessageArtist,
     LoginDialog,
     RegisterDialog
   ],
@@ -122,8 +124,8 @@ const appRoutes: Routes =  [
     MdChipsModule,
     CalendarModule.forRoot()
   ],
-  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, LoginDialog, RegisterDialog],
-  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue, LoginDialog, RegisterDialog],
+  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, LoginDialog, RegisterDialog],
+  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

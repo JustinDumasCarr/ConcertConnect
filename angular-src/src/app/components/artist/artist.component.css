@@ -29,6 +29,10 @@ md-chip {
     margin-top: 1em;
     margin-left: .5em;
 }
+.message-button {
+    margin-top: 1em;
+    margin-left: .5em;
+}
 .profile-picture{
     width:200px;
 }
