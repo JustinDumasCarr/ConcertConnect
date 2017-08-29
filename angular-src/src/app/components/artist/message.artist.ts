@@ -7,9 +7,9 @@ import {AuthService} from '../../services/auth.service';
 @Component({
     selector: 'demo-jazz-dialog',
     template: `
-        <div *ngIf="formStatus=='form-not-submitted'">
+        <div>
             <p class="title">Message</p>
-            <form *ngIf="!formSubmit" (ngSubmit)="" [formGroup]="userInformation">
+            <form>
                 <md-input-container>
                     <input mdInput type="text" value="{{artist.name}}" formControlName="artistName">
                 </md-input-container>
@@ -23,19 +23,19 @@ import {AuthService} from '../../services/auth.service';
                 </div>
             </form>
         </div>
-        <div *ngIf="formStatus=='form-submitted'">
-            <div *ngIf="formSubmit && formSuccess" class="change-success">
+        <div>
+            <div>
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
                 <button md-raised-button (click)="dialogRef.close()">OK</button>
             </div>
-            <div *ngIf="formSubmit && formFail" class="change-fail">
+            <div>
                 <p class="title">Error</p>
                 <p>Your information has been changed successfully</p>
                 <button md-raised-button (click)="dialogRef.close()">OK</button>
             </div>
         </div>
-        <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
+        <md-spinner class="loader"></md-spinner>
        `,
     styleUrls: ['edit.artist.css']
 })
