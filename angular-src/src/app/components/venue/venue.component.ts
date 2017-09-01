@@ -4,6 +4,8 @@ import {AuthService} from '../../services/auth.service';
 
 //Dialog Stuff
 import { EditVenue } from '../venue/edit.venue';
+import { MessageVenue } from '../venue/message.venue';
+
 import {DOCUMENT} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
 
@@ -30,6 +32,8 @@ export class VenueComponent implements OnInit {
 
     //Dialog values
     dialogRef: MdDialogRef<EditVenue>;
+    dialogRefMessage: MdDialogRef<MessageVenue>;
+
     lastCloseResult: string;
     actionsAlignment: string;
     config: MdDialogConfig = {
@@ -99,6 +103,20 @@ export class VenueComponent implements OnInit {
       }
     }
   }
+
+
+    openMessage(){
+
+        this.dialogRefMessage = this.dialog.open(MessageVenue, this.config);
+
+        this.dialogRefMessage.afterClosed().subscribe((result: string) => {
+            this.lastCloseResult = result;
+            this.dialogRefMessage = null;
+
+        });
+
+
+    }
 
     openEdit() {
         this.dialogRef = this.dialog.open(EditVenue, this.config);

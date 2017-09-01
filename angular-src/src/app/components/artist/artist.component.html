@@ -22,9 +22,10 @@
             <md-chip-list>
                 <md-chip *ngFor="let genre of artist.genres">{{genre}}</md-chip>
             </md-chip-list>
+            <div class="button-container">
             <button md-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
             <button md-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
-
+            </div>
         </md-card>
         <md-card class="side-picture">
             <img md-card-image [src]="'/assets/images/soundcloud.png'" height="100%">

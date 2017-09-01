@@ -35,6 +35,7 @@ import { EditProfile } from './components/profile/edit.profile';
 import { EditArtist } from './components/artist/edit.artist';
 import { MessageArtist } from './components/artist/message.artist';
 import { EditVenue } from './components/venue/edit.venue';
+import { MessageVenue } from './components/venue/message.venue';
 import { LoginDialog } from './components/login/login.dialog';
 import { RegisterDialog } from './components/register/register.dialog';
 
@@ -90,6 +91,7 @@ const appRoutes: Routes =  [
     EditArtist,
     EditVenue,
     MessageArtist,
+    MessageVenue,
     LoginDialog,
     RegisterDialog
   ],
@@ -124,7 +126,7 @@ const appRoutes: Routes =  [
     MdChipsModule,
     CalendarModule.forRoot()
   ],
-  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, LoginDialog, RegisterDialog],
+  entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
   providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog],
   bootstrap: [AppComponent]
 })

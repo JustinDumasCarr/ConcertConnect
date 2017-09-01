@@ -103,14 +103,11 @@ export class ArtistComponent implements OnInit
     openMessage(){
 
         this.dialogRefMessage = this.dialog.open(MessageArtist, this.config);
-        const sub = this.dialogRefMessage.componentInstance.updateProfile.subscribe((data) => {
-            this.artist = data;
-            this.config.data = data;
-        });
+
         this.dialogRefMessage.afterClosed().subscribe((result: string) => {
             this.lastCloseResult = result;
             this.dialogRefMessage = null;
-            sub.unsubscribe();
+
         });
 
 

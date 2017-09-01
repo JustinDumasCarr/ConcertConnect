@@ -5,10 +5,10 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
 
 @Component({
-    selector: 'message-artist-dialog',
+    selector: 'message-venue-dialog',
     template: `
         <div>
-            <p class="title">Message Artist</p>
+            <p class="title">Message Venue</p>
             <form>
                 <textarea id="textarea"  ></textarea>
             </form>
@@ -20,11 +20,11 @@ import {AuthService} from '../../services/auth.service';
        `,
     styleUrls: ['message.dialog.css']
 })
-export class MessageArtist {
+export class MessageVenue {
     private _dimesionToggle = false;
     errorText: String;
 
-    constructor(public dialogRef: MdDialogRef<MessageArtist>, private route: ActivatedRoute,
+    constructor(public dialogRef: MdDialogRef<MessageVenue>, private route: ActivatedRoute,
                 @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.errorText = this.data;
     }
