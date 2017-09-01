@@ -94,6 +94,7 @@ const appRoutes: Routes =  [
     MessageVenue,
     LoginDialog,
     RegisterDialog
+
   ],
   imports: [
     BrowserModule,

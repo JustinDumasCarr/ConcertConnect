@@ -20,6 +20,13 @@ export class NavbarComponent implements OnInit {
 
   currentActiveAccount: string;
 
+  items = [
+    {text: 'Refresh'},
+    {text: 'Settings'},
+    {text: 'Help', disabled: true},
+    {text: 'Sign Out'}
+  ];
+
   constructor(private authService: AuthService,
               private router: Router,
               private flashMessage: FlashMessagesService) {
@@ -102,6 +109,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/venue',newID]);
     this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
     return false;
+  }
+
+  settingsProfileClick(){
+
+    this.router.navigate(['/profile']);
   }
 
   profileClick()

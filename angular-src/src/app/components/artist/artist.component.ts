@@ -107,7 +107,6 @@ export class ArtistComponent implements OnInit
         this.dialogRefMessage.afterClosed().subscribe((result: string) => {
             this.lastCloseResult = result;
             this.dialogRefMessage = null;
-
         });
 
 

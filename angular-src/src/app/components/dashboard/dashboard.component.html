@@ -1,6 +1,17 @@
 
 
 <div class="flex-container">
+
+
+
+
+            <artist-result *ngFor="let aArtistResult of artistResults"
+                           [artistResult]="aArtistResult"></artist-result>
+        <venue-result *ngFor="let aVenueResult of venueResults"
+                       [venueResult]="aVenueResult"></venue-result>
+
+    
+
     <md-card class="dashboard-card">
         <md-card-title>Dashboard</md-card-title>
 
