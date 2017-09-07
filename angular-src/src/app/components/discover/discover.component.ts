@@ -29,7 +29,8 @@ export class DiscoverComponent implements OnInit {
             this.artistResults = data;
 
         });
-        this.searchService.searchVenue({name: ""}).subscribe(data => {
+        this.searchService.searchVenue({genre: "",
+        capacity: 0}).subscribe(data => {
 
             this.venueResults = data;
 

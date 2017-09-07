@@ -21,49 +21,42 @@ router.post('/register', passport.authenticate('jwt', {session: false}), (req, r
     });
 
 
-        Venue.addVenue(newVenue, (err, Venue) => {
-            if (err) {
-                res.json({success: false, msg: 'Failed to register Venue'});
-            } else {
+    Venue.addVenue(newVenue, (err, Venue) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to register Venue'});
+        } else {
 
-                User.findByIdAndUpdate(
-                    newVenue.userId,
-                    {$push: {"venues": {venueId:Venue._id, name:Venue.name, type: 'venue'}}},
-                    {safe: true, upsert: true, new : true},
-                    function(err, model) { //unecessary
-                        if (err) {
-                            res.json({success: false, msg: 'Failed to update User'});
-                        } else {
-                            res.json({success: true, venues: model.venues});
+            User.findByIdAndUpdate(
+                newVenue.userId,
+                {$push: {"venues": {venueId: Venue._id, name: Venue.name, type: 'venue'}}},
+                {safe: true, upsert: true, new: true},
+                function (err, model) { //unecessary
+                    if (err) {
+                        res.json({success: false, msg: 'Failed to update User'});
+                    } else {
+                        res.json({success: true, venues: model.venues});
 
-                        }
                     }
-                );
+                }
+            );
 
 
-
-            }
-        });
-
-
+        }
+    });
 
 
 });
 
 //Returns venue information based on details
-router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) =>
-{
+router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
-    Venue.getVenueByID(req.body._id, (err,Venueexists) =>
-    {
+    Venue.getVenueByID(req.body._id, (err, Venueexists) => {
         //Not sure if this actually throws an error
-        if(err) throw err;
-        if(Venueexists)
-        {
+        if (err) throw err;
+        if (Venueexists) {
             res.json(Venueexists);
         }
-        else
-        {
+        else {
             res.json("");
         }
     });
@@ -71,11 +64,26 @@ router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req,
 });
 
 router.post('/search', (req, res, next) => {
-    Venue.find({ 'name': new RegExp(req.body.name,'i')}, 'name email profileImageURL description genres capacity', function (err, venues) {
-        if (err) return (err);
-        console.log(venues);
-        return res.json(venues);
-    })
+    if (req.body.capacity == 0) {
+        Venue.find({
+            'genres': new RegExp(req.body.genre, 'i'),
+        }, 'name email description genres profileImageURL capacity location', function (err, venues) {
+            if (err) return (err);
+            console.log(venues);
+            return res.json(venues);
+        })
+    }
+    else {
+        Venue.find({
+            'genres': new RegExp(req.body.genre, 'i'),
+            'capacity': {$lt : req.body.capacity + 1}
+        }, 'name email description genres profileImageURL capacity location', function (err, venues) {
+            if (err) return (err);
+            console.log(venues);
+            return res.json(venues);
+        })
+
+    }
 });
 
 //Change name and email
@@ -91,20 +99,16 @@ router.post('/changenameandemail', passport.authenticate('jwt', {session: false}
     };
 
     //Checks if artist exists
-    Venue.getVenueByEmail(emailInfo.email, (err, user) =>
-    {
+    Venue.getVenueByEmail(emailInfo.email, (err, user) => {
         if (err) throw err;
         if (user) {
             return res.json({success: false, msg: 'Email already exists'});
         }
-        else
-        {
+        else {
             Venue.changeEmail(emailInfo, (err, callback) => {
-                if(callback)
-                {
+                if (callback) {
                     Venue.changeName(nameInfo, (err, callback) => {
-                        if(callback)
-                        {
+                        if (callback) {
                             return res.json({success: true, msg: 'Name and Email have been changed successfully'});
                         }
                     });

@@ -58,3 +58,15 @@
     background-color: #444444;
 
 }
+
+.search-options{
+    width:100%;
+    height: auto;
+    background-color: #ffc19e;
+
+}
+
+.capacity{
+
+    margin: 20px 0px 5px 10px;
+}

@@ -1,6 +1,7 @@
 <div class="pushdown ">
     <div class="genre-container">
-        <div class="genre" *ngFor="let genre of genres; let i = index" (click)="changeGenre(genre) " [style.background-color]="getStyle(genre)">
+        <div class="genre" *ngFor="let genre of genres; let i = index" (click)="changeGenre(genre) "
+             [style.background-color]="getStyle(genre)">
             {{genre[0]}}
         </div>
     </div>
@@ -10,8 +11,13 @@
     <!--</div>-->
     <!--</div>-->
 
-
-
+    <div class="search-options">
+        <md-select placeholder="Max Capacity" class="capacity">
+            <md-option *ngFor="let capacity of capacities" [value]="capacity.value" (click)="changeCapacity(capacity.value)">
+                {{ capacity.viewValue }}
+            </md-option>
+        </md-select>
+    </div>
     <div class="card-container">
         <venue-result *ngFor="let aVenueResult of venueResults" [venueResult]="aVenueResult"></venue-result>
     </div>

@@ -16,6 +16,7 @@ export class SearchVenueComponent implements OnInit {
   showStyle = false;
 
   selectedGenre = '';
+  selectedCapacity = 0;
   genres = [['All'],
     ['ambient', ['new-age', 'smooth']],
     ['rock', ['indie', 'prog', 'post']],
@@ -36,6 +37,12 @@ export class SearchVenueComponent implements OnInit {
 
   ];
 
+  capacities = [
+    {value: 100, viewValue: '100'},
+    {value: 500, viewValue: '500'},
+    {value: 2000, viewValue: '2000'},
+    {value: 0, viewValue: 'All'}
+  ];
 
   constructor(private searchService: SearchService) {
 
@@ -58,29 +65,38 @@ export class SearchVenueComponent implements OnInit {
 
 
     this.selectedGenre = genre;
-
+console.log('selectedGenre' + this.selectedGenre);
     this.getResults();
 
 
+  }
+
+  changeCapacity(capacity){
+    this.selectedCapacity = capacity;
+    this.getResults();
   }
 
 
   getResults() {
 
     //this is just so that
-    var query = {genre: ""};
+    var query = {genre: "",
+      capacity: 0
+    };
 
     if (this.selectedGenre[0] === "All") {
       query = {
-        genre: ""
+        genre: "",
+        capacity: this.selectedCapacity
       };
     }
     else {
       query = {
-        genre: this.selectedGenre[0]
+        genre: this.selectedGenre[0],
+        capacity: this.selectedCapacity
       };
     }
-
+console.log('query: ' + JSON.stringify(query));
 
     localStorage.setItem('query', this.venueName);
 
@@ -93,5 +109,7 @@ export class SearchVenueComponent implements OnInit {
       console.log('data :' +JSON.stringify(data));
     });
   }
+
+
 
 }

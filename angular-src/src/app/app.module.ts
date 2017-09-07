@@ -48,7 +48,7 @@ import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule, MdSelectModule} from '@angular/material';
 
 import { CalendarModule } from 'angular-calendar';
 
@@ -125,6 +125,7 @@ const appRoutes: Routes =  [
     MdDialogModule,
     MdProgressSpinnerModule,
     MdChipsModule,
+    MdSelectModule,
     CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
