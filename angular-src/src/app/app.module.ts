@@ -49,7 +49,7 @@ import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
 import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule, MdSelectModule} from '@angular/material';
-
+import 'hammerjs';
 import { CalendarModule } from 'angular-calendar';
 
 

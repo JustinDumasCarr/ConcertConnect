@@ -74,10 +74,6 @@ export class NavbarComponent implements OnInit {
 
   onLogoutClick() {
     this.authService.logout();
-    this.flashMessage.show('You are logged out', {
-      cssClass: 'alert-success',
-      timeout: 3000
-    });
     this.router.navigate(['/login']);
     this.toggleValue = "Toggle User";
     return false;
@@ -94,6 +90,7 @@ export class NavbarComponent implements OnInit {
 
   changeUserArtist(selectedArtist,newID)
   {
+    console.log("Change user artist function called");
     console.log("newID: "+ newID);
     this.toggleValue = newID;
     this.authService.setActive(selectedArtist);
@@ -102,8 +99,9 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  changeUserVenue(selectedVenue,newID)
+    changeUserVenue(selectedVenue,newID)
   {
+    console.log("Change user venue function called");
     this.toggleValue = newID;
     this.authService.setActive(selectedVenue);
     this.router.navigate(['/venue',newID]);
@@ -138,6 +136,5 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/venue',profile_id]);
     }
   }
-
 
 }
