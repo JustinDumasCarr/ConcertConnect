@@ -28,7 +28,10 @@ const VenueSchema = mongoose.Schema({
     genres: [String],
     description: String,
     location: String,
-    capacity: Number
+    capacity: Number,
+    contracts: [{
+        contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }
+    }]
 });
 
 const Venue = module.exports = mongoose.model('Venue', VenueSchema);

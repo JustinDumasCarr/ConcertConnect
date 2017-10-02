@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit, Inject, ViewChild, TemplateRef} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {CalendarService} from '../../services/calendar.service';
 
 //Dialog Stuff
-import { EditArtist } from '../artist/edit.artist';
-import { MessageArtist } from '../artist/message.artist';
+import {EditArtist} from '../artist/edit.artist';
+import {MessageArtist} from '../artist/message.artist';
 
 import {DOCUMENT} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
@@ -14,8 +15,7 @@ import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/ma
     templateUrl: './artist.component.html',
     styleUrls: ['./artist.component.css'],
 })
-export class ArtistComponent implements OnInit
-{
+export class ArtistComponent implements OnInit {
 
 //calendar stuff
     viewDate: Date = new Date();
@@ -48,15 +48,13 @@ export class ArtistComponent implements OnInit
             left: '',
             right: ''
         },
-        data: {
-        }
+        data: {}
     };
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-    constructor(private route: ActivatedRoute,private authService: AuthService, public dialog: MdDialog,
-                @Inject(DOCUMENT) doc: any)
-    {
+    constructor(private route: ActivatedRoute, private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
+                @Inject(DOCUMENT) doc: any) {
         dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
             if (!doc.body.classList.contains('no-scroll')) {
                 doc.body.classList.add('no-scroll');
@@ -93,14 +91,14 @@ export class ArtistComponent implements OnInit
 
     isArtist() {
         let artists = this.authService.getArtists();
-        for(let i=0; i<artists.length; i++) {
-            if(artists[i].name==this.artist['name']) {
+        for (let i = 0; i < artists.length; i++) {
+            if (artists[i].name == this.artist['name']) {
                 this.isArtistDisplay = true;
             }
         }
     }
 
-    openMessage(){
+    openMessage() {
 
         this.dialogRefMessage = this.dialog.open(MessageArtist, this.config);
 
@@ -123,5 +121,12 @@ export class ArtistComponent implements OnInit
             this.dialogRef = null;
             sub.unsubscribe();
         });
+    }
+
+    logDayEvent(day, event) {
+        console.log(event);
+        var active = localStorage.getItem('activeEntity');
+
+        this.calendarService.createContract(active,this.artist,event.day.date);
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {CalendarService} from '../../services/calendar.service';
 
 //Dialog Stuff
 import { EditVenue } from '../venue/edit.venue';
@@ -54,7 +55,7 @@ export class VenueComponent implements OnInit {
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService, public dialog: MdDialog,
+  constructor(private route: ActivatedRoute,private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
               @Inject(DOCUMENT) doc: any)
   {
       dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
@@ -128,6 +129,16 @@ export class VenueComponent implements OnInit {
             this.lastCloseResult = result;
             this.dialogRef = null;
             sub.unsubscribe();
+        });
+    }
+
+    createContract(day, event) {
+        console.log(event);
+        var active = JSON.parse(localStorage.getItem('active'));
+        console.log('active:' +active.artistId);
+        console.log('venue: '+ JSON.stringify(this.venue));
+        this.calendarService.createContract(active['artistId'],this.venue['_id'],event.day.date).subscribe((data) => {
+      console.log('res: '+ JSON.stringify(data));
         });
     }
 

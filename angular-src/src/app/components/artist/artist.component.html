@@ -7,9 +7,7 @@
             <md-card-title-group>
                 <img md-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
             </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Artist Name: {{artist.name}}</md-card-subtitle>
-            </md-card-title-group>
+
             <md-card-title-group>
                 <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
             </md-card-title-group>
@@ -33,6 +31,8 @@
     </div>
     <div class="artist-calendar">
         <mwl-calendar-month-view
+
+                (dayClicked)= "logDayEvent($event.day.date, $event)"
                 [viewDate]="viewDate"
                 [events]="events">
         </mwl-calendar-month-view>

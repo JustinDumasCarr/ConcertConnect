@@ -18,7 +18,7 @@ import { RegisterVenueComponent } from './components/register-venue/register-ven
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { SearchService } from './services/search.service';
-
+import {CalendarService} from './services/calendar.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
@@ -129,7 +129,7 @@ const appRoutes: Routes =  [
     CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
-  providers: [ValidateService, AuthService, SearchService, AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog],
+  providers: [ValidateService, AuthService, SearchService, CalendarService,  AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

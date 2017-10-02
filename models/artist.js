@@ -30,6 +30,9 @@ const ArtistSchema = mongoose.Schema({
     imageArray: [String],
     genres: [String],
     description: String,
+    contracts: [{
+        contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }
+    }]
 
 });
 

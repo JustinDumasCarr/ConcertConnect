@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 const Venue = require('../models/venue');
+const Contract = require('../models/contract');
 const users = require('./users');
 
 router.post('/register', passport.authenticate('jwt', {session: false}), (req, res, next) => {
@@ -44,6 +45,39 @@ router.post('/register', passport.authenticate('jwt', {session: false}), (req, r
         }
     });
 
+
+});
+router.post('/createContract',  (req, res, next) => {
+    console.log(req.body.artistId);
+    console.log('venueId:' + req.body.venueId);
+    let newContract = new Contract({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date
+    });
+
+    Contract.addContract(newContract, (err, contract) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to register Contract'});
+        } else {
+
+        }
+            Venue.findByIdAndUpdate(
+                newContract.venueId,
+                {$push: {"contracts": {contractId: contract._id}}},
+                {safe: true, upsert: true, new: true},
+                function (err, model) {
+                    if (err) {
+                        res.json({success: false, msg: 'Failed to update Venue'});
+                    } else {
+                        res.json({success: true, contract: contract});
+
+                    }
+                }
+            );
+
+
+    });
 
 });
 

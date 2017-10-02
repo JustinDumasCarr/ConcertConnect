@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import{VenueResultComponent} from '../venue-result/venue-result.component'
+import{VenueResultComponent} from '../venue-result/venue-result.component';
 import {SearchService} from '../../services/search.service';
 
 @Component({
