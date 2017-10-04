@@ -7,8 +7,8 @@ const User = require('../models/user');
 const Venue = require('../models/venue');
 const Contract = require('../models/contract');
 const users = require('./users');
-
-router.post('/register', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+const Artist = require('../models/artist');
+router.post('/register', (req, res, next) => {
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
@@ -47,7 +47,7 @@ router.post('/register', passport.authenticate('jwt', {session: false}), (req, r
 
 
 });
-router.post('/createContract',  (req, res, next) => {
+router.post('/createContract', (req, res, next) => {
     console.log(req.body.artistId);
     console.log('venueId:' + req.body.venueId);
     let newContract = new Contract({
@@ -61,32 +61,54 @@ router.post('/createContract',  (req, res, next) => {
             res.json({success: false, msg: 'Failed to register Contract'});
         } else {
 
-        }
             Venue.findByIdAndUpdate(
                 newContract.venueId,
-                {$push: {"contracts": {contractId: contract._id}}},
+                {$push: {"contracts": {contractId: contract._id, date: contract.date, artistId: contract.artistId}}},
                 {safe: true, upsert: true, new: true},
                 function (err, model) {
                     if (err) {
                         res.json({success: false, msg: 'Failed to update Venue'});
                     } else {
-                        res.json({success: true, contract: contract});
+                        Artist.findByIdAndUpdate(newContract.artistId,
+                            {
+                                $push: {
+                                    "contracts": {
+                                        contractId: contract._id,
+                                        date: contract.date,
+                                        venueId: contract.venueId
+                                    }
+                                }
+                            }
+                            ,
+                            {
+                                safe: true, upsert: true, new: true
+                            }
+                            ,
+                            function (err, model) {
+                                if (err) {
+                                    res.json({success: false, msg: 'Failed to update Venue'});
+                                } else {
+                                    res.json({success: true, contract: contract});
+                                }
+                            }
+                        )
 
                     }
                 }
             );
+        }
 
+    })
+    ;
 
-    });
-
-});
+})
+;
 
 //Returns venue information based on details
-router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/getProfile', (req, res, next) => {
 
     Venue.getVenueByID(req.body._id, (err, Venueexists) => {
-        //Not sure if this actually throws an error
-        if (err) throw err;
+
         if (Venueexists) {
             res.json(Venueexists);
         }
@@ -110,7 +132,7 @@ router.post('/search', (req, res, next) => {
     else {
         Venue.find({
             'genres': new RegExp(req.body.genre, 'i'),
-            'capacity': {$lt : req.body.capacity + 1}
+            'capacity': {$lt: req.body.capacity + 1}
         }, 'name email description genres profileImageURL capacity location', function (err, venues) {
             if (err) return (err);
             console.log(venues);

@@ -32,10 +32,13 @@
 
         <div class="venue-calendar">
             <mwl-calendar-month-view
-                    (dayClicked)= "createContract($event.day.date, $event)"
+                    (dayClicked)= "openConfirm($event)"
                     [viewDate]="viewDate"
                     [events]="events">
+        \
             </mwl-calendar-month-view>
         </div>
+
+
     </div>
 </div>

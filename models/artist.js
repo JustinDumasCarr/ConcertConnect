@@ -31,8 +31,9 @@ const ArtistSchema = mongoose.Schema({
     genres: [String],
     description: String,
     contracts: [{
-        contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }
+        contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }, date:{type:Date}, venueId:{type:String}
     }]
+
 
 });
 

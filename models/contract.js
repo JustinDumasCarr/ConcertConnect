@@ -14,9 +14,10 @@ const ContractSchema = mongoose.Schema({
         required: true
     },
     date: {
-        type: String,
+        type: Date,
         required: true
-    }
+    },
+
 });
 
 const Contract = module.exports = mongoose.model('Contract', ContractSchema);

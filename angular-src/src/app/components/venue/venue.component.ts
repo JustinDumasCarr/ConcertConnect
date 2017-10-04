@@ -1,8 +1,20 @@
-import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, TemplateRef, ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CalendarService} from '../../services/calendar.service';
-
+import { CalendarEvent } from 'angular-calendar';
+import { ViewContainerRef } from '@angular/core';
+import { TdDialogService } from '@covalent/core';
+import {
+    startOfDay,
+    endOfDay,
+    subDays,
+    addDays,
+    endOfMonth,
+    isSameDay,
+    isSameMonth,
+    addHours
+} from 'date-fns';
 //Dialog Stuff
 import { EditVenue } from '../venue/edit.venue';
 import { MessageVenue } from '../venue/message.venue';
@@ -12,6 +24,7 @@ import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/ma
 
 @Component({
   selector: 'app-venue',
+    changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './venue.component.html',
   styleUrls: ['./venue.component.css']
 })
@@ -19,7 +32,7 @@ export class VenueComponent implements OnInit {
 
     //calendar stuff
     viewDate: Date = new Date();
-    events = [];
+    events: CalendarEvent[];
 
 
     id: string;
@@ -56,7 +69,9 @@ export class VenueComponent implements OnInit {
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
   constructor(private route: ActivatedRoute,private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
-              @Inject(DOCUMENT) doc: any)
+
+              private _dialogService: TdDialogService,
+              private _viewContainerRef: ViewContainerRef,@Inject(DOCUMENT) doc: any)
   {
       dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
           if (!doc.body.classList.contains('no-scroll')) {
@@ -84,6 +99,17 @@ export class VenueComponent implements OnInit {
               this.venue = data;
               this.config.data = data;
               this.venueExist = true;
+                this.events= data['contracts'].map(function(contract) {
+                    return {
+                        start: startOfDay(contract['date']),
+                        title: contract['artistId'],
+                        color: {
+                            primary: '#ad2121',
+                            secondary: '#FAE3E3'
+                        },
+                    }
+                });
+                console.log('data:' + JSON.stringify(data['contracts']));
             }
             this.isVenue();
           },
@@ -131,8 +157,25 @@ export class VenueComponent implements OnInit {
             sub.unsubscribe();
         });
     }
+    openConfirm(event): void {
+        this._dialogService.openConfirm({
+            message: 'Would you like to send a request to play on this Date?',
+            disableClose:  false, // defaults to false
+            viewContainerRef: this._viewContainerRef, //OPTIONAL
+            title: 'Confirm', //OPTIONAL, hides if not provided
+            cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+            acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+        }).afterClosed().subscribe((accept: boolean) => {
+            if (accept) {
+                this.createContract(event);
+            } else {
+                // DO SOMETHING ELSE
+            }
+        });
+    }
 
-    createContract(day, event) {
+
+    createContract(event) {
         console.log(event);
         var active = JSON.parse(localStorage.getItem('active'));
         console.log('active:' +active.artistId);

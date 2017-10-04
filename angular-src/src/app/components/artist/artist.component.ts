@@ -3,6 +3,19 @@ import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CalendarService} from '../../services/calendar.service';
 
+import { ViewContainerRef } from '@angular/core';
+import { TdDialogService } from '@covalent/core';
+import {
+    startOfDay,
+    endOfDay,
+    subDays,
+    addDays,
+    endOfMonth,
+    isSameDay,
+    isSameMonth,
+    addHours
+} from 'date-fns';
+
 //Dialog Stuff
 import {EditArtist} from '../artist/edit.artist';
 import {MessageArtist} from '../artist/message.artist';
@@ -54,6 +67,8 @@ export class ArtistComponent implements OnInit {
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
     constructor(private route: ActivatedRoute, private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
+    private _dialogService: TdDialogService,
+    private _viewContainerRef: ViewContainerRef,
                 @Inject(DOCUMENT) doc: any) {
         dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
             if (!doc.body.classList.contains('no-scroll')) {
@@ -78,6 +93,16 @@ export class ArtistComponent implements OnInit {
                         this.artist = data;
                         this.config.data = data;
                         this.artistExist = true;
+                        this.events= data['contracts'].map(function(contract) {
+                            return {
+                                start: startOfDay(contract['date']),
+                                title: contract['artistId'],
+                                color: {
+                                    primary: '#ad2121',
+                                    secondary: '#FAE3E3'
+                                },
+                            }
+                        });
                     }
                     this.isArtist();
                 },
@@ -123,10 +148,31 @@ export class ArtistComponent implements OnInit {
         });
     }
 
-    logDayEvent(day, event) {
-        console.log(event);
-        var active = localStorage.getItem('activeEntity');
+    openConfirm(event): void {
+        this._dialogService.openConfirm({
+            message: 'Would you like to send a request to play on this Date?',
+            disableClose:  false, // defaults to false
+            viewContainerRef: this._viewContainerRef, //OPTIONAL
+            title: 'Confirm', //OPTIONAL, hides if not provided
+            cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+            acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+        }).afterClosed().subscribe((accept: boolean) => {
+            if (accept) {
+                this.createContract(event);
+            } else {
+                // DO SOMETHING ELSE
+            }
+        });
+    }
 
-        this.calendarService.createContract(active,this.artist,event.day.date);
+
+    createContract(event) {
+        console.log(event);
+        var active = JSON.parse(localStorage.getItem('active'));
+        console.log('active:' +active.venueId);
+
+        this.calendarService.createContract(this.artist['_id'],active['venueId'],event.day.date).subscribe((data) => {
+            console.log('res: '+ JSON.stringify(data));
+        });
     }
 }

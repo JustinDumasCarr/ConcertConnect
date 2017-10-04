@@ -42,6 +42,7 @@ import { RegisterDialog } from './components/register/register.dialog';
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
 import { CovalentHttpModule } from '@covalent/http';
+import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentHighlightModule } from '@covalent/highlight';
 import { CovalentMarkdownModule } from '@covalent/markdown';
 import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
@@ -113,6 +114,7 @@ const appRoutes: Routes =  [
     CovalentHighlightModule,
     CovalentMarkdownModule,
     CovalentDynamicFormsModule,
+    CovalentDialogsModule,
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,
