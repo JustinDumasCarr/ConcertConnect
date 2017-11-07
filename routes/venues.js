@@ -8,7 +8,7 @@ const Venue = require('../models/venue');
 const Contract = require('../models/contract');
 const users = require('./users');
 const Artist = require('../models/artist');
-router.post('/register', (req, res, next) => {
+router.post('/register',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
@@ -47,7 +47,7 @@ router.post('/register', (req, res, next) => {
 
 
 });
-router.post('/createContract', (req, res, next) => {
+router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
     console.log(req.body.artistId);
     console.log('venueId:' + req.body.venueId);
     let newContract = new Contract({
@@ -105,15 +105,15 @@ router.post('/createContract', (req, res, next) => {
 ;
 
 //Returns venue information based on details
-router.post('/getProfile', (req, res, next) => {
+router.post('/getProfile', passport.authenticate('jwt', {session: false}),(req, res, next) => {
 
     Venue.getVenueByID(req.body._id, (err, Venueexists) => {
-
+        if (err) throw err;
         if (Venueexists) {
-            res.json(Venueexists);
+             res.json(Venueexists);
         }
         else {
-            res.json("");
+            res.json("Venue does not exist");
         }
     });
 

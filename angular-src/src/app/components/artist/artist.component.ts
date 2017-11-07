@@ -172,7 +172,7 @@ export class ArtistComponent implements OnInit {
         console.log('active:' +active.venueId);
 
         this.calendarService.createContract(this.artist['_id'],active['venueId'],event.day.date).subscribe((data) => {
-            console.log('res: '+ JSON.stringify(data));
+            window.location.reload();
         });
     }
 }

@@ -8,7 +8,7 @@ const Artist = require('../models/artist');
 const users = require('./users');
 
 //Gets latest id for an artist
-router.post('/register',  (req, res, next) => {
+router.post('/register',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newArtist = new Artist({
         name: req.body.name,
         email: req.body.email,
@@ -52,7 +52,7 @@ router.post('/search',  (req, res, next) => {
 
 
 //Returns artist information based on details
-router.post('/getProfile', (req, res, next) => {
+router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
 console.log(req.body);
 

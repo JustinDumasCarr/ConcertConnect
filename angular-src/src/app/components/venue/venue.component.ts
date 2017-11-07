@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef, ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CalendarService} from '../../services/calendar.service';
 import { CalendarEvent } from 'angular-calendar';
@@ -24,7 +25,7 @@ import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/ma
 
 @Component({
   selector: 'app-venue',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './venue.component.html',
   styleUrls: ['./venue.component.css']
 })
@@ -68,7 +69,7 @@ export class VenueComponent implements OnInit {
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
+  constructor(private route: ActivatedRoute,private authService: AuthService,private router: Router,private calendarService: CalendarService, public dialog: MdDialog,
 
               private _dialogService: TdDialogService,
               private _viewContainerRef: ViewContainerRef,@Inject(DOCUMENT) doc: any)
@@ -83,9 +84,7 @@ export class VenueComponent implements OnInit {
       });
   }
 
-  ngOnInit()
-  {
-
+  ngOnInit(){
     this.route.params.forEach(params =>
     {
       this.id = params['id'];
@@ -181,7 +180,8 @@ export class VenueComponent implements OnInit {
         console.log('active:' +active.artistId);
         console.log('venue: '+ JSON.stringify(this.venue));
         this.calendarService.createContract(active['artistId'],this.venue['_id'],event.day.date).subscribe((data) => {
-      console.log('res: '+ JSON.stringify(data));
+            // this.router.navigate(['/venue',this.venue['_id']]);
+            window.location.reload();
         });
     }
 

@@ -41,6 +41,7 @@ const Artist = module.exports = mongoose.model('Artist', ArtistSchema);
 
 module.exports.getArtistByID = function(objectID, callback){
     Artist.findById(objectID, callback);
+
 };
 
 module.exports.getArtistByEmail = function(name, callback){
