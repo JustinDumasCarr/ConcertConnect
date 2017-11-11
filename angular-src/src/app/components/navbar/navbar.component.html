@@ -51,14 +51,14 @@
             <button class="toggle-label dropdown-category" *ngIf="authService.artistExist()" md-menu-item>
                 Artist
             </button>
-            <button *ngFor="let artist of authService.getArtists()" (click)="changeUserArtist(artist,artist.artistId)"
+            <button *ngFor="let artist of authService.getArtists(); trackBy:trackByArtist" (click)="changeUserArtist(artist,artist.artistId)"
                     md-menu-item>
                 {{artist.name}}
             </button>
             <button class="toggle-label dropdown-category" *ngIf="authService.venueExist()" md-menu-item>
                 Venue
             </button>
-            <button *ngFor="let venue of authService.getVenues()" (click)="changeUserVenue(venue,venue.venueId)"
+            <button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue.venueId)"
                     md-menu-item>
                 {{venue.name}}
             </button>

@@ -3,6 +3,8 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
+import {Observer} from 'rxjs/Observer';
 
 
 @Injectable()
@@ -11,7 +13,12 @@ export class AuthService {
   authToken: any;
   user: any;
 
+  logChange$: Observable<boolean>;
+  private _observer: Observer<boolean>;
+
   constructor(private http:Http) {
+      this.logChange$ = new Observable<boolean>(observer =>
+          this._observer = observer).share();
   }
 
   //Method that checks if venue or artists exist (navbar)
@@ -214,6 +221,7 @@ export class AuthService {
   }
 
   loggedIn(){
+    this._observer.next(tokenNotExpired('id_token'));
     return tokenNotExpired('id_token');
   }
 
