@@ -7,17 +7,17 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4" align="center">
+  <div class="col-mat-4" align="center">
     <h3 class="text-center">Artist</h3>
     <p>Click here if you're an artist looking to find bands to join or shows to book.</p>
     <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
   </div>
-  <div class="col-md-4" align="center">
+  <div class="col-mat-4" align="center">
     <h3 class="text-center">Band</h3>
     <p>Click here if you are in a band looking to find artists to join or shows to book.</p>
     <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
   </div>
-  <div class="col-md-4" align="center">
+  <div class="col-mat-4" align="center">
     <h3 class="text-center">Venue</h3>
     <p>Click here if you want to book some artists and bands.</p>
     <a class="btn btn-primary" [routerLink]="['/register']">Register</a>
@@ -25,15 +25,15 @@
 </div>
 
 
-  <md-toolbar>
-    <button md-icon-button [mdMenuTriggerFor]="menu" aria-label="Open basic menu">
-      <md-icon>settings</md-icon>
+  <mat-toolbar>
+    <button mat-icon-button [mat-menu-trigger-for]="menu" aria-label="Open basic menu">
+      <mat-icon>settings</mat-icon>
     </button>
-  </md-toolbar>
+  </mat-toolbar>
 
-  <md-menu #menu="mdMenu">
-    <button md-menu-item *ngFor="let item of items" (click)="select(item.text)" [disabled]="item.disabled">
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let item of items" (click)="select(item.text)" [disabled]="item.disabled">
       {{ item.text }}
     </button>
-  </md-menu>
+  </mat-menu>
 

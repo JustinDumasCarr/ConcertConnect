@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 //Dialog Stuff
 import { RegisterDialog } from '../register/register.dialog';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -20,10 +20,10 @@ export class RegisterComponent implements OnInit {
   password: String;
 
   //Dialog values
-  dialogRef: MdDialogRef<RegisterDialog>;
+  dialogRef: MatDialogRef<RegisterDialog>;
   lastCloseResult: string;
   actionsAlignment: string;
-  config: MdDialogConfig = {
+  config: MatDialogConfig = {
       disableClose: false,
       hasBackdrop: true,
       backdropClass: '',
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     private validateService: ValidateService,
     private authService:AuthService,
     private router: Router,
-    public dialog: MdDialog,
+    public dialog: MatDialog,
     @Inject(DOCUMENT) doc: any
   ) { }
 

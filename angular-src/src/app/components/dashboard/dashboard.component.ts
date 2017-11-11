@@ -29,9 +29,9 @@ export class DashboardComponent implements OnInit {
 
    this.artistResults = this.user['artists'];
 this.venueResults = this.user['venues'];
-    console.log(this.user);
+    console.log("user: "+this.user.toString());
 
-    console.log(this.user['artists']);
+    console.log("artists: "+this.user['artists'].toString());
 
 
   }

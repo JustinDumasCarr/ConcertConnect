@@ -1,34 +1,34 @@
 <div class="pushdown">
     <div class="card-container-profile">
-        <md-card *ngIf="venue" class="profile-card">
-            <md-card-title-group>
-                <md-card-title>{{venue.name}}</md-card-title>
-            </md-card-title-group>
-            <md-card-title-group>
-                <img md-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Venue Name: {{venue.name}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Email: {{venue.email}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Description: {{venue.description}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Capacity: {{venue.capacity}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Genres:</md-card-subtitle>
-            </md-card-title-group>
-            <md-chip-list>
-                <md-chip *ngFor="let genre of venue.genres">{{genre}}</md-chip>
-            </md-chip-list>
-            <button md-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
-            <button md-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+        <mat-card *ngIf="venue" class="profile-card">
+            <mat-card-title-group>
+                <mat-card-title>{{venue.name}}</mat-card-title>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Venue Name: {{venue.name}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Email: {{venue.email}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Description: {{venue.description}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Capacity: {{venue.capacity}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Genres:</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-chip-list>
+                <mat-chip *ngFor="let genre of venue.genres">{{genre}}</mat-chip>
+            </mat-chip-list>
+            <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
+            <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
 
-        </md-card>
+        </mat-card>
 
         <div class="venue-calendar">
             <mwl-calendar-month-view

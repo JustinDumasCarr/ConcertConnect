@@ -1,12 +1,13 @@
-<md-card class="login-card">
-<md-card-title>Login</md-card-title>
+<mat-card class="login-card">
+
+<mat-card-title>Login</mat-card-title>
 <form (submit)="onLoginSubmit()">
-  <md-input-container>
-    <input mdInput placeholder="Username" type="text" class="form-control" [(ngModel)]="username" name="username" required>
-  </md-input-container>
-  <md-input-container>
-    <input mdInput placeholder="Password" type="password" class="form-control" [(ngModel)]="password" name="password" required>
-  </md-input-container>
-  <button md-raised-button type="submit" class="login-button" color="primary">Login</button>
+  <mat-input-container>
+    <input matInput placeholder="Username" type="text" class="form-control" [(ngModel)]="username" name="username" required>
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput placeholder="Password" type="password" class="form-control" [(ngModel)]="password" name="password" required>
+  </mat-input-container>
+  <button mat-raised-button type="submit" class="login-button" color="primary">Login</button>
 </form>
-</md-card>
+</mat-card>

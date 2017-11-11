@@ -15,8 +15,10 @@
     "express": "*",
     "jsonwebtoken": "^7.4.3",
     "mongoose": "*",
+    "nodemailer": "^4.3.1",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "*",
+    "xoauth2": "^1.2.0"
   },
   "author": "Justin Dumas, Alex Sokolov",
   "license": "ISC",

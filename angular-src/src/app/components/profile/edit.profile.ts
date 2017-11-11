@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { FormControl, FormGroup } from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
 
@@ -9,15 +9,15 @@ import {AuthService} from '../../services/auth.service';
         <div *ngIf="formStatus=='form-not-submitted'">
             <p class="title">Edit Information</p>
             <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
-                <md-input-container>
-                    <input mdInput type="text" value="{{originalUsername}}" formControlName="username">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" value="{{originalEmail}}" formControlName="email">
-                </md-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{originalUsername}}" formControlName="username">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{originalEmail}}" formControlName="email">
+                </mat-input-container>
                 <div class="button-container">
-                    <button md-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
-                    <button md-raised-button type="submit" color="primary">Save</button>
+                    <button mat-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
+                    <button mat-raised-button type="submit" color="primary">Save</button>
                 </div>
             </form>
         </div>
@@ -25,15 +25,15 @@ import {AuthService} from '../../services/auth.service';
             <div *ngIf="formSubmit && formSuccess" class="change-success">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
                 <p class="title">Error</p>
                 <p>{{errorText}}</p>
-                <button md-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" class="ok-button">OK</button>
             </div>
         </div>
-        <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
+        <mat-spinner *ngIf="formStatus=='form-loading'" class="loader"></mat-spinner>
        `,
     styleUrls: ['edit.profile.css']
 })
@@ -59,8 +59,8 @@ export class EditProfile {
     formStatus: string;
 
     constructor(
-        public dialogRef: MdDialogRef<EditProfile>,
-        @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
+        public dialogRef: MatDialogRef<EditProfile>,
+        @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.username = new FormControl();
         this.email = new FormControl();
         this.userInformation = new FormGroup({username: this.username, email: this.email});
