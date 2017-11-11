@@ -44,11 +44,11 @@ display: inline-block;
 
 html {
     font-family: Roboto,"Helvetica Neue",sans-serif;
-    background-color: #F7F7F7 !important;
 }
 
 body {
-    background-color: #F7F7F7 !important;
+    background-image: url('assets/images/background-two.jpg') !important;
+    background-size: cover !important;
 }
 
 md-card {
