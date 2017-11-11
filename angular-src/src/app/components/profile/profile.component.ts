@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 //Dialog Stuff
 import { EditProfile } from '../profile/edit.profile';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -22,10 +22,10 @@ export class ProfileComponent implements OnInit {
   emailField: string;
 
   //Dialog values
-  dialogRef: MdDialogRef<EditProfile>;
+  dialogRef: MatDialogRef<EditProfile>;
   lastCloseResult: string;
   actionsAlignment: string;
-  config: MdDialogConfig = {
+  config: MatDialogConfig = {
     disableClose: false,
     hasBackdrop: true,
     backdropClass: '',
@@ -44,10 +44,10 @@ export class ProfileComponent implements OnInit {
   numTemplateOpens = 0;
   @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private authService: AuthService, private router: Router, public dialog: MdDialog,
+  constructor(private authService: AuthService, private router: Router, public dialog: MatDialog,
               @Inject(DOCUMENT) doc: any) {
 
-    dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
+    dialog.afterOpen.subscribe((ref: MatDialogRef<any>) => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
       }

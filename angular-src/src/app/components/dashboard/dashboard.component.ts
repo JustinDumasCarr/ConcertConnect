@@ -27,11 +27,13 @@ export class DashboardComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.artistResults = this.user['artists'];
-    this.venueResults = this.user['venues'];
-    console.log(this.user);
 
-    console.log(this.user['artists']);
+   this.artistResults = this.user['artists'];
+this.venueResults = this.user['venues'];
+    console.log("user: "+this.user.toString());
+
+
+    console.log("artists: "+this.user['artists'].toString());
 
   }
 }

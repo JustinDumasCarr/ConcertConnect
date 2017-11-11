@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 //Dialog Stuff
 import { LoginDialog } from '../login/login.dialog';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +17,10 @@ export class LoginComponent implements OnInit {
   password: String;
 
   //Dialog values
-  dialogRef: MdDialogRef<LoginDialog>;
+  dialogRef: MatDialogRef<LoginDialog>;
   lastCloseResult: string;
   actionsAlignment: string;
-  config: MdDialogConfig = {
+  config: MatDialogConfig = {
       disableClose: false,
       hasBackdrop: true,
       backdropClass: '',
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   numTemplateOpens = 0;
   @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private authService:AuthService, private router:Router, public dialog: MdDialog,
+  constructor(private authService:AuthService, private router:Router, public dialog: MatDialog,
               @Inject(DOCUMENT) doc: any) { }
 
   ngOnInit() {

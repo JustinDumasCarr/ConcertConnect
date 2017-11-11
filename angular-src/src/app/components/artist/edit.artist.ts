@@ -1,5 +1,5 @@
 import { Component, Inject, EventEmitter } from '@angular/core';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
@@ -10,21 +10,21 @@ import {AuthService} from '../../services/auth.service';
         <div *ngIf="formStatus=='form-not-submitted'">
             <p class="title">Edit Information</p>
             <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
-                <md-input-container>
-                    <input mdInput type="text" value="{{artist.name}}" formControlName="artistName">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" value="{{artist.email}}" formControlName="artistEmail">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" value="{{artist.description}}" formControlName="artistDescription">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" value="{{artist.genres[0]}}" formControlName="artistGenre[0]">
-                </md-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{artist.name}}" formControlName="artistName">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{artist.email}}" formControlName="artistEmail">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{artist.description}}" formControlName="artistDescription">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{artist.genres[0]}}" formControlName="artistGenre[0]">
+                </mat-input-container>
                 <div class="button-container">
-                    <button md-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
-                    <button md-raised-button type="submit" color="primary">Save</button>
+                    <button mat-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
+                    <button mat-raised-button type="submit" color="primary">Save</button>
                 </div>
             </form>
         </div>
@@ -32,15 +32,15 @@ import {AuthService} from '../../services/auth.service';
             <div *ngIf="formSubmit && formSuccess" class="change-success">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
                 <p class="title">Error</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()">OK</button>
             </div>
         </div>
-        <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
+        <mat-spinner *ngIf="formStatus=='form-loading'" class="loader"></mat-spinner>
        `,
     styleUrls: ['edit.artist.css']
 })
@@ -68,8 +68,8 @@ export class EditArtist {
     updateProfile = new EventEmitter();
 
     constructor(
-        public dialogRef: MdDialogRef<EditArtist>, private route: ActivatedRoute,
-        @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
+        public dialogRef: MatDialogRef<EditArtist>, private route: ActivatedRoute,
+        @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.artistName = new FormControl();
         this.artistEmail = new FormControl();
         this.artistDescription = new FormControl();

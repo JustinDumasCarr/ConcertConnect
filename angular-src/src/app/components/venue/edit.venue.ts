@@ -1,5 +1,5 @@
 import { Component, Inject, EventEmitter } from '@angular/core';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
@@ -10,24 +10,24 @@ import {AuthService} from '../../services/auth.service';
         <div *ngIf="formStatus=='form-not-submitted'">
             <p class="title">Edit Information</p>
             <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
-                <md-input-container>
-                    <input mdInput type="text" value="{{venue.name}}" formControlName="venueName">
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" value="{{venue.email}}" formControlName="venueEmail">
-                </md-input-container>
-                 <md-input-container>
-                    <input mdInput type="text" value="{{venue.description}}" formControlName="venueDescription">
-                </md-input-container>
-                 <md-input-container>
-                    <input mdInput type="text" value="{{venue.capacity}}" formControlName="venueCapacity">
-                </md-input-container>
-                 <md-input-container>
-                    <input mdInput type="text" value="{{venue.genres[0]}}" formControlName="venueGenre[0]">
-                </md-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{venue.name}}" formControlName="venueName">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="{{venue.email}}" formControlName="venueEmail">
+                </mat-input-container>
+                 <mat-input-container>
+                    <input matInput type="text" value="{{venue.description}}" formControlName="venueDescription">
+                </mat-input-container>
+                 <mat-input-container>
+                    <input matInput type="text" value="{{venue.capacity}}" formControlName="venueCapacity">
+                </mat-input-container>
+                 <mat-input-container>
+                    <input matInput type="text" value="{{venue.genres[0]}}" formControlName="venueGenre[0]">
+                </mat-input-container>
                 <div class="button-container">
-                    <button md-raised-button (click)="dialogRef.close()">Cancel</button>
-                    <button md-raised-button type="submit">Save</button>
+                    <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
+                    <button mat-raised-button type="submit">Save</button>
                 </div>
             </form>
         </div>
@@ -35,15 +35,15 @@ import {AuthService} from '../../services/auth.service';
             <div *ngIf="formSubmit && formSuccess" class="change-success">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()" color="primary">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" color="primary">OK</button>
             </div>
             <div *ngIf="formSubmit && formFail" class="change-fail">
                 <p class="title">Success!</p>
                 <p>Your information has been changed successfully</p>
-                <button md-raised-button (click)="dialogRef.close()" color="accent">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" color="accent">OK</button>
             </div>
         </div>
-        <md-spinner *ngIf="formStatus=='form-loading'" class="loader"></md-spinner>
+        <mat-spinner *ngIf="formStatus=='form-loading'" class="loader"></mat-spinner>
        `,
     styleUrls: ['edit.venue.css']
 })
@@ -73,8 +73,8 @@ export class EditVenue {
     updateProfile = new EventEmitter();
 
     constructor(
-        public dialogRef: MdDialogRef<EditVenue>, private route: ActivatedRoute,
-        @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
+        public dialogRef: MatDialogRef<EditVenue>, private route: ActivatedRoute,
+        @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.venueName = new FormControl();
         this.venueEmail = new FormControl();
         this.venueDescription = new FormControl();

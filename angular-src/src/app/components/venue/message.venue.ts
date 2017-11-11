@@ -1,5 +1,5 @@
 import {Component, Inject, EventEmitter} from '@angular/core';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
@@ -13,8 +13,8 @@ import {AuthService} from '../../services/auth.service';
                 <textarea id="textarea"  ></textarea>
             </form>
             <div class="button-container-message">
-                <button md-raised-button (click)="dialogRef.close() " color="accent">OK</button>
-                <button md-raised-button (click)="dialogRef.close()" color="primary">Cancel</button>
+                <button mat-raised-button (click)="dialogRef.close() " color="accent">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" color="primary">Cancel</button>
             </div>
         </div>
        `,
@@ -24,8 +24,8 @@ export class MessageVenue {
     private _dimesionToggle = false;
     errorText: String;
 
-    constructor(public dialogRef: MdDialogRef<MessageVenue>, private route: ActivatedRoute,
-                @Inject(MD_DIALOG_DATA) public data: any, private authService: AuthService) {
+    constructor(public dialogRef: MatDialogRef<MessageVenue>, private route: ActivatedRoute,
+                @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
         this.errorText = this.data;
     }
 

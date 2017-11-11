@@ -21,7 +21,7 @@ import {EditArtist} from '../artist/edit.artist';
 import {MessageArtist} from '../artist/message.artist';
 
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
     selector: 'app-artist',
@@ -45,11 +45,11 @@ export class ArtistComponent implements OnInit {
     emailField: string;
 
     //Dialog values
-    dialogRef: MdDialogRef<EditArtist>;
-    dialogRefMessage: MdDialogRef<MessageArtist>;
+    dialogRef: MatDialogRef<EditArtist>;
+    dialogRefMessage: MatDialogRef<MessageArtist>;
     lastCloseResult: string;
     actionsAlignment: string;
-    config: MdDialogConfig = {
+    config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
         backdropClass: '',
@@ -66,11 +66,11 @@ export class ArtistComponent implements OnInit {
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-    constructor(private route: ActivatedRoute, private authService: AuthService,private calendarService: CalendarService, public dialog: MdDialog,
+    constructor(private route: ActivatedRoute, private authService: AuthService,private calendarService: CalendarService, public dialog: MatDialog,
     private _dialogService: TdDialogService,
     private _viewContainerRef: ViewContainerRef,
                 @Inject(DOCUMENT) doc: any) {
-        dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
+        dialog.afterOpen.subscribe((ref: MatDialogRef<any>) => {
             if (!doc.body.classList.contains('no-scroll')) {
                 doc.body.classList.add('no-scroll');
             }

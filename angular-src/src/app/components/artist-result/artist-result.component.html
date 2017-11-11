@@ -1,20 +1,20 @@
 
-<md-card class="example-card">
-    <md-card-header>
-        <div md-card-avatar class="example-header-image"></div>
-        <md-card-title>{{artistResult.name}}</md-card-title>
-        <md-card-subtitle>Artist</md-card-subtitle>
-    </md-card-header>
-    <!--<img md-card-image class="background-image-size" [src]="artistResult.profileImageURL">-->
-    <img md-card-image [src]="'/assets/images/placeholder-user.jpg'" height="200px;">
-    <md-card-content>
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{artistResult.name}}</mat-card-title>
+        <mat-card-subtitle>Artist</mat-card-subtitle>
+    </mat-card-header>
+    <!--<img mat-card-image class="background-image-size" [src]="artistResult.profileImageURL">-->
+    <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="200px;">
+    <mat-card-content>
         {{artistResult.description}}
-    </md-card-content>
-    <md-card-actions>
-        <button md-raised-button color="accent" (click)="getProfile(artistResult._id)">Profile</button>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="getProfile(artistResult._id)">Profile</button>
 
-    </md-card-actions>
-</md-card>
+    </mat-card-actions>
+</mat-card>
 
 
 

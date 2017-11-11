@@ -2,11 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {
+    TdBounceAnimation,
+    TdFlashAnimation,
+    TdHeadshakeAnimation,
+    TdJelloAnimation,
+    TdPulseAnimation,
+} from '@covalent/core';
+
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  animations: [
+    TdBounceAnimation(), // using implicit anchor name 'tdBounce' in template
+    TdFlashAnimation(), // using implicit anchor name 'tdFlash' in template
+    TdHeadshakeAnimation(), // using implicit anchor name 'tdHeadshake' in template
+    TdJelloAnimation(), // using implicit anchor name 'tdJello' in template
+    TdPulseAnimation(), // using implicit anchor name 'tdPulse' in template
+  ],
 })
 export class NavbarComponent implements OnInit {
 
@@ -22,12 +37,24 @@ export class NavbarComponent implements OnInit {
 
   currentActiveAccount: string;
 
+
+
+
   items = [
     {text: 'Refresh'},
     {text: 'Settings'},
     {text: 'Help', disabled: true},
     {text: 'Sign Out'}
   ];
+
+
+  //animations
+  bounceState: boolean = false;
+  flashState: boolean = false;
+  headshakeState: boolean = false;
+  jelloState: boolean = false;
+  pulseState: boolean = false;
+
 
   constructor(private authService: AuthService,
               private router: Router,

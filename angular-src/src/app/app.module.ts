@@ -19,7 +19,6 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { SearchService } from './services/search.service';
 import {CalendarService} from './services/calendar.service';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
@@ -41,6 +40,9 @@ import { RegisterDialog } from './components/register/register.dialog';
 
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
+
+import { FlashMessagesModule } from 'angular2-flash-messages';
+
 import { CovalentHttpModule } from '@covalent/http';
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentHighlightModule } from '@covalent/highlight';
@@ -49,9 +51,11 @@ import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdToolbarModule, MdIconModule, MdMenuModule, MdCardModule, MdDialogModule, MdProgressSpinnerModule, MdChipsModule, MdSelectModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatChipsModule, MatSelectModule} from '@angular/material';
 import 'hammerjs';
 import { CalendarModule } from 'angular-calendar';
+
+
 
 
 const appRoutes: Routes =  [
@@ -99,12 +103,12 @@ const appRoutes: Routes =  [
   ],
   imports: [
     BrowserModule,
+    FlashMessagesModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
     ImageUploadModule.forRoot(),
     ReactiveFormsModule,
-    FlashMessagesModule,
     CovalentLayoutModule,
     CovalentStepsModule,
     CovalentExpansionPanelModule,
@@ -116,18 +120,18 @@ const appRoutes: Routes =  [
     CovalentDynamicFormsModule,
     CovalentDialogsModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdCheckboxModule,
-    MdInputModule,
-    MdToolbarModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatToolbarModule,
     CovalentMessageModule,
-    MdIconModule,
-    MdMenuModule,
-    MdCardModule,
-    MdDialogModule,
-    MdProgressSpinnerModule,
-    MdChipsModule,
-    MdSelectModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCardModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatSelectModule,
     CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],

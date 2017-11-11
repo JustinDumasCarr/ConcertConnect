@@ -21,7 +21,7 @@ import { EditVenue } from '../venue/edit.venue';
 import { MessageVenue } from '../venue/message.venue';
 
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-venue',
@@ -46,12 +46,12 @@ export class VenueComponent implements OnInit {
     emailField: string;
 
     //Dialog values
-    dialogRef: MdDialogRef<EditVenue>;
-    dialogRefMessage: MdDialogRef<MessageVenue>;
+    dialogRef: MatDialogRef<EditVenue>;
+    dialogRefMessage: MatDialogRef<MessageVenue>;
 
     lastCloseResult: string;
     actionsAlignment: string;
-    config: MdDialogConfig = {
+    config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
         backdropClass: '',
@@ -69,16 +69,17 @@ export class VenueComponent implements OnInit {
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private route: ActivatedRoute,private authService: AuthService,private router: Router,private calendarService: CalendarService, public dialog: MdDialog,
+  constructor(private route: ActivatedRoute,private authService: AuthService,private router: Router,private calendarService: CalendarService, public dialog: MatDialog,
 
               private _dialogService: TdDialogService,
               private _viewContainerRef: ViewContainerRef,@Inject(DOCUMENT) doc: any)
   {
-      dialog.afterOpen.subscribe((ref: MdDialogRef<any>) => {
+      dialog.afterOpen.subscribe((ref: MatDialogRef<any>) => {
           if (!doc.body.classList.contains('no-scroll')) {
               doc.body.classList.add('no-scroll');
           }
       });
+
       dialog.afterAllClosed.subscribe(() => {
           doc.body.classList.remove('no-scroll');
       });

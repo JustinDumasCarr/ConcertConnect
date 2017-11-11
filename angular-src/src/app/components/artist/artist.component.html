@@ -1,33 +1,33 @@
 <div class="pushdown">
     <div class="card-container-profile">
-        <md-card *ngIf="artist" class="profile-card">
-            <md-card-title-group>
-                <md-card-title>{{artist.name}}</md-card-title>
-            </md-card-title-group>
-            <md-card-title-group>
-                <img md-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
-            </md-card-title-group>
+        <mat-card *ngIf="artist" class="profile-card">
+            <mat-card-title-group>
+                <mat-card-title>{{artist.name}}</mat-card-title>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
+            </mat-card-title-group>
 
-            <md-card-title-group>
-                <md-card-subtitle>Email: {{artist.email}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Description: {{artist.description}}</md-card-subtitle>
-            </md-card-title-group>
-            <md-card-title-group>
-                <md-card-subtitle>Genres:</md-card-subtitle>
-            </md-card-title-group>
-            <md-chip-list>
-                <md-chip *ngFor="let genre of artist.genres">{{genre}}</md-chip>
-            </md-chip-list>
+            <mat-card-title-group>
+                <mat-card-subtitle>Email: {{artist.email}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Description: {{artist.description}}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-title-group>
+                <mat-card-subtitle>Genres:</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-chip-list>
+                <mat-chip *ngFor="let genre of artist.genres">{{genre}}</mat-chip>
+            </mat-chip-list>
             <div class="button-container">
-            <button md-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
-            <button md-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+            <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
+            <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
             </div>
-        </md-card>
-        <md-card class="side-picture">
-            <img md-card-image [src]="'/assets/images/soundcloud.png'" height="100%">
-        </md-card>
+        </mat-card>
+        <mat-card class="side-picture">
+            <img mat-card-image [src]="'/assets/images/soundcloud.png'" height="100%">
+        </mat-card>
     </div>
     <div class="artist-calendar">
         <mwl-calendar-month-view
