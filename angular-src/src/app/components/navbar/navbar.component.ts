@@ -30,6 +30,8 @@ export class NavbarComponent implements OnInit {
   profileValue: String;
   toggleValue: String;
   initializeCounter: number;
+  subscription: any;
+
 
   userName: String;
 
@@ -89,6 +91,17 @@ export class NavbarComponent implements OnInit {
 
       }
     });
+
+
+      this.subscription = this.authService.logChange$.subscribe(
+          log => {
+            if(log == true) {
+              if(this.currentActiveAccount != JSON.parse(this.authService.getActiveLocal())['name']) {
+                  this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
+              }
+            }
+          });
+
   }
 
   ngOnInit()
@@ -125,6 +138,15 @@ export class NavbarComponent implements OnInit {
     this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
     return false;
   }
+
+  trackByArtist(obj: any) {
+      return obj.artistId;
+  }
+
+  trackByVenue(obj: any) {
+    return obj.venueId;
+  }
+
 
     changeUserVenue(selectedVenue,newID)
   {
