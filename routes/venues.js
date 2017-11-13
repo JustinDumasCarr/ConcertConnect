@@ -9,6 +9,7 @@ const Contract = require('../models/contract');
 const users = require('./users');
 const Artist = require('../models/artist');
 router.post('/register',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+
     let newVenue = new Venue({
         name: req.body.name,
         email: req.body.email,
@@ -19,14 +20,13 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         genres: req.body.genres,
         capacity: req.body.capacity,
         location: req.body.location,
+        hours: req.body.hours
     });
-
 
     Venue.addVenue(newVenue, (err, Venue) => {
         if (err) {
             res.json({success: false, msg: 'Failed to register Venue'});
         } else {
-
             User.findByIdAndUpdate(
                 newVenue.userId,
                 {$push: {"venues": {venueId: Venue._id, name: Venue.name, type: 'venue'}}},
@@ -142,38 +142,35 @@ router.post('/search', (req, res, next) => {
     }
 });
 
-//Change name and email
-router.post('/changenameandemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    const emailInfo = {
-        email: req.body.email,
-        currentEmail: req.body.currentEmail,
-    };
 
-    const nameInfo = {
-        name: req.body.name,
-        currentName: req.body.currentName
-    };
+router.post('/changevenueinformation', passport.authenticate('jwt', {session: false}), (req, res, next) =>
+{
+    const userInfo =
+        {
+            _id: req.body._id,
+            name: req.body.name,
+            email: req.body.email,
+            genres: req.body.genres,
+            description: req.body.description,
+            location: req.body.location,
+            capacity: req.body.capacity
+        };
 
-    //Checks if artist exists
-    Venue.getVenueByEmail(emailInfo.email, (err, user) => {
+    Venue.getVenueByID(userInfo._id, (err,user) => {
         if (err) throw err;
         if (user) {
-            return res.json({success: false, msg: 'Email already exists'});
-        }
-        else {
-            Venue.changeEmail(emailInfo, (err, callback) => {
-                if (callback) {
-                    Venue.changeName(nameInfo, (err, callback) => {
-                        if (callback) {
-                            return res.json({success: true, msg: 'Name and Email have been changed successfully'});
-                        }
-                    });
-                }
+            Venue.changeAllInfo(userInfo, (err, callback) => {
+                User.changeVenueNameByID(userInfo, (err, callback) => {
+                    if(callback)
+                    {
+                        return res.json({success: true, msg: 'Information has been changed successfully'});
+                    } else {
+                        return res.json({success: false, msg: 'An error occured. Please try again'});
+                    }
+                });
             });
         }
     });
-
 });
-
 
 module.exports = router;

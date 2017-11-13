@@ -18,6 +18,7 @@ export class RegisterVenueComponent implements OnInit {
     description: String;
     location: String;
     capacity: String;
+    hours: String;
     file: any;
 
     rock: boolean = false;
@@ -36,6 +37,8 @@ export class RegisterVenueComponent implements OnInit {
     }
 
     onRegisterSubmit() {
+
+        console.log("Register function has been pressed");
 
         //Change logic to all multiple genres later
         if(this.rock == true) {
@@ -61,9 +64,13 @@ export class RegisterVenueComponent implements OnInit {
             genres: this.genres,
             location: this.location,
             capacity: this.capacity,
+            hours: this.hours,
             userId: JSON.parse(localStorage.getItem('user')).id,
             imageURL: this.imageURL
         };
+
+        console.log("VENUE VALUE: ");
+        console.log(venue);
 
         // Required Fields
         if (!this.validateService.validateRegisterVenue(venue)) {
@@ -77,7 +84,14 @@ export class RegisterVenueComponent implements OnInit {
 
         // Register venue
         this.authService.registerVenue(venue).subscribe(data => {
+
+            console.log("Register Venue request");
+            console.log(data);
+
             if (data.success) {
+
+                console.log("Register Venue Success");
+
                 this.authService.updateVenueArray(data.venues);
                 this.authService.putImageToAWS(this.signedRequest, this.file).subscribe(data => {
                 });

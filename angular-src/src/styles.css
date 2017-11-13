@@ -54,3 +54,7 @@ body {
 md-card {
     background-color: #FBFBFB !important;
 }
+
+mat-input-container {
+    width: 100% !important;
+}

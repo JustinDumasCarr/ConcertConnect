@@ -83,7 +83,6 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    console.log('changeartistinfo');
     return this.http.post('http://localhost:3000/users/artists/changeartistinformation',data,{headers: headers})
         .map(res => res.json());
   }
@@ -132,6 +131,15 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/artists/changenameandemail',data,{headers: headers})
         .map(res => res.json());
   }
+
+  changeVenueInformation(data) {
+      let headers = new Headers();
+      this.loadToken();
+      headers.append('Authorization', this.authToken);
+      headers.append('Content-Type','application/json');
+      return this.http.post('http://localhost:3000/users/venues/changevenueinformation',data,{headers: headers})
+          .map(res => res.json());
+    }
 
   changeVenueNameProfile(data) {
     let headers = new Headers();
@@ -277,8 +285,6 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/venues/register', venue,{headers: headers})
         .map(res => res.json());
   }
-
-
 
   setActive(selectedEntity){
     console.log(selectedEntity);

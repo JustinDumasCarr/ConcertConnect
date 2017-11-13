@@ -1,16 +1,16 @@
-md-card {
+mat-card {
     padding: 2% 2% 2% 2%;
 }
 
-md-card-title {
+mat-card-title {
     text-align: center;
 }
 
-md-input-container {
+mat-input-container {
     width: 100%;
 }
 
-md-checkbox {
+mat-checkbox {
     margin-right: 0.5em;
     margin-top: 1em;
 }

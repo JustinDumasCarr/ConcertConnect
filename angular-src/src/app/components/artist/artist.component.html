@@ -7,22 +7,28 @@
             <mat-card-title-group>
                 <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
             </mat-card-title-group>
-
-            <mat-card-title-group>
-                <mat-card-subtitle>Email: {{artist.email}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Description: {{artist.description}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Genres:</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-chip-list>
-                <mat-chip *ngFor="let genre of artist.genres">{{genre}}</mat-chip>
-            </mat-chip-list>
-            <div class="button-container">
-            <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
-            <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+            <div class="card-field-wrapper">
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Email</span>: {{artist.email}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Description</span>: {{artist.description}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Soundcloud URL</span>: <a target="_blank" href="{{artist.soundcloudURL}}">{{artist.soundcloudURL}}</a></mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Genres</span>:</mat-card-subtitle>
+                </mat-card-title-group>
+                <div class="chip-container">
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let genre of artist.genres">{{genre}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div class="button-container">
+                    <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
+                    <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+                </div>
             </div>
         </mat-card>
         <mat-card class="side-picture">

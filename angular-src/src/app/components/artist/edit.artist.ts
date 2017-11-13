@@ -9,24 +9,27 @@ import {AuthService} from '../../services/auth.service';
     template: `
         <div *ngIf="formStatus=='form-not-submitted'">
             <p class="title">Edit Information</p>
-            <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
+            <div *ngIf="!formSubmit">
                 <mat-input-container>
-                    <input matInput type="text" value="{{artist.name}}" formControlName="artistName">
+                    <input matInput type="text" value="name" [(ngModel)]="name">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="{{artist.email}}" formControlName="artistEmail">
+                    <input matInput type="text" value="email" [(ngModel)]="email">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="{{artist.description}}" formControlName="artistDescription">
+                    <input matInput type="text" value="description" [(ngModel)]="description">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="{{artist.genres[0]}}" formControlName="artistGenre[0]">
+                    <input matInput type="text" value="soundcloudURL" [(ngModel)]="soundcloudURL">
                 </mat-input-container>
+                <div class="chips-wrapper">
+                    <td-chips placeholder="Enter a genre" [(ngModel)]="genres"></td-chips>
+                </div>
                 <div class="button-container">
                     <button mat-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>
-                    <button mat-raised-button type="submit" color="primary">Save</button>
+                    <button mat-raised-button (click)="changeData()" type="submit" color="primary">Save</button>
                 </div>
-            </form>
+            </div>
         </div>
         <div *ngIf="formStatus=='form-submitted'">
             <div *ngIf="formSubmit && formSuccess" class="change-success">
@@ -46,17 +49,18 @@ import {AuthService} from '../../services/auth.service';
 })
 export class EditArtist {
     private _dimesionToggle = false;
-    userInformation: FormGroup;
-    artistName: FormControl;
-    artistEmail: FormControl;
-    artistGenre: FormControl;
-    artistDescription: FormControl;
 
     originalUsername: string;
     originalEmail: string;
     currentUsername: string;
     currentEmail: string;
     errorText: string;
+
+    name: string;
+    email: string;
+    description: string;
+    soundcloudURL: string;
+    genres: string[];
 
     userChange: boolean;
 
@@ -70,73 +74,48 @@ export class EditArtist {
     constructor(
         public dialogRef: MatDialogRef<EditArtist>, private route: ActivatedRoute,
         @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
-        this.artistName = new FormControl();
-        this.artistEmail = new FormControl();
-        this.artistDescription = new FormControl();
-        this.artistGenre = new FormControl();
-        this.userInformation = new FormGroup({artistName: this.artistName, artistEmail: this.artistEmail,
-        artistDescription: this.artistDescription, artistGenre: this.artistGenre});
         this.formSubmit = false;
         this.formSuccess = false;
         this.formFail = false;
         this.formStatus = "form-not-submitted";
         this.artist = this.data;
         this.errorText = "";
+
+        this.name = this.artist['name'];
+        this.email = this.artist['email'];
+        this.description = this.artist['description'];
+        this.soundcloudURL = this.artist['soundcloudURL'];
+        this.genres = JSON.parse(JSON.stringify(this.artist['genres']));
+
     }
 
     ngOnInit() {
     }
 
     changeData() {
-        //Both username and email need to be changed
-        if((this.artistName.value != null && this.artistName.value.trim() != "") && (this.artistEmail.value != null && this.artistEmail.value.trim() != "")) {
-            this.formStatus="form-loading";
-            // this.changeNameAndEmail();
-        } else if((this.artistName.value != null && this.artistName.value.trim() != "")) {
-            //
-        }
-    }
-
-    changeNameAndEmail() {
-        console.log("Name and email function called");
-
         const dataSend = {
-          name: this.artistName.value,
-          currentName: this.artist['name'],
-          email: this.artistEmail.value,
-          currentEmail: this.artist['email']
+            _id: this.artist['_id'],
+            name: this.name,
+            email: this.email,
+            description: this.description,
+            soundcloudURL: this.soundcloudURL,
+            genres: this.genres
         };
 
-        const nameData = {
-          name: this.artistName.value,
-          currentName: this.artist['name']
-        };
+        this.authService.changeArtistInformation(dataSend).subscribe(data => {
+            this.authService.getArtistProfile(this.artist).subscribe(data => {
+                this.artist['name'] = data['name'];
+                this.artist['email'] = data['email'];
+                this.artist['description'] = data['description'];
+                this.artist['soundcloudURL'] = data['souncloudURL'];
+                this.artist['genres'] = data['genres'];
+                },
+                err => {
+                    console.log(err);
+                }
+            );
 
-        this.authService.changeArtistNameProfile(nameData).subscribe(data => {
-            if(data.success) {
-             // Validate and handle errors here later
-            }
-        });
-
-        this.authService.changeArtistNameAndEmail(dataSend).subscribe(data => {
-           if(data.success) {
-               this.artist['name'] =  this.artistName.value;
-               this.artist['email'] = this.artistEmail.value;
-               this.artist['genres'][0] = this.artistGenre.value;
-               this.artist['description'] = this.artistDescription.value;
-               this.updateProfile.emit(this.artist);
-
-               this.formSubmit = true;
-               this.formSuccess = true;
-               this.userChange = true;
-               this.formStatus = "form-submitted";
-
-           } else {
-               this.formSubmit = true;
-               this.formSuccess = false;
-           }
         });
     }
 
-    change
 }

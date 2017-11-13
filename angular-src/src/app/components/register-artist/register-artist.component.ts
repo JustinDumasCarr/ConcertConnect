@@ -17,6 +17,7 @@ export class RegisterArtistComponent implements OnInit {
     userId: String; // is this necessary //
     signedRequest: String;
     imageURL: String;
+    soundcloudURL: String;
     file: any;
 
     rock: boolean = false;
@@ -57,7 +58,8 @@ export class RegisterArtistComponent implements OnInit {
             description: this.description,
             genres: this.genres,
             userId: JSON.parse(localStorage.getItem('user')).id,
-            imageURL: this.imageURL
+            imageURL: this.imageURL,
+            soundcloudURL: this.soundcloudURL
         };
 
         // Required Fields

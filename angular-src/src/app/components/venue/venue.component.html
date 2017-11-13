@@ -1,32 +1,43 @@
 <div class="pushdown">
     <div class="card-container-profile">
         <mat-card *ngIf="venue" class="profile-card">
-            <mat-card-title-group>
-                <mat-card-title>{{venue.name}}</mat-card-title>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Venue Name: {{venue.name}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Email: {{venue.email}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Description: {{venue.description}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Capacity: {{venue.capacity}}</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-card-title-group>
-                <mat-card-subtitle>Genres:</mat-card-subtitle>
-            </mat-card-title-group>
-            <mat-chip-list>
-                <mat-chip *ngFor="let genre of venue.genres">{{genre}}</mat-chip>
-            </mat-chip-list>
-            <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
-            <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+
+                <mat-card-title-group>
+                    <mat-card-title>{{venue.name}}</mat-card-title>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
+                </mat-card-title-group>
+            <div class="card-field-wrapper">
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Venue Name</span>: {{venue.name}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Email</span>: {{venue.email}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Location</span>: {{venue.location}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Description</span>: {{venue.description}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Capacity</span>: {{venue.capacity}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Hours of Operation</span>: {{venue.hours}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group>
+                    <mat-card-subtitle><span class="field-name">Genres</span>:</mat-card-subtitle>
+                </mat-card-title-group>
+                <div class="chip-container">
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let genre of venue.genres">{{genre}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <button mat-raised-button class="edit-button" color="primary" (click)="openEdit()">Edit</button>
+                <button mat-raised-button class="message-button" color="primary" (click)="openMessage()">Message</button>
+            </div>
 
         </mat-card>
 

@@ -16,7 +16,8 @@ router.post('/register',  passport.authenticate('jwt', {session: false}), (req, 
         description: req.body.description,
         genres: req.body.genres,
         type: 'artist',
-        profileImageURL: req.body.imageURL
+        profileImageURL: req.body.imageURL,
+        soundcloudURL: req.body.soundcloudURL
     });
 
     Artist.addArtist(newArtist, (err, artist) => {
@@ -70,109 +71,33 @@ console.log(req.body);
 
 });
 
-
-
-
-//Change username
-router.post('/changename', passport.authenticate('jwt', {session: false}), (req, res, next) =>
+router.post('/changeartistinformation', passport.authenticate('jwt', {session: false}), (req, res, next) =>
 {
-
-    //This variable will not be used if user already exists
     const userInfo =
         {
+            _id: req.body._id,
             name: req.body.name,
-            currentName: req.body.currentName
-        };
-
-
-    //Checks if username exists
-    Artist.getArtistByName(userInfo.name, (err, user) =>
-    {
-        if (err) throw err;
-        if (user) {
-            return res.json({success: false, msg: 'Name already exists'});
-        }
-        else
-        {
-            Artist.changeName(userInfo, (err, callback) => {
-                if(callback)
-                {
-                    console.log(callback);
-                    return res.json({success: true, msg: 'Name has been changed successfully'});
-                }
-            });
-        }
-    });
-});
-
-//Change email
-router.post('/changeemail', passport.authenticate('jwt', {session: false}), (req, res, next) =>
-{
-
-    //This variable will not be used if user already exists
-    const userInfo =
-        {
             email: req.body.email,
-            currentEmail: req.body.currentEmail
+            genres: req.body.genres,
+            description: req.body.description,
+            soundcloudURL: req.body.soundcloudURL
         };
 
-
-    //Checks if username exists
-    Artist.getArtistByEmail(userInfo.email, (err, user) =>
-    {
-        if (err) throw err;
-        if (user) {
-            return res.json({success: false, msg: 'Email already exists'});
-        }
-        else
-        {
-            Artist.changeEmail(userInfo, (err, callback) => {
-                if(callback)
-                {
-                    console.log(callback);
-                    return res.json({success: true, msg: 'Email has been changed successfully'});
-                }
-            });
-        }
+    Artist.getArtistByID(userInfo._id, (err,user) => {
+       if (err) throw err;
+       if (user) {
+           Artist.changeAllInfo(userInfo, (err, callback) => {
+               User.changeArtistNameByID(userInfo, (err, callback) => {
+                   if(callback)
+                   {
+                       return res.json({success: true, msg: 'Information has been changed successfully'});
+                   } else {
+                       return res.json({success: false, msg: 'An error occured. Please try again'});
+                   }
+               });
+           });
+       }
     });
 });
-
-//Change name and email
-router.post('/changenameandemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-   const emailInfo = {
-       email: req.body.email,
-       currentEmail: req.body.currentEmail,
-   };
-
-   const nameInfo = {
-       name: req.body.name,
-       currentName: req.body.currentName
-   };
-
-    //Checks if artist exists
-    Artist.getArtistByEmail(emailInfo.email, (err, user) =>
-    {
-        if (err) throw err;
-        if (user) {
-            return res.json({success: false, msg: 'Email already exists'});
-        }
-        else
-        {
-            Artist.changeEmail(emailInfo, (err, callback) => {
-                if(callback)
-                {
-                    Artist.changeName(nameInfo, (err, callback) => {
-                        if(callback)
-                        {
-                            return res.json({success: true, msg: 'Name and Email have been changed successfully'});
-                        }
-                    });
-                }
-            });
-        }
-    });
-
-});
-
 
 module.exports = router;

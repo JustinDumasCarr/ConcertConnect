@@ -19,7 +19,7 @@ button {
     margin-right: 0.5em;
 }
 
-md-input-container {
+mat-input-container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -31,8 +31,12 @@ md-input-container {
     margin-right: auto;
 }
 
-md-spinner {
+mat-spinner {
     display: table;
     margin-left: auto;
     margin-right: auto;
+}
+
+.chips-wrapper {
+    margin-bottom: 2em;
 }

@@ -29,6 +29,7 @@ const VenueSchema = mongoose.Schema({
     description: String,
     location: String,
     capacity: Number,
+    hours: String,
     contracts: [{
         contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }, date:{type:Date}, artistId:{type:String}
     }]
@@ -59,6 +60,18 @@ module.exports.changeEmail = function(userInfo, callback) {
     Venue.update({email: userInfo.currentEmail}, {
         email: userInfo.email
     }, callback);
+};
+
+module.exports.changeAllInfo = function(userInfo, callback) {
+    Venue.update({_id: userInfo._id}, {
+        name: userInfo.name,
+        email: userInfo.email,
+        genres: userInfo.genres,
+        description: userInfo.description,
+        location: userInfo.location,
+        capacity: userInfo.capacity,
+        hours: userInfo.hours
+    }, callback)
 };
 
 

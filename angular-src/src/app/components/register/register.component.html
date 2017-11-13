@@ -1,18 +1,18 @@
-<md-card class="register-card">
-  <md-card-title>Register</md-card-title>
+<mat-card class="register-card">
+  <mat-card-title>Register</mat-card-title>
   <form (submit)="onRegisterSubmit()">
-      <md-input-container>
-        <input mdInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
-      </md-input-container>
-      <md-input-container>
-        <input mdInput placeholder="Username" type="text" [(ngModel)]="username" name="username" class="form-control" required>
-      </md-input-container>
-      <md-input-container>
-        <input mdInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control" required>
-      </md-input-container>
-      <md-input-container>
-        <input mdInput placeholder="Password" type="password" [(ngModel)]="password" name="password" class="form-control" required>
-      </md-input-container>
-    <button md-raised-button type="submit" class="register-button" color="primary">Register</button>
+      <mat-input-container>
+        <input matInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput placeholder="Username" type="text" [(ngModel)]="username" name="username" class="form-control" required>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control" required>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" class="form-control" required>
+      </mat-input-container>
+    <button mat-raised-button type="submit" class="register-button" color="primary">Register</button>
   </form>
-</md-card>
+</mat-card>

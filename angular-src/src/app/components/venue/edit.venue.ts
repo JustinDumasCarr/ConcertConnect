@@ -9,27 +9,33 @@ import {AuthService} from '../../services/auth.service';
     template: `
         <div *ngIf="formStatus=='form-not-submitted'">
             <p class="title">Edit Information</p>
-            <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
+            <div *ngIf="!formSubmit">
                 <mat-input-container>
-                    <input matInput type="text" value="{{venue.name}}" formControlName="venueName">
+                    <input matInput type="text" value="name" [(ngModel)]="venueName">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="{{venue.email}}" formControlName="venueEmail">
+                    <input matInput type="text" value="email" [(ngModel)]="venueEmail">
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput type="text" value="location" [(ngModel)]="venueLocation">
                 </mat-input-container>
                  <mat-input-container>
-                    <input matInput type="text" value="{{venue.description}}" formControlName="venueDescription">
+                    <input matInput type="text" value="description" [(ngModel)]="venueDescription">
                 </mat-input-container>
                  <mat-input-container>
-                    <input matInput type="text" value="{{venue.capacity}}" formControlName="venueCapacity">
+                    <input matInput type="text" value="capacity" [(ngModel)]="venueCapacity">
                 </mat-input-container>
-                 <mat-input-container>
-                    <input matInput type="text" value="{{venue.genres[0]}}" formControlName="venueGenre[0]">
+                <mat-input-container>
+                    <input matInput type="text" value="hours" [(ngModel)]="venueHours">
                 </mat-input-container>
+                <div class="chips-wrapper">
+                    <td-chips placeholder="Enter a genre" [(ngModel)]="venueGenres"></td-chips>
+                </div>
                 <div class="button-container">
                     <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
-                    <button mat-raised-button type="submit">Save</button>
+                    <button mat-raised-button (click)="changeData()" type="submit">Save</button>
                 </div>
-            </form>
+            </div>
         </div>
         <div *ngIf="formStatus=='form-submitted'">
             <div *ngIf="formSubmit && formSuccess" class="change-success">
@@ -49,13 +55,14 @@ import {AuthService} from '../../services/auth.service';
 })
 export class EditVenue {
     private _dimesionToggle = false;
-    userInformation: FormGroup;
-    venueName: FormControl;
-    venueEmail: FormControl;
-    venueDescription: FormControl;
-    venueCapacity: FormControl;
-    venueGenre: FormControl;
 
+    venueName: string;
+    venueEmail: string;
+    venueLocation: string;
+    venueDescription: string;
+    venueCapacity: number;
+    venueHours: string;
+    venueGenres: string[];
 
     originalUsername: string;
     originalEmail: string;
@@ -75,65 +82,51 @@ export class EditVenue {
     constructor(
         public dialogRef: MatDialogRef<EditVenue>, private route: ActivatedRoute,
         @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService) {
-        this.venueName = new FormControl();
-        this.venueEmail = new FormControl();
-        this.venueDescription = new FormControl();
-        this.venueCapacity = new FormControl();
-        this.venueGenre = new FormControl();
-        this.userInformation = new FormGroup({venueName: this.venueName, venueEmail: this.venueEmail, venueDescription : this.venueDescription, venueCapacity: this.venueCapacity, venueGenre: this.venueGenre});
         this.formSubmit = false;
         this.formSuccess = false;
         this.formFail = false;
         this.formStatus = "form-not-submitted";
         this.venue = this.data;
 
+        this.venueName = this.venue['name'];
+        this.venueEmail = this.venue['email'];
+        this.venueLocation = this.venue['location'];
+        this.venueDescription = this.venue['description'];
+        this.venueCapacity = this.venue['capacity'];
+        this.venueHours = this.venue['hours'];
+        this.venueGenres = JSON.parse(JSON.stringify(this.venue['genres']));
     }
 
     ngOnInit() {
     }
 
     changeData() {
-        //Both username and email need to be changed
-        if((this.venueName.value != null && this.venueName.value.trim() != "") && (this.venueEmail.value != null && this.venueEmail.value.trim() != "")) {
-            this.formStatus="form-loading";
-            this.changeNameAndEmail();
-        }
-    }
-
-    changeNameAndEmail() {
         const dataSend = {
-            name: this.venueName.value,
-            currentName: this.venue['name'],
-            email: this.venueEmail.value,
-            currentEmail: this.venue['email']
+            _id: this.venue['_id'],
+            name: this.venueName,
+            email: this.venueEmail,
+            location: this.venueLocation,
+            description: this.venueDescription,
+            capacity: this.venueCapacity,
+            hours: this.venueHours,
+            genres: this.venueGenres
         };
-
-        const nameData = {
-            name: this.venueName.value,
-            currentName: this.venue['name']
-        };
-
-        this.authService.changeVenueNameProfile(nameData).subscribe(data => {
-            if(data.success) {
-                // Validate and handle errors here later
-            }
-        });
-
-        this.authService.changeVenueNameAndEmail(dataSend).subscribe(data => {
-            if(data.success) {
-                this.venue['name'] =  this.venueName.value;
-                this.venue['email'] = this.venueEmail.value;
-                this.updateProfile.emit(this.venue);
-
-                this.formSubmit = true;
-                this.formSuccess = true;
-                this.userChange = true;
-                this.formStatus = "form-submitted";
-
-            } else {
-                this.formSubmit = true;
-                this.formSuccess = false;
-            }
+        
+        this.authService.changeVenueInformation(dataSend).subscribe(data => {
+            //Reload current artist page dat
+            this.authService.getVenueProfile(this.venue).subscribe(data => {
+                    this.venue['name'] = data['name'];
+                    this.venue['email'] = data['email'];
+                    this.venue['location'] = data['location'];
+                    this.venue['description'] = data['description'];
+                    this.venue['capacity'] = data['capacity'];
+                    this.venue['hours'] = data['hours'];
+                    this.venue['genres'] = data['genres'];
+                },
+                err => {
+                    console.log(err);
+                }
+            );
         });
     }
 }

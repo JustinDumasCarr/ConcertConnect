@@ -87,6 +87,13 @@ module.exports.changeArtistName = function (userInfo,callback) {
 
 };
 
+module.exports.changeArtistNameByID = function (userInfo,callback) {
+    User.update({'artists.artistId': userInfo._id},{
+        '$set': {
+            'artists.$.name': userInfo.name
+        }}, callback)
+};
+
 //Changing the artist email//changing the artist name
 module.exports.changeArtistEmail = function (userInfo,callback) {
     User.update({'artists.email': userInfo.currentEmail},{
@@ -103,6 +110,13 @@ module.exports.changeVenueName = function (userInfo,callback) {
             'venues.$.name': userInfo.name
         }}, callback)
 
+};
+
+module.exports.changeVenueNameByID = function (userInfo,callback) {
+    User.update({'venues.venueId': userInfo._id},{
+        '$set': {
+            'venues.$.name': userInfo.name
+        }}, callback)
 };
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){

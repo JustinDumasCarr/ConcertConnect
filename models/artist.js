@@ -30,6 +30,7 @@ const ArtistSchema = mongoose.Schema({
     imageArray: [String],
     genres: [String],
     description: String,
+    soundcloudURL: String,
     contracts: [{
         contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }, date:{type:Date}, venueId:{type:String}
     }]
@@ -55,16 +56,48 @@ module.exports.addArtist = function(newArtist, callback){
 
 module.exports.changeName = function(userInfo, callback){
 
-    Artist.update({name: userInfo.currentName}, {
+    Artist.update({_id: userInfo._id}, {
         name: userInfo.name
     }, callback);
 
 };
 
 module.exports.changeEmail = function (userInfo,callback) {
-    Artist.update({email: userInfo.currentEmail},
+    Artist.update({_id: userInfo._id},
         {
             email: userInfo.email
+        }, callback)
+};
+
+module.exports.changeDescription = function (userInfo,callback) {
+    Artist.update({_id: userInfo._id},
+        {
+            description: userInfo.description
+        }, callback)
+};
+
+module.exports.changeGenres = function (userInfo,callback) {
+    Artist.update({_id: userInfo._id},
+        {
+            genres: userInfo.genres
+        }, callback)
+};
+
+module.exports.changesoundcloudURL = function (userInfo,callback) {
+    Artist.update({_id: userInfo._id},
+        {
+            soundcloudURL: userInfo.soundcloudURL
+        }, callback)
+};
+
+module.exports.changeAllInfo = function(userInfo, callback) {
+    Artist.update({_id: userInfo._id},
+        {
+            name: userInfo.name,
+            email: userInfo.email,
+            description: userInfo.description,
+            genres: userInfo.genres,
+            soundcloudURL: userInfo.soundcloudURL
         }, callback)
 };
 

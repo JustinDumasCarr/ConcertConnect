@@ -1,28 +1,31 @@
-<md-card class="register-card">
-    <md-card-title>Register Artist</md-card-title>
+<mat-card class="register-card">
+    <mat-card-title>Register Artist</mat-card-title>
         <form (submit)="onRegisterSubmit()">
-            <md-input-container>
-                <input mdInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
-            </md-input-container>
-            <md-input-container>
-                <input mdInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control" required>
-            </md-input-container>
-            <md-input-container>
-                <input mdInput placeholder="Description" type="text" [(ngModel)]="description" name="description" class="form-control" required>
-            </md-input-container>
+            <mat-input-container>
+                <input matInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
+            </mat-input-container>
+            <mat-input-container>
+                <input matInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control" required>
+            </mat-input-container>
+            <mat-input-container>
+                <input matInput placeholder="Description" type="text" [(ngModel)]="description" name="description" class="form-control" required>
+            </mat-input-container>
+            <mat-input-container>
+                <input matInput placeholder="SoundCloud URL" type="text" [(ngModel)]="soundcloudURL" name="soundcloudURL" class="form-control" required>
+            </mat-input-container>
             <p class="genres-title">Genres: </p>
             <div class="checkbox-container">
-                <md-checkbox [(ngModel)]="rock" name="rock">Rock</md-checkbox>
-                <md-checkbox [(ngModel)]="jazz" name="jazz">Jazz</md-checkbox>
-                <md-checkbox [(ngModel)]="country" name="country">Country</md-checkbox>
-                <md-checkbox [(ngModel)]="reggae" name="reggae">Reggae</md-checkbox>
-                <md-checkbox [(ngModel)]="electronic" name="electronic">Electronic</md-checkbox>
+                <mat-checkbox [(ngModel)]="rock" name="rock">Rock</mat-checkbox>
+                <mat-checkbox [(ngModel)]="jazz" name="jazz">Jazz</mat-checkbox>
+                <mat-checkbox [(ngModel)]="country" name="country">Country</mat-checkbox>
+                <mat-checkbox [(ngModel)]="reggae" name="reggae">Reggae</mat-checkbox>
+                <mat-checkbox [(ngModel)]="electronic" name="electronic">Electronic</mat-checkbox>
             </div>
             <div class="upload-container">
                 <image-upload (onFileUploadFinish)="imageUploadedToBrowser($event)"
                               [buttonCaption]="'Select Image'">
                 </image-upload>
             </div>
-        <button md-raised-button type="submit" class="register-button" color="primary">Register</button>
+        <button mat-raised-button type="submit" class="register-button" color="primary">Register</button>
         </form>
-</md-card>
+</mat-card>

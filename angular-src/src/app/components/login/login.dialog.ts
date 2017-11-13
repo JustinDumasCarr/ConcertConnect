@@ -11,7 +11,7 @@ import {AuthService} from '../../services/auth.service';
             <p class="title">Login Failed</p>
             <p>{{ data.msg }}</p>
             <div class="button-container">
-                <button md-raised-button (click)="dialogRef.close()">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()">OK</button>
             </div>
         </div>
        `,

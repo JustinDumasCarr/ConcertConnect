@@ -142,6 +142,11 @@ export class ArtistComponent implements OnInit {
             this.config.data = data;
         });
         this.dialogRef.afterClosed().subscribe((result: string) => {
+            this.authService.setActive(this.artist);
+            this.authService.getProfile().subscribe(data => {
+                localStorage.setItem('user', JSON.stringify(data.user));
+            });
+
             this.lastCloseResult = result;
             this.dialogRef = null;
             sub.unsubscribe();
