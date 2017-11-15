@@ -20,11 +20,10 @@ button {
     margin-right: auto;
 }
 
-#textarea{
+.venue-text-area{
 
     margin : 15px;
-    width: 400px;
-    height: 200px;
+    width: 100%;
 
 }
 .button-container-message {

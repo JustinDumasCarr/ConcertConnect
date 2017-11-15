@@ -61,7 +61,10 @@ export class ArtistComponent implements OnInit {
             left: '',
             right: ''
         },
-        data: {}
+        data: {
+
+            artist: this.artist
+        }
     };
     numTemplateOpens = 0;
     @ViewChild(TemplateRef) template: TemplateRef<any>;
