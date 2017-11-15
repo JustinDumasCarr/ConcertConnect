@@ -23,6 +23,9 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         hours: req.body.hours
     });
 
+    console.log("Venue Value");
+    console.log(newVenue);
+
     Venue.addVenue(newVenue, (err, Venue) => {
         if (err) {
             res.json({success: false, msg: 'Failed to register Venue'});
@@ -40,12 +43,8 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
                     }
                 }
             );
-
-
         }
     });
-
-
 });
 router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
     console.log(req.body.artistId);
@@ -152,6 +151,7 @@ router.post('/changevenueinformation', passport.authenticate('jwt', {session: fa
             email: req.body.email,
             genres: req.body.genres,
             description: req.body.description,
+            hours: req.body.hours,
             location: req.body.location,
             capacity: req.body.capacity
         };

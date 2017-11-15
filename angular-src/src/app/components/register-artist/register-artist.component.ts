@@ -35,23 +35,6 @@ export class RegisterArtistComponent implements OnInit {
 
     onRegisterSubmit() {
 
-        //Change logic to all multiple genres later
-        if (this.rock == true) {
-            this.genres.push("Rock");
-        }
-        if (this.jazz == true) {
-            this.genres.push("Jazz");
-        }
-        if (this.country == true) {
-            this.genres.push("Country");
-        }
-        if (this.reggae == true) {
-            this.genres.push("Reggae");
-        }
-        if (this.electronic == true) {
-            this.genres.push("Electronic");
-        }
-
         const artist = {
             name: this.name,
             email: this.email,

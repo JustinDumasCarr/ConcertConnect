@@ -1,6 +1,6 @@
 <mat-card class="register-card">
     <mat-card-title>Register Venue</mat-card-title>
-    <form (submit)="onRegisterSubmit()">
+    <div>
         <mat-input-container>
             <input matInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
         </mat-input-container>
@@ -20,18 +20,14 @@
             <input matInput placeholder="Hours of Operation" type="text" [(ngModel)]="hours" name="hours" class="form-control" required>
         </mat-input-container>
         <p class="genres-title">Genres: </p>
-        <div class="checkbox-container">
-            <mat-checkbox [(ngModel)]="rock" name="rock">Rock</mat-checkbox>
-            <mat-checkbox [(ngModel)]="jazz" name="jazz">Jazz</mat-checkbox>
-            <mat-checkbox [(ngModel)]="country" name="country">Country</mat-checkbox>
-            <mat-checkbox [(ngModel)]="reggae" name="reggae">Reggae</mat-checkbox>
-            <mat-checkbox [(ngModel)]="electronic" name="electronic">Electronic</mat-checkbox>
+        <div class="chips-wrapper">
+            <td-chips placeholder="Enter a genre" [(ngModel)]="genres"></td-chips>
         </div>
         <div class="upload-container">
             <image-upload (onFileUploadFinish)="imageUploadedToBrowser($event)"
                           [buttonCaption]="'Select Image'">
             </image-upload>
         </div>
-        <button mat-raised-button type="submit" class="register-button" color="primary">Register</button>
-    </form>
+        <button mat-raised-button type="submit" class="register-button" color="primary" (click)="onRegisterSubmit()">Register</button>
+    </div>
 </mat-card>

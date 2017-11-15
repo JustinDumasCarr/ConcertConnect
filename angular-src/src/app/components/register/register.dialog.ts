@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import {AuthService} from '../../services/auth.service';
 
+
 @Component({
     selector: 'register-dialog',
     template: `
