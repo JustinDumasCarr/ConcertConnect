@@ -19,6 +19,8 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { SearchService } from './services/search.service';
 import {CalendarService} from './services/calendar.service';
+import {MessageService} from './services/message-service.service';
+
 import { AuthGuard } from './guards/auth.guard';
 import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
@@ -140,7 +142,7 @@ const appRoutes: Routes =  [
     CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
-  providers: [ValidateService, AuthService, SearchService, CalendarService,  AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog],
+  providers: [ValidateService, AuthService, SearchService, CalendarService,  AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,21 +11,21 @@ const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 
 
-// const nodemailer = require('nodemailer');
-// const xoauth2 = require('xoauth2');
-//
-// var transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//             type: 'OAuth2',
-//             user: 'justin.dumas.carr@gmail.com',
-//             clientId: '396125911536-f6kvm72e7j9er8sdgeu1nvjulbb39dst.apps.googleusercontent.com',
-//             clientSecret: 'TVrjamutn2nnMSZQkQ64jJGa',
-//             refreshToken: '1/RTMmbkDRN6WvDlLh2TPMyYmeaJhCrY-91GBixp6TLB0',
-//             accessToken: 'ya29.Glv_BCs-07UheV7gawhG6CcjViPBQF58IRQsxLOXDwliQXk9TqvNBj3r1vac4SOzQPZqYD5afaLREajWegd3O4g7dxwAzWAaIgC7Ym94qpRVk6H_kwJ5xZbOV10z'
-//
-//     }
-// })
+const nodemailer = require('nodemailer');
+const xoauth2 = require('xoauth2');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+            type: 'OAuth2',
+            user: 'justin.dumas.carr@gmail.com',
+            clientId: '396125911536-f6kvm72e7j9er8sdgeu1nvjulbb39dst.apps.googleusercontent.com',
+            clientSecret: 'TVrjamutn2nnMSZQkQ64jJGa',
+            refreshToken: '1/RTMmbkDRN6WvDlLh2TPMyYmeaJhCrY-91GBixp6TLB0',
+            accessToken: 'ya29.Glv_BCs-07UheV7gawhG6CcjViPBQF58IRQsxLOXDwliQXk9TqvNBj3r1vac4SOzQPZqYD5afaLREajWegd3O4g7dxwAzWAaIgC7Ym94qpRVk6H_kwJ5xZbOV10z'
+
+    }
+})
 
 // const transporter = nodemailer.createTransport({
 //     service: 'gmail',
@@ -39,22 +39,40 @@ const S3_BUCKET = process.env.S3_BUCKET;
 //     },
 // });
 
-// var mailOptions = {
-//     from: 'ConcertConnect justin.dumas.carr@gmail.com',
-//     to: 'justin.dumas.carr@gmail.com',
-//     subject: 'Nodemailer test',
-//     text: 'Hello World!!'
-// }
-//
-// transporter.sendMail(mailOptions, function (err, res) {
-//     if(err){
-//         console.log(err);
-//     } else {
-//         console.log('Email Sent');
-//     }
-// })
+
 router.use('/artists', artists);
 router.use('/venues', venues);
+
+router.post('/message', passport.authenticate('jwt', {session: false}),(req,res,next) =>{
+
+    let profileLink = '';
+
+if (req.body.type === 'venue'){
+
+ profileLink = '/venue/'  +req.body.venueId;
+}
+else{
+
+    profileLink = '/artist/'  +req.body.artistId;
+
+}
+    var mailOptions = {
+        from: req.body.from,
+        to: req.body.to,
+        subject: 'Nodemailer test',
+        text: req.body.description +"   " + 'http://localhost:4200' +profileLink
+    }
+
+    transporter.sendMail(mailOptions, function (err, res) {
+        if(error) {
+            res.json({success: false, msg: 'Mail Not Sent'});
+        } else {
+            res.json({success: true, msg: 'Mail Sent'});
+        }
+    })
+
+})
+
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
