@@ -38,7 +38,6 @@ router.post('/register',  passport.authenticate('jwt', {session: false}), (req, 
                     }
                 }
             );
-
         }
     });
 

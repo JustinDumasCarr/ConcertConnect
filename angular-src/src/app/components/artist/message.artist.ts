@@ -13,8 +13,8 @@ import {AuthService} from '../../services/auth.service';
                 <textarea id="textarea"  ></textarea>
             </form>
             <div class="button-container-message">
-                <button md-raised-button (click)="dialogRef.close() " color="accent">OK</button>
-                <button md-raised-button (click)="dialogRef.close()" color="primary">Cancel</button>
+                <button mat-raised-button (click)="dialogRef.close() " color="accent">OK</button>
+                <button mat-raised-button (click)="dialogRef.close()" color="primary">Cancel</button>
             </div>
         </div>
        `,

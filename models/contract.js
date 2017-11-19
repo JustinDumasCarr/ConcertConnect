@@ -16,8 +16,7 @@ const ContractSchema = mongoose.Schema({
     date: {
         type: Date,
         required: true
-    },
-
+    }
 });
 
 const Contract = module.exports = mongoose.model('Contract', ContractSchema);
@@ -30,7 +29,7 @@ module.exports.getContractByID = function (objectID, callback) {
 };
 
 module.exports.getContractByArtistId = function (artistId, callback) {
-    const query = {artistId: artisId};
+    const query = {artistId: artistId};
     Contract.findOne(query, callback);
 };
 

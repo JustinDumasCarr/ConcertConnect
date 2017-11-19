@@ -11,22 +11,22 @@ import {AuthService} from '../../services/auth.service';
             <p class="title">Edit Information</p>
             <div *ngIf="!formSubmit">
                 <mat-input-container>
-                    <input matInput type="text" value="name" [(ngModel)]="venueName">
+                    <input matInput placeholder="Name" type="text" value="name" [(ngModel)]="venueName">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="email" [(ngModel)]="venueEmail">
+                    <input matInput placeholder="Email" type="text" value="email" [(ngModel)]="venueEmail">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="location" [(ngModel)]="venueLocation">
+                    <input matInput placeholder="Location" type="text" value="location" [(ngModel)]="venueLocation">
                 </mat-input-container>
                  <mat-input-container>
-                    <input matInput type="text" value="description" [(ngModel)]="venueDescription">
+                    <input matInput placeholder="Description" type="text" value="description" [(ngModel)]="venueDescription">
                 </mat-input-container>
                  <mat-input-container>
-                    <input matInput type="text" value="capacity" [(ngModel)]="venueCapacity">
+                    <input matInput placeholder="Capacity" type="text" value="capacity" [(ngModel)]="venueCapacity">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="hours" [(ngModel)]="venueHours">
+                    <input matInput placeholder="Hours" type="text" value="hours" [(ngModel)]="venueHours">
                 </mat-input-container>
                 <div class="chips-wrapper">
                     <td-chips placeholder="Enter a genre" [(ngModel)]="venueGenres"></td-chips>

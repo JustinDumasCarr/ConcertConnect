@@ -11,16 +11,16 @@ import {AuthService} from '../../services/auth.service';
             <p class="title">Edit Information</p>
             <div *ngIf="!formSubmit">
                 <mat-input-container>
-                    <input matInput type="text" value="name" [(ngModel)]="name">
+                    <input matInput placeholder="Name" type="text" value="name" [(ngModel)]="name">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="email" [(ngModel)]="email">
+                    <input matInput placeholder="Email" type="text" value="email" [(ngModel)]="email">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="description" [(ngModel)]="description">
+                    <input matInput placeholder="Description" type="text" value="description" [(ngModel)]="description">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="soundcloudURL" [(ngModel)]="soundcloudURL">
+                    <input matInput placeholder="SoundCloud URL" type="text" value="soundcloudURL" [(ngModel)]="soundcloudURL">
                 </mat-input-container>
                 <div class="chips-wrapper">
                     <td-chips placeholder="Enter a genre" [(ngModel)]="genres"></td-chips>

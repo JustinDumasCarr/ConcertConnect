@@ -10,10 +10,10 @@ import {AuthService} from '../../services/auth.service';
             <p class="title">Edit Information</p>
             <form *ngIf="!formSubmit" (ngSubmit)="changeData()" [formGroup]="userInformation">
                 <mat-input-container>
-                    <input matInput type="text" value="{{originalUsername}}" formControlName="username">
+                    <input matInput placeholder="Username" type="text" value="{{originalUsername}}" formControlName="username">
                 </mat-input-container>
                 <mat-input-container>
-                    <input matInput type="text" value="{{originalEmail}}" formControlName="email">
+                    <input matInput placeholder="Email" type="text" value="{{originalEmail}}" formControlName="email">
                 </mat-input-container>
                 <div class="button-container">
                     <button mat-raised-button (click)="dialogRef.close()" color="accent">Cancel</button>

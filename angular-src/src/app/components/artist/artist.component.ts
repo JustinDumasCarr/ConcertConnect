@@ -93,7 +93,7 @@ export class ArtistComponent implements OnInit {
                         this.artist = data;
                         this.config.data = data;
                         this.artistExist = true;
-                        this.events= data['contracts'].map(function(contract) {
+                        this.events = this.artist['contracts'].map(function(contract) {
                             return {
                                 start: startOfDay(contract['date']),
                                 title: contract['artistId'],
@@ -163,7 +163,10 @@ export class ArtistComponent implements OnInit {
             acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
         }).afterClosed().subscribe((accept: boolean) => {
             if (accept) {
-                this.createContract(event);
+               // this.createContract(event);
+                // Send a request to play here
+
+
             } else {
                 // DO SOMETHING ELSE
             }
@@ -171,13 +174,13 @@ export class ArtistComponent implements OnInit {
     }
 
 
-    createContract(event) {
-        console.log(event);
-        var active = JSON.parse(localStorage.getItem('active'));
-        console.log('active:' +active.venueId);
-
-        this.calendarService.createContract(this.artist['_id'],active['venueId'],event.day.date).subscribe((data) => {
-            window.location.reload();
-        });
-    }
+    // createContract(event) {
+    //     console.log(event);
+    //     var active = JSON.parse(localStorage.getItem('active'));
+    //     console.log('active:' +active.venueId);
+    //
+    //     this.calendarService.createContract(this.artist['_id'],active['venueId'],event.day.date).subscribe((data) => {
+    //         window.location.reload();
+    //     });
+    // }
 }
