@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
-const Artist = require('../models/artist');
+const Artist = new require('../models/artist');
 const users = require('./users');
 
 //Gets latest id for an artist
-router.post('/register',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/register', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let newArtist = new Artist({
         name: req.body.name,
         email: req.body.email,
@@ -20,31 +21,20 @@ router.post('/register',  passport.authenticate('jwt', {session: false}), (req, 
         soundcloudURL: req.body.soundcloudURL
     });
 
-    Artist.addArtist(newArtist, (err, artist) => {
-        if (err) {
-            res.json({success: false, msg: 'Failed to register Artist'});
-        } else {
+    newArtist.save()
+        .then(() => {
+        console.log("userid: "+ req.body.userId)
+            return Artist.find({'userId': req.body.userId})
+        })
+        .then((artists) => {
+        console.log('artists: ' + artists)
+            return res.json({success: true, artists: artists});
+        }).catch()
 
-            User.findByIdAndUpdate(
-                newArtist.userId,
-                {$push: {"artists": {artistId: artist._id, name: artist.name, type:'artist'}}},
-                {safe: true, upsert: true, new: true},
-                function (err, model) {
-                    if (err) {
-                        res.json({success: false, msg: 'Failed to update User'});
-                    } else {
-                        res.json({success: true, artists: model.artists});
-
-                    }
-                }
-            );
-
-        }
-    });
 
 });
-router.post('/search',  (req, res, next) => {
-    Artist.find({ 'genres': new RegExp(req.body.genre,'i')}, 'name email description genres profileImageURL', function (err, artists) {
+router.post('/search', (req, res, next) => {
+    Artist.find({'genres': new RegExp(req.body.genre, 'i')}, 'name email description genres profileImageURL', function (err, artists) {
         if (err) return (err);
         console.log(artists);
         return res.json(artists);
@@ -55,7 +45,6 @@ router.post('/search',  (req, res, next) => {
 //Returns artist information based on details
 router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
-console.log(req.body);
 
     Artist.getArtistByID(req.body._id, (err, artistexists) => {
         //Not sure if this actually throws an error
@@ -71,8 +60,7 @@ console.log(req.body);
 
 });
 
-router.post('/changeartistinformation', passport.authenticate('jwt', {session: false}), (req, res, next) =>
-{
+router.post('/changeartistinformation', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     const userInfo =
         {
             _id: req.body._id,
@@ -83,20 +71,19 @@ router.post('/changeartistinformation', passport.authenticate('jwt', {session: f
             soundcloudURL: req.body.soundcloudURL
         };
 
-    Artist.getArtistByID(userInfo._id, (err,user) => {
-       if (err) throw err;
-       if (user) {
-           Artist.changeAllInfo(userInfo, (err, callback) => {
-               User.changeArtistNameByID(userInfo, (err, callback) => {
-                   if(callback)
-                   {
-                       return res.json({success: true, msg: 'Information has been changed successfully'});
-                   } else {
-                       return res.json({success: false, msg: 'An error occured. Please try again'});
-                   }
-               });
-           });
-       }
+    Artist.getArtistByID(userInfo._id, (err, user) => {
+        if (err) throw err;
+        if (user) {
+            Artist.changeAllInfo(userInfo, (err, callback) => {
+                User.changeArtistNameByID(userInfo, (err, callback) => {
+                    if (callback) {
+                        return res.json({success: true, msg: 'Information has been changed successfully'});
+                    } else {
+                        return res.json({success: false, msg: 'An error occured. Please try again'});
+                    }
+                });
+            });
+        }
     });
 });
 

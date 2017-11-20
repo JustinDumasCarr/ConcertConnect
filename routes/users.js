@@ -6,7 +6,12 @@ const config = require('../config/database');
 const User = require('../models/user');
 const artists = require('./artists');
 const venues = require('./venues');
+const Artist = require('../models/artist');
+const Venue = require('../models/venue');
+const async = require('async');
 const aws = require('aws-sdk');
+const Controller = require('../controllers/controller');
+const bcrypt = require('bcryptjs');
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
@@ -17,12 +22,12 @@ const xoauth2 = require('xoauth2');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-            type: 'OAuth2',
-            user: 'justin.dumas.carr@gmail.com',
-            clientId: '396125911536-f6kvm72e7j9er8sdgeu1nvjulbb39dst.apps.googleusercontent.com',
-            clientSecret: 'TVrjamutn2nnMSZQkQ64jJGa',
-            refreshToken: '1/RTMmbkDRN6WvDlLh2TPMyYmeaJhCrY-91GBixp6TLB0',
-            accessToken: 'ya29.Glv_BCs-07UheV7gawhG6CcjViPBQF58IRQsxLOXDwliQXk9TqvNBj3r1vac4SOzQPZqYD5afaLREajWegd3O4g7dxwAzWAaIgC7Ym94qpRVk6H_kwJ5xZbOV10z'
+        type: 'OAuth2',
+        user: 'justin.dumas.carr@gmail.com',
+        clientId: '396125911536-f6kvm72e7j9er8sdgeu1nvjulbb39dst.apps.googleusercontent.com',
+        clientSecret: 'TVrjamutn2nnMSZQkQ64jJGa',
+        refreshToken: '1/RTMmbkDRN6WvDlLh2TPMyYmeaJhCrY-91GBixp6TLB0',
+        accessToken: 'ya29.Glv_BCs-07UheV7gawhG6CcjViPBQF58IRQsxLOXDwliQXk9TqvNBj3r1vac4SOzQPZqYD5afaLREajWegd3O4g7dxwAzWAaIgC7Ym94qpRVk6H_kwJ5xZbOV10z'
 
     }
 })
@@ -43,28 +48,27 @@ var transporter = nodemailer.createTransport({
 router.use('/artists', artists);
 router.use('/venues', venues);
 
-router.post('/message', passport.authenticate('jwt', {session: false}),(req,res,next) =>{
-
+router.post('/message', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     let profileLink = '';
 
-if (req.body.type === 'venue'){
+    if (req.body.type === 'venue') {
 
- profileLink = '/venue/'  +req.body.venueId;
-}
-else{
+        profileLink = '/venue/' + req.body.venueId;
+    }
+    else {
 
-    profileLink = '/artist/'  +req.body.artistId;
+        profileLink = '/artist/' + req.body.artistId;
 
-}
+    }
     var mailOptions = {
         from: req.body.from,
         to: req.body.to,
         subject: 'Nodemailer test',
-        text: req.body.description +"   " + 'http://localhost:4200' +profileLink
+        text: req.body.description + "   " + 'http://localhost:4200' + profileLink
     }
 
     transporter.sendMail(mailOptions, function (err, res) {
-        if(error) {
+        if (error) {
             res.json({success: false, msg: 'Mail Not Sent'});
         } else {
             res.json({success: true, msg: 'Mail Sent'});
@@ -73,6 +77,12 @@ else{
 
 })
 
+
+//router.route('/test').getUserArtists();
+router.get('/test', (req, res, next) => {
+
+    Controller.getUserArtists(req, res, next);
+})
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
@@ -92,58 +102,57 @@ router.post('/register', (req, res, next) => {
 });
 
 // Authenticate
-router.post('/authenticate', (req, res, next) => {
+router.post('/authenticate', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    User.getUserByUsername(username, (err, user) => {
+    let user = await User.findOne({'username': username});
+    if (!user) {
+        return res.json({success: false, msg: 'User not found'});
+    }
+    let passwordMatch = await bcrypt.compare(password, user.password);
+    if(passwordMatch){
+        const token = jwt.sign(user, config.secret, {
+                             expiresIn: 604800 // 1 week
+                         });
+        let userArtistsAndVenues = await Controller.getUserArtists(user);
+        console.log('userArtistsAndVenues: ' +JSON.stringify(userArtistsAndVenues));
+        res.json({
+                            success: true,
+                            token: 'jwt ' + token,
+                            user: {
+                                id: user._id,
+                                name: user.name,
+                                type: user.type,
+                                username: user.username,
+                                email: user.email,
+                                venues: userArtistsAndVenues.venues,
+                                artists: userArtistsAndVenues.artists
+                            }
+                        });
 
-        if (!user) {
-            return res.json({success: false, msg: 'User not found'});
-        }
-        
-        User.comparePassword(password, user.password, (err, isMatch) => {
-            if (err) throw err;
-            if (isMatch) {
-                const token = jwt.sign(user, config.secret, {
-                    expiresIn: 604800 // 1 week
-                });
+    }
+    else{
+        res.json({success: false, msg: 'Wrong password'});
+    }
 
-                res.json({
-                    success: true,
-                    token: 'jwt ' + token,
-                    user: {
-                        id: user._id,
-                        name: user.name,
-                        type: user.type,
-                        username: user.username,
-                        email: user.email,
-                        venues: user.venues,
-                        artists: user.artists
-                    }
-                });
-            } else {
-                return res.json({success: false, msg: 'Wrong password'});
-            }
-        });
-    });
 });
 
 // Profile
-router.get('/profile',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.json({user: req.user});
 });
 
 
 //Change username
-router.post('/changeusername',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/changeusername', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     //This variable will not be used if user already exists
     const userInfo =
-    {
-        username: req.body.username,
-        currUsername: req.body.currentUsername
-    };
+        {
+            username: req.body.username,
+            currUsername: req.body.currentUsername
+        };
 
 
     //Checks if username exists
@@ -194,9 +203,8 @@ router.post('/changeemail', passport.authenticate('jwt', {session: false}), (req
 });
 
 
-
 //Change email
-router.post('/changeusernamandemail',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/changeusernamandemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     //This variable will not be used if user already exists
     const userInfo = {
@@ -219,13 +227,19 @@ router.post('/changeusernamandemail',passport.authenticate('jwt', {session: fals
                     User.getUserByUsername(userInfo.username, (err, user) => {
                         if (err) throw err;
                         if (user) {
-                            return res.json({success: false, msg: 'There was an error changing the username. Email has been changed successfully'});
+                            return res.json({
+                                success: false,
+                                msg: 'There was an error changing the username. Email has been changed successfully'
+                            });
                         }
                         else {
                             User.changeUsername(userInfo, (err, callback) => {
                                 if (callback) {
                                     console.log(callback);
-                                    return res.json({success: true, msg: 'Username and Email have been changed successfully'});
+                                    return res.json({
+                                        success: true,
+                                        msg: 'Username and Email have been changed successfully'
+                                    });
                                 }
 
                             });
@@ -265,7 +279,7 @@ router.get('/sign-s3', (req, res) => {
 });
 
 //Change artist name
-router.post('/changeartistname',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/changeartistname', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         name: req.body.name,
@@ -281,7 +295,7 @@ router.post('/changeartistname',passport.authenticate('jwt', {session: false}), 
 });
 
 //Change artist email
-router.post('/changeartistemail',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/changeartistemail', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         email: req.body.email,
@@ -297,7 +311,7 @@ router.post('/changeartistemail',passport.authenticate('jwt', {session: false}),
 });
 
 // Change venue name
-router.post('/changevenuename',passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.post('/changevenuename', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     //This variable will not be used if user already exists
     const userInfo = {
         name: req.body.name,

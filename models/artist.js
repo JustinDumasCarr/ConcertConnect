@@ -51,7 +51,7 @@ module.exports.getArtistByEmail = function(name, callback){
 };
 
 module.exports.addArtist = function(newArtist, callback){
-            newArtist.save(callback);
+            newArtist.save().then;
 };
 
 module.exports.changeName = function(userInfo, callback){

@@ -173,14 +173,14 @@ export class NavbarComponent implements OnInit {
 
     if(JSON.parse(localStorage.getItem('active')).type == 'artist')
     {
-      let profile_id = JSON.parse(localStorage.getItem('active')).artistId;
+      let profile_id = JSON.parse(localStorage.getItem('active'))._id;
       console.log(profile_id);
       this.router.navigate(['/artist',profile_id]);
     }
 
     if(JSON.parse(localStorage.getItem('active')).type == 'venue')
     {
-      let profile_id = JSON.parse(localStorage.getItem('active')).venueId;
+      let profile_id = JSON.parse(localStorage.getItem('active'))._id;
       console.log(profile_id);
       this.router.navigate(['/venue',profile_id]);
     }

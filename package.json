@@ -8,6 +8,7 @@
     "start": "node bin/dev"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "aws-sdk": "^2.43.0",
     "bcryptjs": "*",
     "body-parser": "*",
@@ -15,6 +16,7 @@
     "express": "*",
     "jsonwebtoken": "^7.4.3",
     "mongoose": "*",
+    "morgan": "^1.9.0",
     "nodemailer": "^4.3.1",
     "passport": "*",
     "passport-jwt": "*",
