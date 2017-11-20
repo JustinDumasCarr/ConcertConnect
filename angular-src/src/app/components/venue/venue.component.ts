@@ -99,7 +99,7 @@ export class VenueComponent implements OnInit {
               this.venue = data;
               this.config.data = data;
               this.venueExist = true;
-                this.events= data['contracts'].map(function(contract) {
+                this.events= this.venue['contracts'].map(function(contract) {
                     return {
                         start: startOfDay(contract['date']),
                         title: contract['artistId'],
@@ -171,7 +171,8 @@ export class VenueComponent implements OnInit {
             acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
         }).afterClosed().subscribe((accept: boolean) => {
             if (accept) {
-                this.createContract(event);
+                //this.createContract(event);
+                // Send a request to play here
             } else {
                 // DO SOMETHING ELSE
             }
@@ -179,15 +180,15 @@ export class VenueComponent implements OnInit {
     }
 
 
-    createContract(event) {
-        console.log(event);
-        var active = JSON.parse(localStorage.getItem('active'));
-        console.log('active:' +active.artistId);
-        console.log('venue: '+ JSON.stringify(this.venue));
-        this.calendarService.createContract(active['artistId'],this.venue['_id'],event.day.date).subscribe((data) => {
-            // this.router.navigate(['/venue',this.venue['_id']]);
-            window.location.reload();
-        });
-    }
+    // createContract(event) {
+    //     console.log(event);
+    //     var active = JSON.parse(localStorage.getItem('active'));
+    //     console.log('active:' +active.artistId);
+    //     console.log('venue: '+ JSON.stringify(this.venue));
+    //     this.calendarService.createContract(active['artistId'],this.venue['_id'],event.day.date).subscribe((data) => {
+    //         // this.router.navigate(['/venue',this.venue['_id']]);
+    //         window.location.reload();
+    //     });
+    // }
 
 }

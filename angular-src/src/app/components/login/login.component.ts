@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import { ViewEncapsulation } from '@angular/core';
+
 
 //Dialog Stuff
 import { LoginDialog } from '../login/login.dialog';

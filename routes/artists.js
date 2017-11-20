@@ -29,7 +29,9 @@ router.post('/register', passport.authenticate('jwt', {session: false}), (req, r
         .then((artists) => {
         console.log('artists: ' + artists)
             return res.json({success: true, artists: artists});
-        }).catch()
+        }).catch(err =>{
+            console.log('err: ' + err)
+    })
 
 
 });
@@ -41,6 +43,22 @@ router.post('/search', (req, res, next) => {
     })
 });
 
+router.post('/getArtists', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+
+
+    Artist.find({'userId' : req.body.userId}, (err, artistexists) => {
+        //Not sure if this actually throws an error
+        if (err) throw err;
+        console.log(artistexists);
+        if (artistexists) {
+            return res.json({artists : artistexists});
+        }
+        else {
+            return res.json("");
+        }
+    });
+
+});
 
 //Returns artist information based on details
 router.post('/getProfile', passport.authenticate('jwt', {session: false}), (req, res, next) => {

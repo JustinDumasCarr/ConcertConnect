@@ -23,7 +23,7 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         hours: req.body.hours
     });
 
-
+    console.log(newVenue);
     newVenue.save()
         .then(() => {
             return Venue.find({'userId': req.body.userId})
@@ -31,7 +31,6 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         .then((venues) => {
             return res.json({success: true, venues: venues});
         }).catch()
-
 
 });
 router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
@@ -139,6 +138,7 @@ router.post('/changevenueinformation', passport.authenticate('jwt', {session: fa
             email: req.body.email,
             genres: req.body.genres,
             description: req.body.description,
+            hours: req.body.hours,
             location: req.body.location,
             capacity: req.body.capacity
         };

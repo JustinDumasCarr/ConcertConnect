@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core
 import {ValidateService} from '../../services/validate.service'
 import {AuthService} from '../../services/auth.service'
 import {Router} from '@angular/router';
+import { ViewEncapsulation } from '@angular/core';
+
 
 //Dialog Stuff
 import { RegisterDialog } from '../register/register.dialog';
@@ -12,6 +14,7 @@ import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angula
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
+
 })
 export class RegisterComponent implements OnInit {
   name: String;

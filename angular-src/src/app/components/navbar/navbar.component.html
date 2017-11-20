@@ -4,9 +4,13 @@
             [routerLink]="['/dashboard']" mat-button>Dashboard
     </button>
     <button *ngIf="authService.loggedIn()" (click)="profileClick()" mat-button>Profile</button>
+    <button [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/messages']"
+            mat-button>Messages
+    </button>
     <button [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/discover']"
             mat-button>Discover
     </button>
+
 
     <!-- Right Side -->
     <span class="demo-fill-remaining"></span>
@@ -65,7 +69,6 @@
 
             <button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue._id)"
                     mat-menu-item>
-
                 {{venue.name}}
             </button>
         </mat-menu>

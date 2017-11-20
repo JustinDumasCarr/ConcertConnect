@@ -53,9 +53,10 @@ import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
-import {MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatChipsModule, MatSelectModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatChipsModule, MatSelectModule, MatSidenavModule, MatListModule} from '@angular/material';
 import 'hammerjs';
 import { CalendarModule } from 'angular-calendar';
+import { MessagesComponent } from './components/messages/messages.component';
 
 
 
@@ -66,6 +67,7 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   {path:'discover', component: DiscoverComponent},
   {path:'search/artist', component: SearchArtistComponent},
   {path:'search/venue', component: SearchVenueComponent},
@@ -100,7 +102,8 @@ const appRoutes: Routes =  [
     MessageArtist,
     MessageVenue,
     LoginDialog,
-    RegisterDialog
+    RegisterDialog,
+    MessagesComponent
 
   ],
   imports: [
@@ -134,6 +137,8 @@ const appRoutes: Routes =  [
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSelectModule,
+    MatSidenavModule,
+    MatListModule,
     CalendarModule.forRoot()
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
