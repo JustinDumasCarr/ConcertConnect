@@ -18,7 +18,11 @@ const RequestSchema = mongoose.Schema({
         required: true
     },
     initiator: {
-        type: ObjectId,
+        type: String, // Not sure if this should be ObjectId
+        required: true
+    },
+    initiatorType: {
+        type: String,
         required: true
     }
 });
@@ -39,11 +43,12 @@ module.exports.getRequestByVenueId = function (venueId, callback) {
     Request.findOne(query, callback);
 };
 
-// Get request by initiator
-// module.exports.getRequestByInitiator = function (initatorId, callback) {
-//     const query = {};
-// }
-//
+// Get request by initiator id
+module.exports.getRequestByInitiator = function (initatorId, callback) {
+    const query = {initiator: initiator};
+    Request.findOne(query, callback);
+};
+
 
 
 

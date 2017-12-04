@@ -19,8 +19,6 @@ export class MessageService {
   }
 
   sendMessage(messageDetails){
-
-
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);

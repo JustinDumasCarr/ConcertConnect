@@ -6,6 +6,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Venue = require('../models/venue');
 const Contract = require('../models/contract');
+const Request = require('../models/request');
 const users = require('./users');
 const Artist = require('../models/artist');
 router.post('/register',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
@@ -100,8 +101,7 @@ router.post('/createContract',  passport.authenticate('jwt', {session: false}),(
     })
     ;
 
-})
-;
+});
 
 //Returns venue information based on details
 router.post('/getProfile', passport.authenticate('jwt', {session: false}),(req, res, next) => {
@@ -169,6 +169,25 @@ router.post('/changevenueinformation', passport.authenticate('jwt', {session: fa
                     }
                 });
             });
+        }
+    });
+});
+
+router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+
+    let newRequest = new Request({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+        initiator: req.body.initiator,
+        initiatorType: req.body.initiatorType // Not sure if this is needed
+    });
+
+    Request.addRequest(newRequest, (err, contract) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit request'});
+        } else {
+            res.json({success: true, msg: 'Request successfully submitted'});
         }
     });
 });

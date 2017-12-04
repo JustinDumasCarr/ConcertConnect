@@ -162,6 +162,11 @@ export class VenueComponent implements OnInit {
         });
     }
     openConfirm(event): void {
+
+
+        // Have a check here to ensure that only artists can book
+
+
         this._dialogService.openConfirm({
             message: 'Would you like to send a request to play on this Date?',
             disableClose:  false, // defaults to false
@@ -171,6 +176,13 @@ export class VenueComponent implements OnInit {
             acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
         }).afterClosed().subscribe((accept: boolean) => {
             if (accept) {
+                console.log("EVENT DATA");
+                console.log(event);
+                console.log(event['day']['date']);
+
+                // Need artist object id, venue object id, date, initiator and initiatorType
+
+
                 //this.createContract(event);
                 // Send a request to play here
             } else {

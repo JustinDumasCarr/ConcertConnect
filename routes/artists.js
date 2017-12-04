@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 const Artist = require('../models/artist');
+const Request = require('../models/request');
 const users = require('./users');
 
 //Gets latest id for an artist
@@ -98,5 +99,25 @@ router.post('/changeartistinformation', passport.authenticate('jwt', {session: f
        }
     });
 });
+
+router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+
+    let newRequest = new Request({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+        initiator: req.body.initiator,
+        initiatorType: req.body.initiatorType // Not sure if this is needed
+    });
+
+    Request.addRequest(newRequest, (err, contract) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit request'});
+        } else {
+            res.json({success: true, msg: 'Request successfully submitted'});
+        }
+    });
+});
+
 
 module.exports = router;
