@@ -146,8 +146,12 @@ export class ArtistComponent implements OnInit {
         });
         this.dialogRef.afterClosed().subscribe((result: string) => {
             this.authService.setActive(this.artist);
-            this.authService.getProfile().subscribe(data => {
-                localStorage.setItem('user', JSON.stringify(data.user));
+
+            let user = JSON.parse(this.authService.getUserLocal());
+            this.authService.getArtistsFromDatabase(user._id).subscribe(data => {
+                console.log("data: " + data)
+                user.artists = data.artists;
+                localStorage.setItem('user', JSON.stringify(user));
             });
 
             this.lastCloseResult = result;

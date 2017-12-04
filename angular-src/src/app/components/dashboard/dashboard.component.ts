@@ -30,10 +30,10 @@ export class DashboardComponent implements OnInit {
 
    this.artistResults = this.user['artists'];
 this.venueResults = this.user['venues'];
-    console.log("user: "+this.user.toString());
+    console.log("user: "+this.user);
 
 
-    console.log("artists: "+this.user['artists'].toString());
+    console.log("artists: "+JSON.stringify(this.user['artists']));
 
   }
 }

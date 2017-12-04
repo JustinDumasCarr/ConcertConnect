@@ -58,7 +58,7 @@
                 Artist
             </button>
 
-            <button *ngFor="let artist of authService.getArtists(); trackBy:trackByArtist" (click)="changeUserArtist(artist,artist.artistId)"
+            <button *ngFor="let artist of authService.getArtists(); trackBy:trackByArtist" (click)="changeUserArtist(artist,artist._id)"
                     mat-menu-item>
 
                 {{artist.name}}
@@ -67,7 +67,7 @@
                 Venue
             </button>
 
-            <button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue.venueId)"
+            <button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue._id)"
                     mat-menu-item>
                 {{venue.name}}
             </button>

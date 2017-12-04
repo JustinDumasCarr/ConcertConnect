@@ -4,11 +4,11 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
-const Venue = require('../models/venue');
+const Venue = new require('../models/venue');
 const Contract = require('../models/contract');
 const Request = require('../models/request');
 const users = require('./users');
-const Artist = require('../models/artist');
+const Artist = new require('../models/artist');
 router.post('/register',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
 
     let newVenue = new Venue({
@@ -24,28 +24,15 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         hours: req.body.hours
     });
 
-    console.log("Venue Value");
     console.log(newVenue);
+    newVenue.save()
+        .then(() => {
+            return Venue.find({'userId': req.body.userId})
+        })
+        .then((venues) => {
+            return res.json({success: true, venues: venues});
+        }).catch()
 
-    Venue.addVenue(newVenue, (err, Venue) => {
-        if (err) {
-            res.json({success: false, msg: 'Failed to register Venue'});
-        } else {
-            User.findByIdAndUpdate(
-                newVenue.userId,
-                {$push: {"venues": {venueId: Venue._id, name: Venue.name, type: 'venue'}}},
-                {safe: true, upsert: true, new: true},
-                function (err, model) { //unecessary
-                    if (err) {
-                        res.json({success: false, msg: 'Failed to update User'});
-                    } else {
-                        res.json({success: true, venues: model.venues});
-
-                    }
-                }
-            );
-        }
-    });
 });
 router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
     console.log(req.body.artistId);

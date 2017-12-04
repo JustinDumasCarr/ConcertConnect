@@ -40,7 +40,7 @@ export class RegisterArtistComponent implements OnInit {
             email: this.email,
             description: this.description,
             genres: this.genres,
-            userId: JSON.parse(localStorage.getItem('user')).id,
+            userId: JSON.parse(localStorage.getItem('user'))._id,
             imageURL: this.imageURL,
             soundcloudURL: this.soundcloudURL
         };

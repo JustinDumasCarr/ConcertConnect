@@ -46,7 +46,7 @@ export class RegisterVenueComponent implements OnInit {
             location: this.location,
             capacity: this.capacity,
             hours: this.hours,
-            userId: JSON.parse(localStorage.getItem('user')).id,
+            userId: JSON.parse(localStorage.getItem('user'))._id,
             imageURL: this.imageURL
         };
 
