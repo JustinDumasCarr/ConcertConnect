@@ -30,7 +30,7 @@ var transporter = nodemailer.createTransport({
         accessToken: 'ya29.Glv_BCs-07UheV7gawhG6CcjViPBQF58IRQsxLOXDwliQXk9TqvNBj3r1vac4SOzQPZqYD5afaLREajWegd3O4g7dxwAzWAaIgC7Ym94qpRVk6H_kwJ5xZbOV10z'
 
     }
-})
+});
 
 // const transporter = nodemailer.createTransport({
 //     service: 'gmail',
@@ -65,7 +65,7 @@ router.post('/message', passport.authenticate('jwt', {session: false}), (req, re
         to: req.body.to,
         subject: 'Nodemailer test',
         text: req.body.description + "   " + 'http://localhost:4200' + profileLink
-    }
+    };
 
     transporter.sendMail(mailOptions, function (err, res) {
         if (error) {
@@ -75,14 +75,14 @@ router.post('/message', passport.authenticate('jwt', {session: false}), (req, re
         }
     })
 
-})
+});
 
 
 //router.route('/test').getUserArtists();
 router.get('/test', (req, res, next) => {
 
     Controller.getUserArtists(req, res, next);
-})
+});
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
@@ -103,33 +103,45 @@ router.post('/register', (req, res, next) => {
 
 // Authenticate
 router.post('/authenticate', async (req, res, next) => {
+
+    console.log("Authenticate funciton testing");
+    console.log(req.body);
+
     const username = req.body.username;
     const password = req.body.password;
 
+
+    // Try turning this into JSON testing
     let user = await User.findOne({'username': username});
+    if(user) {
+        // Test the user object to see what format comes out
+        console.log("User has been found successfully");
+        console.log("User Testing: ");
+        console.log(user);
+    }
     if (!user) {
         return res.json({success: false, msg: 'User not found'});
     }
     let passwordMatch = await bcrypt.compare(password, user.password);
     if(passwordMatch){
-        const token = jwt.sign(user, config.secret, {
+        const token = jwt.sign(user.toJSON(), config.secret, {
                              expiresIn: 604800 // 1 week
                          });
         let userArtistsAndVenues = await Controller.getUserArtists(user);
         console.log('userArtistsAndVenues: ' +JSON.stringify(userArtistsAndVenues));
         res.json({
-                            success: true,
-                            token: 'jwt ' + token,
-                            user: {
-                                _id: user._id,
-                                name: user.name,
-                                type: user.type,
-                                username: user.username,
-                                email: user.email,
-                                venues: userArtistsAndVenues.venues,
-                                artists: userArtistsAndVenues.artists
-                            }
-                        });
+                    success: true,
+                    token: 'jwt ' + token,
+                    user: {
+                        _id: user._id,
+                        name: user.name,
+                        type: user.type,
+                        username: user.username,
+                        email: user.email,
+                        venues: userArtistsAndVenues.venues,
+                        artists: userArtistsAndVenues.artists
+                    }
+                });
 
     }
     else{

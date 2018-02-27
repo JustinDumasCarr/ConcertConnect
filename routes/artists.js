@@ -5,12 +5,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
-<<<<<<< HEAD
 const Artist = require('../models/artist');
 const Request = require('../models/request');
-=======
-const Artist = new require('../models/artist');
->>>>>>> d779c773f64be5dc2d9f9dee751c4685b714c614
 const users = require('./users');
 
 //Gets latest id for an artist

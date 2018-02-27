@@ -43,8 +43,6 @@ import { RegisterDialog } from './components/register/register.dialog';
 import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
 // (optional) Additional Covalent Modules imports
 
-import { FlashMessagesModule } from 'angular2-flash-messages';
-
 import { CovalentHttpModule } from '@covalent/http';
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentHighlightModule } from '@covalent/highlight';
@@ -108,7 +106,6 @@ const appRoutes: Routes =  [
   ],
   imports: [
     BrowserModule,
-    FlashMessagesModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),

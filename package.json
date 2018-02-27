@@ -14,7 +14,7 @@
     "body-parser": "*",
     "cors": "*",
     "express": "*",
-    "jsonwebtoken": "^7.4.3",
+    "jsonwebtoken": "^8.1.0",
     "mongoose": "*",
     "morgan": "^1.9.0",
     "nodemailer": "^4.3.1",

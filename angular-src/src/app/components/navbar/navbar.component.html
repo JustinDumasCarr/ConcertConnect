@@ -21,17 +21,17 @@
             [routerLink]="['/login']" mat-button>Login
     </button>
 
-        <mat-toolbar color="primary" class="dropdown">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open basic menu">
-                <mat-icon>settings</mat-icon>
-            </button>
-        </mat-toolbar>
+        <!--<mat-toolbar color="primary" class="dropdown">-->
+            <!--<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open basic menu">-->
+                <!--<mat-icon>settings</mat-icon>-->
+            <!--</button>-->
+        <!--</mat-toolbar>-->
 
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item  (click)="settingsProfileClick()">
-                Settings
-            </button>
-        </mat-menu>
+        <!--<mat-menu #menu="matMenu">-->
+            <!--<button mat-menu-item  (click)="settingsProfileClick()">-->
+                <!--Settings-->
+            <!--</button>-->
+        <!--</mat-menu>-->
 
 
     <div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">
