@@ -1,8 +1,13 @@
-.md-toolbar-concertconnect {
-    padding-left: 20px;
-    padding-right: 20px;
-    top:0px;
-    z-index: 9;
+mat-toolbar {
+    overflow: hidden;
+}
+
+.dropdown-container {
+    width: 6em;
+}
+
+.main-nav-button {
+    width: 6em;
 }
 
 .demo-toolbar-icon {
