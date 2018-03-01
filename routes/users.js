@@ -78,11 +78,6 @@ router.post('/message', passport.authenticate('jwt', {session: false}), (req, re
 });
 
 
-//router.route('/test').getUserArtists();
-router.get('/test', (req, res, next) => {
-
-    Controller.getUserArtists(req, res, next);
-});
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
@@ -103,10 +98,7 @@ router.post('/register', (req, res, next) => {
 
 // Authenticate
 router.post('/authenticate', async (req, res, next) => {
-
-    console.log("Authenticate funciton testing");
-    console.log(req.body);
-
+    
     const username = req.body.username;
     const password = req.body.password;
 
