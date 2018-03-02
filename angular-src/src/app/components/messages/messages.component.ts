@@ -11,6 +11,7 @@ export class MessagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Currently only checks for incoming requests, add messages later
   }
 
 }

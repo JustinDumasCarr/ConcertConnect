@@ -48,6 +48,24 @@ export class AuthService {
             .map(res => res.json());
     }
 
+    createRequestArtist(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/artists/createrequest', data, {headers: headers})
+            .map(res => res.json());
+    }
+
+    createRequestVenue(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/createrequest', data, {headers: headers})
+            .map(res => res.json());
+    }
+
     changeEmail(data) {
         let headers = new Headers();
         this.loadToken();

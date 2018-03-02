@@ -17,8 +17,8 @@ import {
     addHours
 } from 'date-fns';
 //Dialog Stuff
-import { EditVenue } from '../venue/edit.venue';
-import { MessageVenue } from '../venue/message.venue';
+import { EditVenue } from './edit.venue';
+import { MessageVenue } from './message.venue';
 
 import {DOCUMENT} from '@angular/platform-browser';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
@@ -163,44 +163,46 @@ export class VenueComponent implements OnInit {
     }
     openConfirm(event): void {
 
+        let currentUserCheck = JSON.parse(this.authService.getActiveLocal());
 
-        // Have a check here to ensure that only artists can book
+        if(currentUserCheck['_id'] != this.venue['_id'] && currentUserCheck['type'] == 'artist') {
+            this._dialogService.openConfirm({
+                message: 'Would you like to send a request to play on this Date?',
+                disableClose: false, // defaults to false
+                viewContainerRef: this._viewContainerRef, //OPTIONAL
+                title: 'Confirm', //OPTIONAL, hides if not provided
+                cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+                acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+            }).afterClosed().subscribe((accept: boolean) => {
+                if (accept) {
+                    let requestData = {
+                        artistId: this.venue['_id'],
+                        venueId: currentUserCheck['_id'],
+                        date: event['day']['date'],
+                        initiator: currentUserCheck['name'],
+                        initiatorType: currentUserCheck['type']
+                    };
+                    this.authService.createRequestArtist(requestData).subscribe(data => {
+                        // Do something if success
+                        if(data['success']) {
+
+                        }
+
+                        // Do something if failure
+                        if(!data['success']) {
+
+                        }
+                    })
+                } else {
+                    // Do nothing
+                }
+            });
+
+        }
 
 
-        this._dialogService.openConfirm({
-            message: 'Would you like to send a request to play on this Date?',
-            disableClose:  false, // defaults to false
-            viewContainerRef: this._viewContainerRef, //OPTIONAL
-            title: 'Confirm', //OPTIONAL, hides if not provided
-            cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
-            acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
-        }).afterClosed().subscribe((accept: boolean) => {
-            if (accept) {
-                console.log("EVENT DATA");
-                console.log(event);
-                console.log(event['day']['date']);
 
-                // Need artist object id, venue object id, date, initiator and initiatorType
-
-
-                //this.createContract(event);
-                // Send a request to play here
-            } else {
-                // DO SOMETHING ELSE
-            }
-        });
     }
 
-
-    // createContract(event) {
-    //     console.log(event);
-    //     var active = JSON.parse(localStorage.getItem('active'));
-    //     console.log('active:' +active.artistId);
-    //     console.log('venue: '+ JSON.stringify(this.venue));
-    //     this.calendarService.createContract(active['artistId'],this.venue['_id'],event.day.date).subscribe((data) => {
-    //         // this.router.navigate(['/venue',this.venue['_id']]);
-    //         window.location.reload();
-    //     });
-    // }
 
 }

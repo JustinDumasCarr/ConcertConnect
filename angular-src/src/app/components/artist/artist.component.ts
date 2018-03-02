@@ -17,8 +17,8 @@ import {
 } from 'date-fns';
 
 //Dialog Stuff
-import {EditArtist} from '../artist/edit.artist';
-import {MessageArtist} from '../artist/message.artist';
+import {EditArtist} from './edit.artist';
+import {MessageArtist} from './message.artist';
 
 import {DOCUMENT} from '@angular/platform-browser';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
@@ -149,7 +149,7 @@ export class ArtistComponent implements OnInit {
 
             let user = JSON.parse(this.authService.getUserLocal());
             this.authService.getArtistsFromDatabase(user._id).subscribe(data => {
-                console.log("data: " + data)
+                console.log("data: " + data);
                 user.artists = data.artists;
                 localStorage.setItem('user', JSON.stringify(user));
             });
@@ -161,33 +161,47 @@ export class ArtistComponent implements OnInit {
     }
 
     openConfirm(event): void {
-        this._dialogService.openConfirm({
-            message: 'Would you like to send a request to play on this Date?',
-            disableClose:  false, // defaults to false
-            viewContainerRef: this._viewContainerRef, //OPTIONAL
-            title: 'Confirm', //OPTIONAL, hides if not provided
-            cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
-            acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
-        }).afterClosed().subscribe((accept: boolean) => {
-            if (accept) {
-               // this.createContract(event);
-                // Send a request to play here
 
+        let currentUserCheck = JSON.parse(this.authService.getActiveLocal());
 
-            } else {
-                // DO SOMETHING ELSE
-            }
-        });
+        if(currentUserCheck['_id'] != this.artist['_id'] && currentUserCheck['type'] == 'venue') {
+            this._dialogService.openConfirm({
+                message: 'Would you like to send a request to play on this Date?',
+                disableClose:  false, // defaults to false
+                viewContainerRef: this._viewContainerRef, //OPTIONAL
+                title: 'Confirm', //OPTIONAL, hides if not provided
+                cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
+                acceptButton: 'Yes', //OPTIONAL, defaults to 'ACCEPT'
+            }).afterClosed().subscribe((accept: boolean) => {
+                if (accept) {
+                    let requestData = {
+                        artistId: this.artist['_id'],
+                        venueId: currentUserCheck['_id'],
+                        date: event['day']['date'],
+                        initiator: currentUserCheck['name'],
+                        initiatorType: currentUserCheck['type']
+                    };
+                    this.authService.createRequestVenue(requestData).subscribe(data => {
+
+                        // Do something if success
+                        if(data['success']) {
+
+                        }
+
+                        // Do something if failure
+                        if(!data['success']) {
+
+                        }
+
+                    })
+
+                } else {
+                    // Do nothing
+                }
+            });
+
+        }
+
     }
 
-
-    // createContract(event) {
-    //     console.log(event);
-    //     var active = JSON.parse(localStorage.getItem('active'));
-    //     console.log('active:' +active.venueId);
-    //
-    //     this.calendarService.createContract(this.artist['_id'],active['venueId'],event.day.date).subscribe((data) => {
-    //         window.location.reload();
-    //     });
-    // }
 }
