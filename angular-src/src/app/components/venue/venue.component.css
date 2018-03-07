@@ -62,3 +62,16 @@ mat-chip {
     padding-left: 1em;
     padding-right: 1em;
 }
+.SocialMediaButtons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 300px;
+    width: 80%;
+    margin: 0px 10% 0px 10%;
+}
+
+.grow { transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+.grow:hover { transform: scale(1.1); }
