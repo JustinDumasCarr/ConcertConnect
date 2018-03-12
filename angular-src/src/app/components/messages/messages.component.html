@@ -2,30 +2,43 @@
   <mat-sidenav mode="side" opened="true">
     <mat-list>
       <p class="messages-title">Messages</p>
-      <mat-list>
-        <mat-list-item>Artist One</mat-list-item>
-        <mat-list-item>Artist Two</mat-list-item>
-        <mat-list-item>Artist Three</mat-list-item>
-        <mat-list-item>Artist Four</mat-list-item>
+      <mat-list *ngIf="inboxEmpty">
+        <mat-list-item>No Messages</mat-list-item>
+      </mat-list>
+      <mat-list *ngIf="!inboxEmpty">
+        <mat-list-item *ngFor="let request of requestData" (click)="setCurrentRequest(request)">{{request['initiator']}}</mat-list-item>
       </mat-list>
     </mat-list>
   </mat-sidenav>
 
+<ng-container *ngIf="!inboxEmpty">
   <div class="main-content">
-
     <mat-card class="notification-card">
       <mat-card-title>Contract Request</mat-card-title>
       <div class="card-content">
         <p class="card-text">
-          <strong>Artist</strong> would like to initiate a contract with you on the following date: <strong>24 September 2018</strong>
+          <strong>{{ currentRequest.initiator }}</strong> would like to initiate a contract with you on the following date: <strong>{{ currentRequest.date }}</strong>
         </p>
         <div class="button-container">
           <button mat-raised-button color="primary">Accept</button>
-          <button mat-raised-button color="warn">Cancel</button>
+          <button mat-raised-button color="warn">Decline</button>
         </div>
       </div>
     </mat-card>
   </div>
+</ng-container>
 
+<ng-container *ngIf="inboxEmpty">
+  <div class="main-content">
+    <mat-card class="notification-card">
+      <mat-card-title>Messages</mat-card-title>
+      <div class="card-content">
+        <p class="card-text">
+          This account does not have any pending messages or requests
+        </p>
+      </div>
+    </mat-card>
+  </div>
+</ng-container>
 
 </mat-sidenav-container>
