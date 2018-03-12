@@ -107,7 +107,6 @@ router.post('/changeartistinformation', passport.authenticate('jwt', {session: f
 });
 
 router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
-
     let newRequest = new Request({
         artistId: req.body.artistId,
         venueId: req.body.venueId,
@@ -123,6 +122,40 @@ router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(r
             res.json({success: true, msg: 'Request successfully submitted'});
         }
     });
+});
+
+router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+
+    let artistInfo = {
+        artistId: req.body.artistId
+      //  artistName: req.body.artistName
+    };
+
+
+    // Do the same with venues
+
+    Request.getRequestByArtistId(artistInfo, (err, request) => {
+        if(err) {
+            res.json({success: false, msg: 'Failed to retrieve request'});
+        } else {
+            console.log("Request Data Testing");
+            console.log(request);
+
+            let i = request.length;
+            while (i--) {
+                // Removes requests where the artist is the initiator
+                if(request[i]['initiator'] === req.body.artistName) {
+                    request.splice(i, 1);
+                }
+            }
+            res.json({success: true, requestData: request});
+        }
+    });
+
+
+
+    // res.json({success: true});
+
 });
 
 

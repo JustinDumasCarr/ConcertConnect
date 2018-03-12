@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // Request Schema
 const RequestSchema = mongoose.Schema({
@@ -33,14 +34,19 @@ module.exports.addRequest = function(newRequest, callback){
     newRequest.save(callback);
 };
 
-module.exports.getRequestByArtistId = function (artistId, callback) {
-    const query = {artistId: artistId};
-    Request.findOne(query, callback);
+module.exports.getRequestByArtistId = function (artist, callback) {
+
+    console.log("Artist Id testing: ");
+    console.log(artist);
+
+
+    const query = {artistId: ObjectId(artist.artistId)};
+    Request.find(query, callback);
 };
 
 module.exports.getRequestByVenueId = function (venueId, callback) {
-    const query = {venueId: venueId};
-    Request.findOne(query, callback);
+    const query = {venueId: ObjectId(venueId)};
+    Request.find(query, callback);
 };
 
 // Get request by initiator id
@@ -48,6 +54,7 @@ module.exports.getRequestByInitiator = function (initatorId, callback) {
     const query = {initiator: initiator};
     Request.findOne(query, callback);
 };
+
 
 
 
