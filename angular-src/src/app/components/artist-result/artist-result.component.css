@@ -1,6 +1,9 @@
 .example-card {
     width: 300px;
-
+    box-shadow: 0 6px 6px rgba(10,16,20,.15), 0 0 52px rgba(10,16,20,.12) !important;
+    transform: translate3d(0,0,0);
+    transition-timing-function: ease-in;
+    transition:0.4s;
 }
 
 .example-header-image {
@@ -13,3 +16,8 @@
 
 }
 
+
+.example-card:hover {
+
+    transform: scale(1.1);
+}

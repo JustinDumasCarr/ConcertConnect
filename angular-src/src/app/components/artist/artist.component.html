@@ -5,7 +5,7 @@
                 <mat-card-title>{{artist.name}}</mat-card-title>
             </mat-card-title-group>
             <mat-card-title-group>
-                <img mat-card-image [src]="'/assets/images/placeholder-user.jpg'" height="300%">
+                <img mat-card-image [src]="artist.profileImageURL || '/assets/images/placeholder-user.jpg'" height="300%">
             </mat-card-title-group>
             <div class="card-field-wrapper">
                 <mat-card-title-group>

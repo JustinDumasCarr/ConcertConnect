@@ -1,27 +1,59 @@
-<mat-card class="register-card">
-    <mat-card-title>Register Artist</mat-card-title>
-        <div>
-            <mat-input-container>
-                <input matInput placeholder="Name" type="text" [(ngModel)]="name" name="name" class="form-control" required>
-            </mat-input-container>
-            <mat-input-container>
-                <input matInput placeholder="Email" type="text" [(ngModel)]="email" name="email" class="form-control" required>
-            </mat-input-container>
-            <mat-input-container>
-                <input matInput placeholder="Description" type="text" [(ngModel)]="description" name="description" class="form-control" required>
-            </mat-input-container>
-            <mat-input-container>
-                <input matInput placeholder="SoundCloud URL" type="text" [(ngModel)]="soundcloudURL" name="soundcloudURL" class="form-control" required>
-            </mat-input-container>
-            <p class="genres-title">Genres: </p>
-            <div class="chips-wrapper">
-                <td-chips placeholder="Enter a genre" [(ngModel)]="genres"></td-chips>
+<div style=" margin-top:80px;">
+    <form [formGroup]="firstFormGroup" (ngSubmit)="onRegisterSubmit()">
+        <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" style="margin: 40px 20% 40px 20%; ">
+            <mat-step label="Step 1">
+            <div style="display: flex; flex-direction: column;">
+                <ng-template matStepLabel>Fill out your Band Information</ng-template>
+                <mat-form-field>
+
+                    <input matInput placeholder="Band Name" type="text" formControlName="name"  required >
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Email" type="text"formControlName="email"
+                           required>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="Description" type="text" formControlName="description"
+                           required>
+                    </textarea>
+                </mat-form-field>
+                <mat-form-field>
+
+                    <input matInput placeholder="SoundCloud URL" type="text" formControlName="soundcloudURL"
+                           >
+                </mat-form-field>
+                <mat-form-field>
+
+                    <input matInput placeholder="Facebook URL" type="text" formControlName="facebookURL"
+                    >
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Genres" formControlName="genres" multiple required>
+                        <mat-option *ngFor="let genre of genres" [value]="genre">{{genre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            <div class="upload-container">
-                <image-upload (onFileUploadFinish)="imageUploadedToBrowser($event)"
-                              [buttonCaption]="'Select Image'">
-                </image-upload>
-            </div>
-        <button (click)="onRegisterSubmit()" mat-raised-button type="submit" class="register-button" color="primary">Register</button>
-        </div>
-</mat-card>
+                <div>
+                    <button mat-raised-button color="accent" matStepperNext type="button">Next</button>
+                </div>
+            </mat-step>
+            <mat-step label="Step 2">
+                <ng-template matStepLabel>Upload Profile Picture</ng-template>
+                <div class="file-upload">
+                    <span class="text"></span>
+                    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                </div>
+                <div class="container" fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around">
+                <img-cropper #cropper [image]="data" [settings]="cropperSettings" ></img-cropper>
+                <span  class="result" *ngIf="data.image">
+                    <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                </span>
+                </div>
+                <div>
+                    <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="warn" type="submit">Submit</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+</div>

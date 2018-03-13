@@ -27,6 +27,8 @@ import { VenueComponent } from './components/venue/venue.component';
 import { ArtistResultComponent } from './components/artist-result/artist-result.component';
 
 import { ImageUploadModule } from 'angular2-image-upload';
+import {ImageCropperComponent} from 'ng2-img-cropper';
+
 import { DiscoverComponent } from './components/discover/discover.component';
 import { SearchVenueComponent } from './components/search-venue/search-venue.component';
 import { VenueResultComponent } from './components/venue-result/venue-result.component';
@@ -40,24 +42,31 @@ import { MessageVenue } from './components/venue/message.venue';
 import { LoginDialog } from './components/login/login.dialog';
 import { RegisterDialog } from './components/register/register.dialog';
 
-import { CovalentLayoutModule, CovalentStepsModule, CovalentExpansionPanelModule, CovalentChipsModule /*, any other modules */ } from '@covalent/core';
-// (optional) Additional Covalent Modules imports
+
 
 import { CovalentHttpModule } from '@covalent/http';
-import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentHighlightModule } from '@covalent/highlight';
 import { CovalentMarkdownModule } from '@covalent/markdown';
 import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
-import { CovalentMessageModule } from '@covalent/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CoverPhotosComponent } from './components/cover-photos/cover-photos.component';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatCardModule, MatDialogModule, MatProgressSpinnerModule, MatChipsModule, MatSelectModule, MatSidenavModule, MatListModule} from '@angular/material';
+import { CovalentCommonModule,CovalentChipsModule, CovalentLayoutModule, CovalentMediaModule, CovalentExpansionPanelModule,
+    CovalentStepsModule, CovalentLoadingModule, CovalentDialogsModule, CovalentSearchModule, CovalentPagingModule,
+    CovalentNotificationsModule, CovalentMenuModule, CovalentDataTableModule, CovalentMessageModule } from '@covalent/core';
+
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatCardModule,
+    MatDialogModule, MatProgressSpinnerModule, MatChipsModule, MatSelectModule, MatSidenavModule, MatListModule,
+MatSlideToggleModule,  MatSnackBarModule,
+    MatTabsModule,MatTooltipModule, MatRippleModule, MatRadioModule, MatGridListModule,
+    MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatAutocompleteModule, MatStepperModule } from '@angular/material';
+
+import {MatDividerModule} from '@angular/material/divider';
 import 'hammerjs';
 import { CalendarModule } from 'angular-calendar';
 import { MessagesComponent } from './components/messages/messages.component';
 
 
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -101,7 +110,8 @@ const appRoutes: Routes =  [
     MessageVenue,
     LoginDialog,
     RegisterDialog,
-    MessagesComponent
+    MessagesComponent,
+      ImageCropperComponent
 
   ],
   imports: [
@@ -109,7 +119,6 @@ const appRoutes: Routes =  [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    ImageUploadModule.forRoot(),
     ReactiveFormsModule,
     CovalentLayoutModule,
     CovalentStepsModule,
@@ -122,21 +131,35 @@ const appRoutes: Routes =  [
     CovalentDynamicFormsModule,
     CovalentDialogsModule,
     BrowserAnimationsModule,
+      FlexLayoutModule,
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
     MatToolbarModule,
     CovalentMessageModule,
+      CovalentCommonModule,
+      CovalentLoadingModule,
+      CovalentMediaModule ,
+      CovalentSearchModule ,
+      CovalentPagingModule,
+      CovalentNotificationsModule,
+      CovalentMenuModule,
+      CovalentDataTableModule,
+      CalendarModule.forRoot(),
     MatIconModule,
     MatMenuModule,
     MatCardModule,
     MatDialogModule,
+      MatDividerModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSelectModule,
     MatSidenavModule,
     MatListModule,
-    CalendarModule.forRoot()
+      MatSlideToggleModule,
+      MatSnackBarModule, MatStepperModule,
+      MatTabsModule,MatTooltipModule, MatRippleModule, MatRadioModule, MatGridListModule,
+      MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatAutocompleteModule
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
   providers: [ValidateService, AuthService, SearchService, CalendarService,  AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog, MessageService],

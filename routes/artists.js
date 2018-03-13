@@ -18,24 +18,45 @@ router.post('/register', passport.authenticate('jwt', {session: false}), (req, r
         description: req.body.description,
         genres: req.body.genres,
         type: 'artist',
-        profileImageURL: req.body.imageURL,
-        soundcloudURL: req.body.soundcloudURL
+        profileImageURL: null,
+        soundcloudURL: req.body.soundcloudURL,
+        facebookURL: req.body.facebookURL
     });
-
+    let artistId = null;
     newArtist.save()
-        .then(() => {
-        console.log("userid: "+ req.body.userId)
+        .then((artist) => {
+        console.log("userid: "+ req.body.userId);
+        artistId = artist.id;
             return Artist.find({'userId': req.body.userId})
         })
         .then((artists) => {
         console.log('artists: ' + artists)
-            return res.json({success: true, artists: artists});
+            return res.json({success: true, artists: artists, artistId:artistId});
         }).catch(err =>{
             console.log('err: ' + err)
     })
 
 
 });
+
+router.post('/saveProfileImageURL', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    console.log(req.body);
+    Artist.findOneAndUpdate({_id: req.body.artistId}, {profileImageURL: req.body.profileImageURL}, function (err, model)
+    {
+        console.log(model);
+        if (err)
+        {
+            console.log(err);
+            res.json('err' + err);
+        }
+        else
+        {
+            res.json('Artist profileImageURL Updated');
+        }
+    })
+
+});
+
 router.post('/search', (req, res, next) => {
     Artist.find({'genres': new RegExp(req.body.genre, 'i')}, 'name email description genres profileImageURL', function (err, artists) {
         if (err) return (err);
@@ -87,7 +108,8 @@ router.post('/changeartistinformation', passport.authenticate('jwt', {session: f
             email: req.body.email,
             genres: req.body.genres,
             description: req.body.description,
-            soundcloudURL: req.body.soundcloudURL
+            soundcloudURL: req.body.soundcloudURL,
+            facebookURL: req.body.facebookURL,
         };
 
     Artist.getArtistByID(userInfo._id, (err, user) => {

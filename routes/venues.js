@@ -16,24 +16,49 @@ router.post('/register',  passport.authenticate('jwt', {session: false}),(req, r
         email: req.body.email,
         userId: req.body.userId,
         type: 'venue',
-        profileImageURL: req.body.imageURL,
+        profileImageURL: req.body.profileImageURL,
         description: req.body.description,
         genres: req.body.genres,
         capacity: req.body.capacity,
+        facebookURL: req.body.facebookURL,
         location: req.body.location,
         hours: req.body.hours
     });
-
-    console.log(newVenue);
+    let venueId = null;
     newVenue.save()
-        .then(() => {
-            return Venue.find({'userId': req.body.userId})
+        .then((venue) => {
+            console.log("userid: "+ req.body.userId);
+            venueId = venue.id;
+            return Artist.find({'userId': req.body.userId})
         })
         .then((venues) => {
-            return res.json({success: true, venues: venues});
-        }).catch()
+            console.log('artists: ' + venues)
+            return res.json({success: true, artists: venues, venueId:venueId});
+        }).catch(err =>{
+        console.log('err: ' + err)
+    })
+
 
 });
+
+router.post('/saveProfileImageURL', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    console.log(req.body);
+    Venue.findOneAndUpdate({_id: req.body.venueId}, {profileImageURL: req.body.profileImageURL}, function (err, model)
+    {
+        console.log(model);
+        if (err)
+        {
+            console.log(err);
+            res.json('err' + err);
+        }
+        else
+        {
+            res.json('Venue profileImageURL Updated');
+        }
+    })
+
+});
+
 router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
     console.log(req.body.artistId);
     console.log('venueId:' + req.body.venueId);

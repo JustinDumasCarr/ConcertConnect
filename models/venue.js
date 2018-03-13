@@ -30,6 +30,7 @@ const VenueSchema = mongoose.Schema({
     location: String,
     capacity: Number,
     hours: String,
+    facebookURL: String,
     contracts: [{
         contractId:{type: mongoose.Schema.ObjectId, ref: 'Contract' }, date:{type:Date}, artistId:{type:String}
     }]

@@ -21,61 +21,89 @@
             [routerLink]="['/login']" mat-button>Login
     </button>
 
-        <!--<mat-toolbar color="primary" class="dropdown">-->
-            <!--<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open basic menu">-->
-                <!--<mat-icon>settings</mat-icon>-->
-            <!--</button>-->
-        <!--</mat-toolbar>-->
+    <mat-toolbar color="primary" class="dropdown">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Open basic menu">
+            <mat-icon>settings</mat-icon>
+        </button>
+    </mat-toolbar>
 
-        <!--<mat-menu #menu="matMenu">-->
-            <!--<button mat-menu-item  (click)="settingsProfileClick()">-->
-                <!--Settings-->
-            <!--</button>-->
-        <!--</mat-menu>-->
-
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item  (click)="settingsProfileClick()">
+            Settings
+        </button>
+    </mat-menu>
 
     <div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">
 
-
-        <mat-toolbar color="primary" class="dropdown-settings">
-            <button class="main-nav-button" mat-icon-button [mat-menu-trigger-for]="menu" aria-label="Open basic menu">
-                {{currentActiveAccount}}
-                <mat-icon>arrow_drop_down</mat-icon>
-            </button>
-        </mat-toolbar>
-
+        <button mat-icon-button [matMenuTriggerFor]="menu" >{{currentActiveAccount}}
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
 
         <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-            <button class="dropdown-category" mat-menu-item>
-                User
-            </button>
+            <button mat-menu-item [matMenuTriggerFor]="user">User</button>
+            <button mat-menu-item [matMenuTriggerFor]="artists">Artists</button>
+            <button mat-menu-item [matMenuTriggerFor]="venues">Venues</button>
+        </mat-menu>
+
+        <mat-menu #user="matMenu">
             <button *ngIf="authService.artistExist() || authService.venueExist()" (click)="changeUser()" mat-menu-item>
                 <ng-container *ngIf="authService.loggedIn()">
                     {{ authService.getCurrentUsername() }}
                 </ng-container>
             </button>
-            <button class="toggle-label dropdown-category" *ngIf="authService.artistExist()" mat-menu-item>
-                Artist
-            </button>
+        </mat-menu>
 
+        <mat-menu #artists="matMenu">
             <button *ngFor="let artist of authService.getArtists(); trackBy:trackByArtist" (click)="changeUserArtist(artist,artist._id)"
                     mat-menu-item>
 
                 {{artist.name}}
             </button>
-            <button class="toggle-label dropdown-category" *ngIf="authService.venueExist()" mat-menu-item>
-                Venue
-            </button>
+        </mat-menu>
 
+        <mat-menu #venues="matMenu">
             <button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue._id)"
                     mat-menu-item>
                 {{venue.name}}
             </button>
         </mat-menu>
 
-
-
     </div>
+    <!--<div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">-->
+        <!--<mat-toolbar color="primary" class="dropdown-settings">-->
+            <!--<button class="main-nav-button" mat-icon-button [mat-menu-trigger-for]="menu" aria-label="Open basic menu">-->
+                <!--{{currentActiveAccount}}-->
+                <!--<mat-icon>arrow_drop_down</mat-icon>-->
+            <!--</button>-->
+        <!--</mat-toolbar>-->
+        <!--<mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">-->
+            <!--<button class="dropdown-category" mat-menu-item>-->
+                <!--User-->
+            <!--</button>-->
+            <!--<button *ngIf="authService.artistExist() || authService.venueExist()" (click)="changeUser()" mat-menu-item>-->
+                <!--<ng-container *ngIf="authService.loggedIn()">-->
+                    <!--{{ authService.getCurrentUsername() }}-->
+                <!--</ng-container>-->
+            <!--</button>-->
+            <!--<button class="toggle-label dropdown-category" *ngIf="authService.artistExist()" mat-menu-item>-->
+                <!--Artist-->
+            <!--</button>-->
+
+            <!--<button *ngFor="let artist of authService.getArtists(); trackBy:trackByArtist" (click)="changeUserArtist(artist,artist._id)"-->
+                    <!--mat-menu-item>-->
+
+                <!--{{artist.name}}-->
+            <!--</button>-->
+            <!--<button class="toggle-label dropdown-category" *ngIf="authService.venueExist()" mat-menu-item>-->
+                <!--Venue-->
+            <!--</button>-->
+
+            <!--<button *ngFor="let venue of authService.getVenues(); trackBy: trackByVenue" (click)="changeUserVenue(venue,venue._id)"-->
+                    <!--mat-menu-item>-->
+                <!--{{venue.name}}-->
+            <!--</button>-->
+        <!--</mat-menu>-->
+    <!--</div>-->
     <button *ngIf="authService.loggedIn()" (click)="onLogoutClick()" mat-button>Logout</button>
 </mat-toolbar>
 

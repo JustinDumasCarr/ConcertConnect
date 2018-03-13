@@ -162,12 +162,13 @@ export class ArtistComponent implements OnInit {
 
     openConfirm(event): void {
 
+
         let currentUserCheck = JSON.parse(this.authService.getActiveLocal());
 
         if(currentUserCheck['_id'] != this.artist['_id'] && currentUserCheck['type'] == 'venue') {
             this._dialogService.openConfirm({
                 message: 'Would you like to send a request to play on this Date?',
-                disableClose:  false, // defaults to false
+                disableClose: false, // defaults to false
                 viewContainerRef: this._viewContainerRef, //OPTIONAL
                 title: 'Confirm', //OPTIONAL, hides if not provided
                 cancelButton: 'No', //OPTIONAL, defaults to 'CANCEL'
@@ -184,12 +185,12 @@ export class ArtistComponent implements OnInit {
                     this.authService.createRequestVenue(requestData).subscribe(data => {
 
                         // Do something if success
-                        if(data['success']) {
+                        if (data['success']) {
 
                         }
 
                         // Do something if failure
-                        if(!data['success']) {
+                        if (!data['success']) {
 
                         }
 
@@ -200,7 +201,13 @@ export class ArtistComponent implements OnInit {
                 }
             });
 
+
         }
+    }
+
+    goToSoundCloud(){
+        console.log("clicked");
+        window.open(this.artist['soundcloudURL']);
 
     }
 

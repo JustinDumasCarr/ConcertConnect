@@ -1,14 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ValidateService} from '../../services/validate.service'
 import {AuthService} from '../../services/auth.service'
 import {Router} from '@angular/router';
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+
 
 @Component({
     selector: 'app-register-artist',
     templateUrl: './register-artist.component.html',
-    styleUrls: ['./register-artist.component.css']
+    styleUrls: ['./register-artist.component.css'],
 })
 export class RegisterArtistComponent implements OnInit {
+
+    isLinear = false;
+    firstFormGroup: FormGroup;
+
+    data: any;
+    cropperSettings: CropperSettings;
 
     name: String;
     email: String;
@@ -20,65 +30,104 @@ export class RegisterArtistComponent implements OnInit {
     soundcloudURL: String;
     file: any;
 
-    rock: boolean = false;
-    jazz: boolean = false;
-    country: boolean = false;
-    reggae: boolean = false;
-    electronic: boolean = false;
-
-    constructor(private validateService: ValidateService, private authService: AuthService, private router: Router) {
+    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
+    constructor(private _formBuilder: FormBuilder, private validateService: ValidateService, private authService: AuthService, private router: Router) {
         this.genres = [];
+        this.cropperSettings = new CropperSettings();
+        this.cropperSettings.canvasWidth = 400;
+        this.cropperSettings.canvasHeight = 400;
+        this.cropperSettings.croppedWidth = 400;
+        this.cropperSettings.croppedHeight = 400;
+        this.cropperSettings.noFileInput = true;
+        this.data = {};
     }
 
     ngOnInit() {
+        this.firstFormGroup = this._formBuilder.group({
+            name: ['', Validators.required],
+            email: ['', Validators.required],
+            description: ['', Validators.required],
+            soundcloudURL: ['', Validators.required],
+            facebookURL: ['', Validators.required],
+            genres:['',Validators.required]
+        });
+        this.genres = ['ambient','acoustic','alternative','blues','country','electronic','funk','folk','jazz','hip-hop','metal','pop','rap','rock']
     }
 
     onRegisterSubmit() {
 
-        const artist = {
-            name: this.name,
-            email: this.email,
-            description: this.description,
-            genres: this.genres,
-            userId: JSON.parse(localStorage.getItem('user'))._id,
-            imageURL: this.imageURL,
-            soundcloudURL: this.soundcloudURL
-        };
+            let artist = this.firstFormGroup.value;
+            artist.userId = JSON.parse(this.authService.getActiveLocal()).userId;
+            artist.profileImageURL = this.imageURL;
 
-        // Required Fields
-        if (!this.validateService.validateRegisterArtist(artist)) {
-            return false;
-        }
+            // Required Fields
+            // if (!this.validateService.validateRegisterArtist(artist)) {
+            //     return false;
+            // }
 
-        // Validate Email
-        if (!this.validateService.validateEmail(artist.email)) {
-            return false;
-        }
+            // Validate Email
+            // if (!this.validateService.validateEmail(artist.email)) {
+            //     return false;
+            // }
 
-        // Register artist
-        this.authService.registerArtist(artist).subscribe(data => {
-            if (data.success) {
-                this.authService.updateArtistArray(data.artists);
-                console.log("signedRequest: " + this.signedRequest);
-                this.authService.putImageToAWS(this.signedRequest, this.file).subscribe(data => {
+            // Register artist
+            this.authService.registerArtist(artist).subscribe(data => {
 
-                });
+                let artistId = data.artistId;
 
-            } else {
-                console.log("An error has occured");
-            }
-        });
+                if (data.success) {
+                    this.authService.updateArtistArray(data.artists);
 
+                    this.authService.getAWSUploadURL(artistId + '.jpeg', 'image/jpeg').subscribe(data1 => {
+                        this.imageURL = data1.url;
+                        this.signedRequest = data1.signedRequest;
+
+                        var imageData = (this.data.image).toString();
+                        var byteCharacters = atob(imageData.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+                        var byteNumbers = new Array(byteCharacters.length);
+                        for (var i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+
+                        var byteArray = new Uint8Array(byteNumbers);
+                        var blob = new Blob([byteArray], {
+                            type: 'image/jpeg',
+                        });
+
+                        let file = new File([blob],artistId + '.jpeg' , {type: 'image/jpeg'});
+                        console.log(file);
+
+                        this.authService.saveArtistProfileImageURL({
+                            artistId : artistId,
+                            profileImageURL: this.imageURL
+                        }).subscribe(response =>{
+                             console.log(response);
+
+                        });
+                        this.authService.putImageToAWS(this.signedRequest, file).subscribe(dataAWS =>{
+
+
+                        });
+
+                    });
+
+
+
+                    } else {
+                    console.log("An error has occured");
+                }
+            });
     }
+    fileChangeListener($event) {
+        var image:any = new Image();
+        this.file = $event.target.files[0];
+        var myReader:FileReader = new FileReader();
+        var that = this;
+        myReader.onloadend = function (loadEvent:any) {
+            image.src = loadEvent.target.result;
+            that.cropper.setImage(image);
 
-    imageUploadedToBrowser(event) {
-
-        //split join removes whitespace
-        this.authService.getAWSUploadURL(event.file.name.split(' ').join(''), event.file.type).subscribe(data => {
-            console.log("imageUrl: " + this.imageURL);
-            this.signedRequest = data.signedRequest;
-            this.imageURL = data.url;
-            this.file = event.file;
-        });
+        };
+        myReader.readAsDataURL(this.file);
     }
 }

@@ -17,10 +17,10 @@
 .genre-container {
     position: relative;
 
+    overflow: auto;
+    white-space: nowrap;
+padding-top: 16px;
     height: 40px;
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
     background-color: #bb3d1e;
     align-items: center;
 

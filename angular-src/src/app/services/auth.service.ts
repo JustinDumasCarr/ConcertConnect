@@ -316,6 +316,25 @@ export class AuthService {
             .map(res => res.json());
     }
 
+    saveArtistProfileImageURL(data){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/artists/saveProfileImageURL', data, {headers: headers})
+            .map(res => res.json());
+
+    }
+    saveVenueProfileImageURL(data){
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/saveProfileImageURL', data, {headers: headers})
+            .map(res => res.json());
+
+    }
+
     setActive(selectedEntity) {
         console.log(selectedEntity);
         localStorage.setItem('active', JSON.stringify(selectedEntity));
