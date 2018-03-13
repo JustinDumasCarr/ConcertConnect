@@ -12,11 +12,13 @@
     <!--</div>-->
 
     <div class="search-options">
+        <mat-form-field>
         <mat-select placeholder="Max Capacity" class="capacity">
             <mat-option *ngFor="let capacity of capacities" [value]="capacity.value" (click)="changeCapacity(capacity.value)">
                 {{ capacity.viewValue }}
             </mat-option>
         </mat-select>
+        </mat-form-field>
     </div>
     <div class="card-container">
         <venue-result *ngFor="let aVenueResult of venueResults" [venueResult]="aVenueResult"></venue-result>
