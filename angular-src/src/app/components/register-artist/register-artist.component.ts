@@ -57,20 +57,10 @@ export class RegisterArtistComponent implements OnInit {
     onRegisterSubmit() {
 
             let artist = this.firstFormGroup.value;
-            artist.userId = JSON.parse(this.authService.getActiveLocal()).userId;
+            artist.userId = JSON.parse(this.authService.getUserLocal())._id;
             artist.profileImageURL = this.imageURL;
 
-            // Required Fields
-            // if (!this.validateService.validateRegisterArtist(artist)) {
-            //     return false;
-            // }
 
-            // Validate Email
-            // if (!this.validateService.validateEmail(artist.email)) {
-            //     return false;
-            // }
-
-            // Register artist
             this.authService.registerArtist(artist).subscribe(data => {
 
                 let artistId = data.artistId;
@@ -105,7 +95,8 @@ export class RegisterArtistComponent implements OnInit {
 
                         });
                         this.authService.putImageToAWS(this.signedRequest, file).subscribe(dataAWS =>{
-
+                            console.log("Data AWS response: ");
+                            console.log(dataAWS);
 
                         });
 

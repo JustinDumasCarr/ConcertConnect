@@ -72,7 +72,7 @@ export class RegisterVenueComponent implements OnInit {
 
 
         let venue = this.firstFormGroup.value;
-        venue.userId = JSON.parse(this.authService.getActiveLocal()).userId;
+        venue.userId = JSON.parse(this.authService.getUserLocal())._id;
         venue.profileImageURL = this.imageURL;
 
         // Required Fields
