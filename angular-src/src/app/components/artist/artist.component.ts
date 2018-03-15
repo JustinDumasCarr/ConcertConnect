@@ -2,6 +2,7 @@ import {Component, OnInit, Inject, ViewChild, TemplateRef} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {CalendarService} from '../../services/calendar.service';
+import { CalendarEvent } from 'angular-calendar';
 
 import { ViewContainerRef } from '@angular/core';
 import { TdDialogService } from '@covalent/core';
@@ -27,6 +28,7 @@ import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angula
     selector: 'app-artist',
     templateUrl: './artist.component.html',
     styleUrls: ['./artist.component.css'],
+
 })
 export class ArtistComponent implements OnInit {
 
@@ -36,6 +38,9 @@ export class ArtistComponent implements OnInit {
 
     id: string;
     artist: Object;
+    contracts: Object; //change to events?
+    view: string = 'month';
+
     //Having two separate values ensures that the 'Not found' message does not show up while it's loading
     artistExist: boolean;
     artistNotExist: boolean;
@@ -67,6 +72,7 @@ export class ArtistComponent implements OnInit {
         }
     };
     numTemplateOpens = 0;
+
     @ViewChild(TemplateRef) template: TemplateRef<any>;
 
     constructor(private route: ActivatedRoute, private authService: AuthService,private calendarService: CalendarService, public dialog: MatDialog,
@@ -85,9 +91,11 @@ export class ArtistComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.forEach(params => {
+
             this.id = params['id'];
             this.artist = {"_id": this.id};
             this.artist = JSON.stringify(this.artist);
+            //TODO pass artist not artist object that only contains ID
             this.authService.getArtistProfile(this.artist).subscribe(data => {
                     if (data == "") {
                         this.artistNotExist = true;
@@ -96,16 +104,21 @@ export class ArtistComponent implements OnInit {
                         this.artist = data;
                         this.config.data = data;
                         this.artistExist = true;
-                        this.events = this.artist['contracts'].map(function(contract) {
-                            return {
-                                start: startOfDay(contract['date']),
-                                title: contract['artistId'],
-                                color: {
-                                    primary: '#ad2121',
-                                    secondary: '#FAE3E3'
-                                },
-                            }
-                        });
+
+console.log(this.artist);
+                        this.authService.getArtistContracts(this.artist['_id']).subscribe(data => {
+
+                            this.events = data['contracts'].map(function (contract) {
+                                return {
+                                    start: startOfDay(contract['date']),
+                                    title: contract['artistId'],
+                                    color: {
+                                        primary: '#ad2121',
+                                        secondary: '#FAE3E3'
+                                    },
+                                }
+                            });
+                        })
                     }
                     this.isArtist();
                 },
@@ -203,6 +216,10 @@ export class ArtistComponent implements OnInit {
 
 
         }
+    }
+
+    eventClicked({ event }: { event: CalendarEvent }): void {
+        console.log('Event clicked', event);
     }
 
     goToSoundCloud(){

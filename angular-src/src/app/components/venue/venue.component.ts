@@ -34,7 +34,7 @@ export class VenueComponent implements OnInit {
     //calendar stuff
     viewDate: Date = new Date();
     events: CalendarEvent[];
-
+    view: string = 'month';
 
     id: string;
   venue: Object;

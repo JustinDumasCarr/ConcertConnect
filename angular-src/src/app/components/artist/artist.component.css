@@ -49,6 +49,7 @@ mat-chip {
     justify-content: space-around;
 }
 .artist-calendar{
+    height:700px;
     width: 50%;
 }
 

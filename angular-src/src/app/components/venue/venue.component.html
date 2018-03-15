@@ -42,11 +42,36 @@
         </mat-card>
 
         <div class="venue-calendar">
-            <mwl-calendar-month-view
-                    (dayClicked)= "openConfirm($event)"
-                    [viewDate]="viewDate"
-                    [events]="events">
-            </mwl-calendar-month-view>
+            <div fxLayout="row" fxLayoutGap="6px" fxLayoutAlign="center" style="padding:10px">
+                <button mat-raised-button color="primary" (click)="view='day'">Day</button>
+                <button mat-raised-button color="primary" (click)="view='week'">Week</button>
+                <button mat-raised-button color="primary" (click)="view='month'">Month</button>
+            </div>
+
+
+            <div [ngSwitch]="view">
+                <mwl-calendar-month-view
+                        *ngSwitchCase="'month'"
+                        (dayClicked)= "openConfirm($event)"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        (eventClicked)="eventClicked($event)">
+                </mwl-calendar-month-view>
+                <mwl-calendar-week-view
+                        *ngSwitchCase="'week'"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'">
+                </mwl-calendar-week-view>
+                <mwl-calendar-day-view
+                        *ngSwitchCase="'day'"
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        [dayStartHour]="17"
+                        [dayEndHour]="24">
+                </mwl-calendar-day-view>
+
+            </div>
         </div>
 
 
