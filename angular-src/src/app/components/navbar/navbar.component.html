@@ -35,7 +35,7 @@
 
     <div *ngIf="authService.loggedIn() && authService.accountExist()" class="dropdown-container">
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" >{{currentActiveAccount}}
+        <button style="width:auto;" mat-icon-button [matMenuTriggerFor]="menu" >{{currentActiveAccount}}
             <mat-icon>arrow_drop_down</mat-icon>
         </button>
 

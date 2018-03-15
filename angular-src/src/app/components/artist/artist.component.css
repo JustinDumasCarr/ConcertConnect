@@ -49,8 +49,7 @@ mat-chip {
     justify-content: space-around;
 }
 .artist-calendar{
-    margin-left:10%;
-    margin-right:10%;
+    width: 50%;
 }
 
 .card-field-wrapper {
