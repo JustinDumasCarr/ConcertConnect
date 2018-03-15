@@ -35,11 +35,6 @@ module.exports.addRequest = function(newRequest, callback){
 };
 
 module.exports.getRequestByArtistId = function (artist, callback) {
-
-    console.log("Artist Id testing: ");
-    console.log(artist);
-
-
     const query = {artistId: ObjectId(artist.artistId)};
     Request.find(query, callback);
 };
@@ -55,8 +50,13 @@ module.exports.getRequestByInitiator = function (initatorId, callback) {
     Request.findOne(query, callback);
 };
 
-
-
+module.exports.deleteRequest = function (requestInfo, callback) {
+    const query = {artistId: ObjectId(requestInfo['artistId']), venueId: ObjectId(requestInfo['venueId']), date: requestInfo['date'],
+    initiator: requestInfo['initiator'], initiatorType: requestInfo['initiatorType']};
+    console.log("Query Testing");
+    console.log(query);
+    Request.find(query).remove(callback);
+};
 
 
 

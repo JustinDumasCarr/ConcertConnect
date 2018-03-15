@@ -29,10 +29,14 @@ module.exports.getContractByID = function (objectID, callback) {
 };
 
 module.exports.getContractByArtistId = function (artistId, callback) {
-    const query = {artistId: artistId};
+    const query = { artistId: artistId };
     Contract.findOne(query, callback);
 };
 
+module.exports.getContractByVenueId = function (venueId, callback) {
+    const query = { venueId: venueId };
+    Contract.findOne(query, callback);
+};
 
 
 

@@ -26,7 +26,6 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { VenueComponent } from './components/venue/venue.component';
 import { ArtistResultComponent } from './components/artist-result/artist-result.component';
 
-import { ImageUploadModule } from 'angular2-image-upload';
 import {ImageCropperComponent} from 'ng2-img-cropper';
 
 import { DiscoverComponent } from './components/discover/discover.component';

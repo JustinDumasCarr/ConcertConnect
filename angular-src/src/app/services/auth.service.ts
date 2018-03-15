@@ -66,6 +66,28 @@ export class AuthService {
             .map(res => res.json());
     }
 
+    createContractArtist(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/artists/createcontract', data, {headers: headers})
+            .map(res => res.json());
+    }
+
+    createContractVenue(data) {
+
+    }
+
+    deleteRequestArtist(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/artists/deleterequest', data, {headers: headers})
+            .map(res => res.json());
+    }
+
     changeEmail(data) {
         let headers = new Headers();
         this.loadToken();

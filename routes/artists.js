@@ -7,6 +7,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Artist = require('../models/artist');
 const Request = require('../models/request');
+const Contract = require('../models/contract');
 const users = require('./users');
 
 //Gets latest id for an artist
@@ -146,6 +147,29 @@ router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(r
     });
 });
 
+router.post('/deleteRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+    let requestInfo = new Request({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+        initiator: req.body.initiator,
+        initiatorType: req.body.initiatorType // Not sure if this is needed
+    });
+
+
+    console.log("Testing request before passing it to the model");
+    console.log(requestInfo);
+
+    Request.deleteRequest(requestInfo, (err, request) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit request'});
+        } else {
+            res.json({success: true, msg: 'Request successfully submitted'});
+        }
+    });
+});
+
+
 router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
 
     let artistInfo = {
@@ -178,6 +202,24 @@ router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req
 
     // res.json({success: true});
 
+});
+
+router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+    let newContract = new Contract({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+    });
+
+    Contract.addContract(newContract, (err, contract) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit contract'});
+            console.log("Contract error");
+            console.log(err);
+        } else {
+            res.json({success: true, msg: 'Contract successfully submitted'});
+        }
+    });
 });
 
 

@@ -20,7 +20,7 @@
           <strong>{{ currentRequest.initiator }}</strong> would like to initiate a contract with you on the following date: <strong>{{ currentRequest.date }}</strong>
         </p>
         <div class="button-container">
-          <button mat-raised-button color="primary">Accept</button>
+          <button mat-raised-button color="primary" (click)="acceptRequest()">Accept</button>
           <button mat-raised-button color="warn">Decline</button>
         </div>
       </div>
