@@ -35,8 +35,17 @@ export class MessagesComponent implements OnInit {
             this.currentRequest = this.requestData[0];
           }
         });
+
     } else if(currentUser['type'] == 'venue') {
-      // Fetch venue request here the same way artist was done
+        let venue = { venueId: currentUser['_id'], venueName: currentUser['name']};
+        this.authService.getCurrentRequestsVenue(venue).subscribe(response => {
+            if(response['requestData'].length > 0) {
+                this.inboxEmpty = false;
+                this.requestData = response['requestData'];
+                this.currentRequest = this.requestData[0];
+            }
+        });
+
     } else {
       // Not sure if normal user is going to have messages
     }
@@ -47,60 +56,83 @@ export class MessagesComponent implements OnInit {
   }
 
   acceptRequest() {
-    console.log("Testing current request");
-    console.log(this.currentRequest);
+
+    let currentUser = JSON.parse(this.authService.getActiveLocal());
+      let contract = {
+          artistId: this.currentRequest['artistId'],
+          venueId: this.currentRequest['venueId'],
+          date: this.currentRequest['date']
+      };
+
+    if(currentUser['type'] == 'artist') {
+        this.authService.createContractArtist(contract).subscribe(data => {
+            if (data['success'] === true) {
+
+                // Delete the request
+                this.authService.deleteRequestArtist(this.currentRequest).subscribe(data => {
+                    if (data['success'] == true) {
+                        let currentUser = JSON.parse(this.authService.getActiveLocal());
+                        let artist = {artistId: currentUser['_id'], artistName: currentUser['name']};
+                        this.authService.getCurrentRequestsArtist(artist).subscribe(response => {
+                            if (response['requestData'].length > 0) {
+                                this.inboxEmpty = false;
+                                this.requestData = response['requestData'];
+                                this.currentRequest = this.requestData[0];
+                            }
+                            if (response['requestData'].length == 0) {
+                                this.inboxEmpty = true;
+                            }
+                        });
+                    }
+                    if (data['success'] == false) {
+                        console.log("There was an error in deleting the request");
+                    }
+                });
 
 
-    let contract = { artistId: this.currentRequest['artistId'], venueId: this.currentRequest['venueId'], date: this.currentRequest['date'] };
+                // Display modal here
+            }
 
-    console.log("Contract Testing");
-    console.log(contract);
+            if (data['success'] === false) {
+                console.log("Contract was not able to be created");
+            }
 
-    // Delete request and create contract
-    this.authService.createContractArtist(contract).subscribe(data => {
-      if(data['success'] === true) {
-        console.log("Contract has been created");
-
-        // Delete the request
-        this.authService.deleteRequestArtist(this.currentRequest).subscribe(data => {
-          if(data['success'] == true) {
-            console.log("Request was successfully deleted");
-
-              // Refreshing the requests
-
-              let currentUser = JSON.parse(this.authService.getActiveLocal());
-              let artist = { artistId: currentUser['_id'], artistName: currentUser['name']};
-              this.authService.getCurrentRequestsArtist(artist).subscribe(response => {
-                  if(response['requestData'].length > 0) {
-                      this.inboxEmpty = false;
-                      this.requestData = response['requestData'];
-                      this.currentRequest = this.requestData[0];
-                  }
-                  if(response['requestData'].length == 0) {
-                    this.inboxEmpty = true;
-                  }
-              });
-
-
-
-          }
-          if(data['success'] == false) {
-            console.log("There was an error in deleting the request");
-          }
         });
+    } else if(currentUser['type'] == 'venue') {
+        this.authService.createContractVenue(contract).subscribe(data => {
+            if (data['success'] === true) {
+
+                // Delete the request
+                this.authService.deleteRequestVenue(this.currentRequest).subscribe(data => {
+                    if (data['success'] == true) {
+                        let currentUser = JSON.parse(this.authService.getActiveLocal());
+                        let venue = {venueId: currentUser['_id'], venueName: currentUser['name']};
+                        this.authService.getCurrentRequestsVenue(venue).subscribe(response => {
+                            if (response['requestData'].length > 0) {
+                                this.inboxEmpty = false;
+                                this.requestData = response['requestData'];
+                                this.currentRequest = this.requestData[0];
+                            }
+                            if (response['requestData'].length == 0) {
+                                this.inboxEmpty = true;
+                            }
+                        });
+                    }
+                    if (data['success'] == false) {
+                        console.log("There was an error in deleting the request");
+                    }
+                });
 
 
-        // Display modal here
-      }
+                // Display modal here
+            }
 
-      if(data['success'] === false) {
-        console.log("Contract was not able to be created");
-      }
+            if (data['success'] === false) {
+                console.log("Contract was not able to be created");
+            }
 
-
-    });
-
-
+        });
+    }
   }
 
   declineRequest() {

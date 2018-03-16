@@ -204,4 +204,62 @@ router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(r
     });
 });
 
+router.post('/deleteRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+    let requestInfo = new Request({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+        initiator: req.body.initiator,
+        initiatorType: req.body.initiatorType // Not sure if this is needed
+    });
+
+    Request.deleteRequest(requestInfo, (err, request) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit request'});
+        } else {
+            res.json({success: true, msg: 'Request successfully submitted'});
+        }
+    });
+});
+
+router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+
+    let venueInfo = {
+        venueId: req.body.venueId
+    };
+
+
+    Request.getRequestByVenueId(venueInfo, (err, request) => {
+        if(err) {
+            res.json({success: false, msg: 'Failed to retrieve request'});
+        } else {
+
+            let i = request.length;
+            while (i--) {
+                // Removes requests where the artist is the initiator
+                if(request[i]['initiator'] === req.body.venueName) {
+                    request.splice(i, 1);
+                }
+            }
+            res.json({success: true, requestData: request});
+        }
+    });
+});
+
+router.post('/createContract',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
+    let newContract = new Contract({
+        artistId: req.body.artistId,
+        venueId: req.body.venueId,
+        date: req.body.date,
+    });
+
+    Contract.addContract(newContract, (err, contract) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to submit contract'});
+        } else {
+            res.json({success: true, msg: 'Contract successfully submitted'});
+        }
+    });
+});
+
 module.exports = router;
