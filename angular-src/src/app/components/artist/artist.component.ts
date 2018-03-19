@@ -105,7 +105,7 @@ export class ArtistComponent implements OnInit {
                         this.config.data = data;
                         this.artistExist = true;
 
-console.log(this.artist);
+                        console.log(this.artist);
                         this.authService.getArtistContracts(this.artist['_id']).subscribe(data => {
 
                             this.events = data['contracts'].map(function (contract) {

@@ -219,6 +219,25 @@ export class AuthService {
         return this.http.post('http://localhost:3000/users/artists/getArtists', data, {headers: headers})
             .map(res => res.json());
     }
+    getArtistContracts(artistId){
+        let headers = new Headers();
+        this.loadToken();
+        let data = {artistId : artistId};
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/artists/getContracts', data, {headers: headers})
+            .map(res => res.json());
+    }
+    getVenueContracts(artistId){
+        let headers = new Headers();
+        this.loadToken();
+        let data = {venueId : artistId};
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/getContracts', data, {headers: headers})
+            .map(res => res.json());
+    }
+
 
     getCurrentEmail() {
         return JSON.parse(localStorage.getItem('user')).email;

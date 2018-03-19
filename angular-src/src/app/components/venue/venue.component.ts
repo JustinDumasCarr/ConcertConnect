@@ -85,41 +85,46 @@ export class VenueComponent implements OnInit {
       });
   }
 
-  ngOnInit(){
-    this.route.params.forEach(params =>
-    {
-      this.id = params['id'];
-      this.venue = {"_id": this.id};
-      this.venue = JSON.stringify(this.venue);
-      this.authService.getVenueProfile(this.venue).subscribe(data => {
-            if (data == "") {
-              this.venueNotExist = true;
-            }
-            else {
-              this.venue = data;
-              this.config.data = data;
-              this.venueExist = true;
-                this.events= this.venue['contracts'].map(function(contract) {
-                    return {
-                        start: startOfDay(contract['date']),
-                        title: contract['artistId'],
-                        color: {
-                            primary: '#ad2121',
-                            secondary: '#FAE3E3'
-                        },
-                    }
-                });
-                console.log('data:' + JSON.stringify(data['contracts']));
-            }
-            this.isVenue();
-          },
+    ngOnInit() {
+        this.route.params.forEach(params => {
 
-          err => {
-            console.log(err);
-            return false;
-          }
-      );})
-  }
+            this.id = params['id'];
+            this.venue = {"_id": this.id};
+            this.venue = JSON.stringify(this.venue);
+            //TODO pass artist not artist object that only contains ID
+            this.authService.getArtistProfile(this.venue).subscribe(data => {
+                    if (data == "") {
+                        this.venueNotExist = true;
+                    }
+                    else {
+                        this.venue = data;
+                        this.config.data = data;
+                        this.venueExist = true;
+
+                        console.log(this.venue);
+                        this.authService.getVenueContracts(this.venue['_id']).subscribe(data => {
+
+                            this.events = data['contracts'].map(function (contract) {
+                                return {
+                                    start: startOfDay(contract['date']),
+                                    title: contract['venueId'],
+                                    color: {
+                                        primary: '#ad2121',
+                                        secondary: '#FAE3E3'
+                                    },
+                                }
+                            });
+                        })
+                    }
+                    this.isVenue();
+                },
+                err => {
+                    console.log(err);
+                    return false;
+                }
+            );
+        })
+    }
 
 
   isVenue() {

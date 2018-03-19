@@ -177,7 +177,6 @@ router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req
       //  artistName: req.body.artistName
     };
 
-
     // Do the same with venues
 
     Request.getRequestByArtistId(artistInfo, (err, request) => {
@@ -197,10 +196,21 @@ router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req
             res.json({success: true, requestData: request});
         }
     });
-
-
-
     // res.json({success: true});
+
+});
+
+router.post('/getContracts', passport.authenticate('jwt',{session: false}), (req,res)=>{
+
+    Contract.find({artistId:req.body.artistId}, function(err,contracts){
+        if(err) {
+            res.json({success: false, msg: 'Failed to retrieve request'});
+        } else {
+            res.json({success:true, contracts : contracts});
+        }
+
+    });
+
 
 });
 
@@ -221,6 +231,9 @@ router.post('/createContract',  passport.authenticate('jwt', {session: false}),(
         }
     });
 });
+
+
+
 
 
 module.exports = router;

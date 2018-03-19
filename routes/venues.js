@@ -185,6 +185,18 @@ router.post('/changevenueinformation', passport.authenticate('jwt', {session: fa
     });
 });
 
+router.post('/getContracts', passport.authenticate('jwt',{session: false}), (req,res)=> {
+
+    Contract.find({venueId: req.body.venueId}, function (err, contracts) {
+        if (err) {
+            res.json({success: false, msg: 'Failed to retrieve request'});
+        } else {
+            res.json({success: true, contracts: contracts});
+        }
+
+    });
+});
+
 router.post('/createRequest',  passport.authenticate('jwt', {session: false}),(req, res, next) => {
 
     let newRequest = new Request({
