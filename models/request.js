@@ -39,8 +39,8 @@ module.exports.getRequestByArtistId = function (artist, callback) {
     Request.find(query, callback);
 };
 
-module.exports.getRequestByVenueId = function (venueId, callback) {
-    const query = {venueId: ObjectId(venueId)};
+module.exports.getRequestByVenueId = function (venue, callback) {
+    const query = {venueId: ObjectId(venue.venueId)};
     Request.find(query, callback);
 };
 

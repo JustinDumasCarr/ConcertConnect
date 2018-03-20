@@ -76,7 +76,12 @@ export class AuthService {
     }
 
     createContractVenue(data) {
-
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/createcontract', data, {headers: headers})
+            .map(res => res.json());
     }
 
     deleteRequestArtist(data) {
@@ -85,6 +90,15 @@ export class AuthService {
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
         return this.http.post('http://localhost:3000/users/artists/deleterequest', data, {headers: headers})
+            .map(res => res.json());
+    }
+
+    deleteRequestVenue(data) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/deleterequest', data, {headers: headers})
             .map(res => res.json());
     }
 
@@ -280,6 +294,15 @@ export class AuthService {
             .map(res => res.json());
     }
 
+    getCurrentRequestsVenue(info) {
+        let headers = new Headers();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:3000/users/venues/getRequests', info, { headers: headers })
+            .map(res => res.json());
+    }
+
     getVenueProfile(venue) {
         let headers = new Headers();
         this.loadToken();
@@ -406,7 +429,7 @@ export class AuthService {
     }
 
     venueExist() {
-        if (JSON.parse(localStorage.getItem('user')).venues.length > 0) {
+        if (JSON.parse(localStorage.getItem('user')).venues !== undefined && JSON.parse(localStorage.getItem('user')).venues.length > 0) {
             return true;
         }
         else {

@@ -181,8 +181,8 @@ export class VenueComponent implements OnInit {
             }).afterClosed().subscribe((accept: boolean) => {
                 if (accept) {
                     let requestData = {
-                        artistId: this.venue['_id'],
-                        venueId: currentUserCheck['_id'],
+                        artistId: currentUserCheck['_id'],
+                        venueId: this.venue['_id'],
                         date: event['day']['date'],
                         initiator: currentUserCheck['name'],
                         initiatorType: currentUserCheck['type']

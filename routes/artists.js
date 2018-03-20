@@ -157,9 +157,6 @@ router.post('/deleteRequest',  passport.authenticate('jwt', {session: false}),(r
     });
 
 
-    console.log("Testing request before passing it to the model");
-    console.log(requestInfo);
-
     Request.deleteRequest(requestInfo, (err, request) => {
         if (err) {
             res.json({success: false, msg: 'Failed to submit request'});
@@ -174,17 +171,12 @@ router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req
 
     let artistInfo = {
         artistId: req.body.artistId
-      //  artistName: req.body.artistName
     };
-
-    // Do the same with venues
 
     Request.getRequestByArtistId(artistInfo, (err, request) => {
         if(err) {
             res.json({success: false, msg: 'Failed to retrieve request'});
         } else {
-            console.log("Request Data Testing");
-            console.log(request);
 
             let i = request.length;
             while (i--) {
@@ -196,6 +188,7 @@ router.post('/getrequests',  passport.authenticate('jwt', {session: false}),(req
             res.json({success: true, requestData: request});
         }
     });
+
     // res.json({success: true});
 
 });
@@ -224,14 +217,11 @@ router.post('/createContract',  passport.authenticate('jwt', {session: false}),(
     Contract.addContract(newContract, (err, contract) => {
         if (err) {
             res.json({success: false, msg: 'Failed to submit contract'});
-            console.log("Contract error");
-            console.log(err);
         } else {
             res.json({success: true, msg: 'Contract successfully submitted'});
         }
     });
 });
-
 
 
 
