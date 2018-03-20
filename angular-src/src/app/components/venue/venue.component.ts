@@ -92,7 +92,7 @@ export class VenueComponent implements OnInit {
             this.venue = {"_id": this.id};
             this.venue = JSON.stringify(this.venue);
             //TODO pass artist not artist object that only contains ID
-            this.authService.getArtistProfile(this.venue).subscribe(data => {
+            this.authService.getVenueProfile(this.venue).subscribe(data => {
                     if (data == "") {
                         this.venueNotExist = true;
                     }

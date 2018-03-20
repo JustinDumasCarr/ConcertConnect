@@ -20,6 +20,8 @@
     "nodemailer": "^4.3.1",
     "passport": "*",
     "passport-jwt": "*",
+    "socket.io": "^2.0.4",
+    "socketio-jwt": "^4.5.0",
     "xoauth2": "^1.2.0"
   },
   "author": "Justin Dumas, Alex Sokolov",

@@ -67,6 +67,14 @@ import { MessagesComponent } from './components/messages/messages.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+
+
+
+import { NgChatModule } from 'ng-chat';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
@@ -158,7 +166,9 @@ const appRoutes: Routes =  [
       MatSlideToggleModule,
       MatSnackBarModule, MatStepperModule,
       MatTabsModule,MatTooltipModule, MatRippleModule, MatRadioModule, MatGridListModule,
-      MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatAutocompleteModule
+      MatDatepickerModule, MatNativeDateModule, MatSliderModule, MatAutocompleteModule,
+      NgChatModule,
+      SocketIoModule.forRoot(config)
   ],
   entryComponents: [EditProfile,   ArtistComponent, VenueComponent, EditArtist, EditVenue, MessageArtist, MessageVenue, LoginDialog, RegisterDialog],
   providers: [ValidateService, AuthService, SearchService, CalendarService,  AuthGuard, EditProfile, EditArtist, EditVenue,MessageArtist, LoginDialog, RegisterDialog, MessageService],

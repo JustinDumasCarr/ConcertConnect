@@ -123,7 +123,7 @@ router.post('/authenticate', async (req, res, next) => {
         console.log('userArtistsAndVenues: ' +JSON.stringify(userArtistsAndVenues));
         res.json({
                     success: true,
-                    token: 'jwt ' + token,
+                    token: 'JWT ' + token,
                     user: {
                         _id: user._id,
                         name: user.name,

@@ -126,7 +126,19 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  changeUserArtist(selectedArtist,newID)
+
+    changeUserVenue(selectedVenue,newID)
+    {
+        console.log("Change user venue function called");
+        console.log("newID: "+ newID);
+        this.toggleValue = newID;
+        this.authService.setActive(selectedVenue);
+        this.router.navigate(['/venue',newID]);
+        this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
+        return false;
+    }
+
+    changeUserArtist(selectedArtist,newID)
   {
     console.log("Change user artist function called");
     console.log("newID: "+ newID);
@@ -145,16 +157,6 @@ export class NavbarComponent implements OnInit {
     return obj.venueId;
   }
 
-
-    changeUserVenue(selectedVenue,newID)
-  {
-    console.log("Change user venue function called");
-    this.toggleValue = newID;
-    this.authService.setActive(selectedVenue);
-    this.router.navigate(['/venue',newID]);
-    this.currentActiveAccount = JSON.parse(this.authService.getActiveLocal())['name'];
-    return false;
-  }
 
   settingsProfileClick(){
 
