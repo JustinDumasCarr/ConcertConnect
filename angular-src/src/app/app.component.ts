@@ -11,13 +11,13 @@ declare let jQuery: any;
   selector: 'app-root',
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./app.component.css','../../node_modules/angular-calendar/css/angular-calendar.css']
+  styleUrls: ['./app.component.css', '../../node_modules/angular-calendar/css/angular-calendar.css']
 })
 export class AppComponent {
   title = 'app works!';
 
     userId: string;
-    username: string = "justin";
+    username: 'justin';
 
     public adapter: ChatAdapter;
 
@@ -28,12 +28,12 @@ export class AppComponent {
 
     public joinRoom(): void
     {
-        this.socket.emit("join", localStorage.getItem("id_token"));
+        this.socket.emit('join', localStorage.getItem('id_token'));
     }
 
     public InitializeSocketListerners(): void
     {
-        this.socket.on("generatedUserId", (userId) => {
+        this.socket.on('generatedUserId', (userId) => {
             // Initializing the chat with the userId and the adapter with the socket instance
             this.adapter = new SocketIOAdapter(userId, this.socket, this.http);
             this.userId = userId;

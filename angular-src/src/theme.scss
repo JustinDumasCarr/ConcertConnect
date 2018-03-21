@@ -10,10 +10,9 @@
 //$theme: mat-light-theme($primary, $accent, $warn);
 
 $primary: mat-palette($mat-blue, 700);
-$accent:  mat-palette($mat-deep-orange, 300);
+$accent:  mat-palette($mat-grey, 300);
 $warn:    mat-palette($mat-red, 600);
 $foreground: mat-palette($mat-grey, 50);
-
 $theme: mat-light-theme($primary, $accent, $warn);
 
 

@@ -63,13 +63,16 @@ mat-chip {
     padding-left: 1em;
     padding-right: 1em;
 }
-.SocialMediaButtons{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 300px;
-    width: 80%;
-    margin: 0px 10% 0px 10%;
+.social-row {
+    display: block;
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.social-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 0.5em;
 }
 
 .grow { transition: all .2s ease-in-out;

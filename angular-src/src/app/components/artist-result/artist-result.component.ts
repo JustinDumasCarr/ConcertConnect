@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router}  from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router }  from '@angular/router';
 
 class ArtistResult {
     name: string;
     email: string;
     profileImageURL: string;
     artistId: string;
-genres: string[];
+    genres: string[];
     description: string;
 
     constructor(name: string, email: string, profileImageURL: string, artistId : string, genres: string[],
@@ -14,7 +14,7 @@ genres: string[];
         this.name = name;
         this.email = email;
         this.profileImageURL = profileImageURL;
-this.artistId = artistId;
+        this.artistId = artistId;
         this.description = description;
         this.genres=genres;
     }

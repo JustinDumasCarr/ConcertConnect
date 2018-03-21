@@ -42,28 +42,26 @@ md-card-content {
     display: table;
     margin-left: auto;
     margin-right: auto;
-
-
-
 }
+
 .register-section2 {
     margin-bottom: 2.5em;
-
-
 }
-.dashboard-calendar{
+
+.dashboard-calendar {
     margin-left:10%;
     margin-right:10%;
 
 }
-.dashboard-card-section{
+.dashboard-card-section {
     display: flex;
     position: static;
     width:100%;
 height: auto;
     justify-content: space-around;
 }
-.entity-container{
+
+.entity-container {
     width: 100%;
     height: auto;
 }

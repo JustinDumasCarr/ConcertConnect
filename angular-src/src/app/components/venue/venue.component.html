@@ -28,6 +28,17 @@
                     <mat-card-subtitle><span class="field-name">Hours of Operation</span>: {{venue.hours}}</mat-card-subtitle>
                 </mat-card-title-group>
                 <mat-card-title-group>
+                    <mat-card-subtitle>
+                        <span class="field-name">Social Media:</span>
+                    </mat-card-subtitle>
+                </mat-card-title-group>
+                <div class="social-row" (click)="goToSoundCloud">
+                    <svg class="grow social-icon"  xmlns="http://www.w3.org/2000/svg" aria-label="Facebook" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#3b5998" rx="15%"/><path fill="#fff" d="M287 456V157c0-21 6-35 35-35h38V59c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254H152v72h196"/></svg>
+                    <svg class="grow social-icon" (click)="goToSoundCloud();" height="200" width="200"xmlns="http://www.w3.org/2000/svg" aria-label="Soundcloud"  role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#f50" rx="15%"/><path fill="#fff" d="M59 275l-3 22 3 22c0 2 3 2 3 0l3-22-3-22c0-3-3-3-3 0zm18-14c0-3-3-3-3 0l-5 36 4 35c0 3 4 3 4 0l4-35zm59-30l-3 66 2 40c0 8 7 8 7 0l4-40-4-66c0-5-6-5-6 0zm-31 22l-4 44 3 40c0 6 5 6 5 0l4-40-4-44c0-3-4-3-4 0zm70 84l3-40-3-88c0-6-7-6-7 0l-3 88 2 40c0 8 8 8 8 0zm68 0l2-40-2-102c0-7-10-7-10 0l-2 102 2 40c0 8 10 8 10 0zm-34 0l3-40-3-89c0-6-9-6-9 0l-2 89 2 40c0 8 9 8 9 0zm-83 0l3-40-3-41c0-3-6-3-6 0l-3 41 3 40c0 7 6 7 6 0zm-33 0l4-40-4-43c0-3-4-3-4 0l-4 43 4 40c0 4 4 4 4 0zm124-125l-2 85 1 40c0 8 10 8 10 0l2-40-2-85c0-7-9-7-9 0zm-58 125l3-40-3-81c0-6-7-6-7 0l-3 81 2 40c0 8 8 8 8 0zm33 0l3-40-3-91c0-6-8-6-8 0l-3 91 3 40c0 8 8 8 8 0zm196-89c-5-57-64-94-118-73-4 2-5 3-5 6v156c0 3 2 6 5 6h137c27 0 49-22 49-49 0-37-35-57-68-46zm-138-62l-3 111 3 40c0 8 10 8 10 0l3-40-3-111c0-7-10-7-10 0z"/></svg>
+                    <svg class="grow social-icon"  xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-label="LinkedIn" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0077b5" rx="15%"/><circle cx="104" cy="104" r="48"/><path stroke="#fff" stroke-width="86" d="M237 178v259M104 178v259"/><path d="M279 293c0-26 18-53 48-53 31 0 43 24 43 59v138h86V289c0-80-42-116-99-116-45 0-67 25-78 42"/></svg>
+                    <svg class="grow social-icon"  xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#fff" rx="15%"/><path fill="#ed1d24" d="M467 149c-5-19-20-34-39-39-34-9-172-9-172-9s-138 0-172 9c-19 5-34 20-39 39-9 35-9 107-9 107s0 72 9 107c5 19 20 34 39 39 34 9 172 9 172 9s138 0 172-9c19-5 34-20 39-39 9-35 9-107 9-107s0-72-9-107"/><path fill="#fff" d="M211 321l115-65-115-65v130"/></svg>
+                </div>
+                <mat-card-title-group>
                     <mat-card-subtitle><span class="field-name">Genres</span>:</mat-card-subtitle>
                 </mat-card-title-group>
                 <div class="chip-container">
@@ -73,16 +84,7 @@
 
             </div>
         </div>
-
-
     </div>
 
-    <div class="SocialMediaButtons">
-
-        <svg class="grow" height="200" width="200" xmlns="http://www.w3.org/2000/svg" aria-label="Facebook" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#3b5998" rx="15%"/><path fill="#fff" d="M287 456V157c0-21 6-35 35-35h38V59c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254H152v72h196"/></svg>
-        <svg class="grow" height="200" width="200"xmlns="http://www.w3.org/2000/svg" aria-label="Soundcloud"  role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#f50" rx="15%"/><path fill="#fff" d="M59 275l-3 22 3 22c0 2 3 2 3 0l3-22-3-22c0-3-3-3-3 0zm18-14c0-3-3-3-3 0l-5 36 4 35c0 3 4 3 4 0l4-35zm59-30l-3 66 2 40c0 8 7 8 7 0l4-40-4-66c0-5-6-5-6 0zm-31 22l-4 44 3 40c0 6 5 6 5 0l4-40-4-44c0-3-4-3-4 0zm70 84l3-40-3-88c0-6-7-6-7 0l-3 88 2 40c0 8 8 8 8 0zm68 0l2-40-2-102c0-7-10-7-10 0l-2 102 2 40c0 8 10 8 10 0zm-34 0l3-40-3-89c0-6-9-6-9 0l-2 89 2 40c0 8 9 8 9 0zm-83 0l3-40-3-41c0-3-6-3-6 0l-3 41 3 40c0 7 6 7 6 0zm-33 0l4-40-4-43c0-3-4-3-4 0l-4 43 4 40c0 4 4 4 4 0zm124-125l-2 85 1 40c0 8 10 8 10 0l2-40-2-85c0-7-9-7-9 0zm-58 125l3-40-3-81c0-6-7-6-7 0l-3 81 2 40c0 8 8 8 8 0zm33 0l3-40-3-91c0-6-8-6-8 0l-3 91 3 40c0 8 8 8 8 0zm196-89c-5-57-64-94-118-73-4 2-5 3-5 6v156c0 3 2 6 5 6h137c27 0 49-22 49-49 0-37-35-57-68-46zm-138-62l-3 111 3 40c0 8 10 8 10 0l3-40-3-111c0-7-10-7-10 0z"/></svg>
-        <svg class="grow" height="200" width="200" xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-label="LinkedIn" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0077b5" rx="15%"/><circle cx="104" cy="104" r="48"/><path stroke="#fff" stroke-width="86" d="M237 178v259M104 178v259"/><path d="M279 293c0-26 18-53 48-53 31 0 43 24 43 59v138h86V289c0-80-42-116-99-116-45 0-67 25-78 42"/></svg>
-        <svg class="grow" height="200" width="200" xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512"><rect width="512" height="512" fill="#fff" rx="15%"/><path fill="#ed1d24" d="M467 149c-5-19-20-34-39-39-34-9-172-9-172-9s-138 0-172 9c-19 5-34 20-39 39-9 35-9 107-9 107s0 72 9 107c5 19 20 34 39 39 34 9 172 9 172 9s138 0 172-9c19-5 34-20 39-39 9-35 9-107 9-107s0-72-9-107"/><path fill="#fff" d="M211 321l115-65-115-65v130"/></svg>
-    </div>
 
 </div>

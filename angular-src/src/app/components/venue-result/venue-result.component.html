@@ -1,17 +1,15 @@
-
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{venueResult.name}}</mat-card-title>
     <mat-card-subtitle>Venue</mat-card-subtitle>
   </mat-card-header>
-  <!--<img mat-card-image class="background-image-size" [src]="artistResult.profileImageURL">-->
   <img mat-card-image [src]="venueResult.profileImageURL||'/assets/images/placeholder-user.jpg'" height="200px;">
   <mat-card-content>
     {{venueResult.description}}
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent" (click)="getProfile(venueResult._id)">Profile</button>
+    <button mat-raised-button color="primary" (click)="getProfile(venueResult._id)">Profile</button>
   </mat-card-actions>
 </mat-card>
 
